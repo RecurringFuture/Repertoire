@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head id="headId">
     <meta charset="UTF-8">
     <title>Songs</title>
 </head>
 <body>
-    <div align="left"></div>
-
+    <h1>Songs</h1>
+    <hr>
+    <table border="1px">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Composer</th>
+        <th>Tempo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="song : ${songs}">
+        <td th:text="${song.title}"></td>
+        <td th:text="${song.tempo}"></td>
+    </tr>
+    </tbody>
+    </table>
+    <footer>
+        <div id="footerId">Footer goes here</div>
+    </footer>
 </body>
 </html>

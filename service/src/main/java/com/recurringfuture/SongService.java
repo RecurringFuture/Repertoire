@@ -20,4 +20,8 @@ public class SongService {
     public List<Song> getSongs() {
         return songRepo.findAll();
     }
+
+    public Song getSong(int id) {
+        return songRepo.getReferenceById(id);
+    }
 }
