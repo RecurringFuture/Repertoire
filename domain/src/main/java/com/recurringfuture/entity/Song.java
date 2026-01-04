@@ -1,9 +1,6 @@
 package com.recurringfuture.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NonNull;
 import org.springframework.stereotype.Component;
@@ -22,17 +19,22 @@ public class Song {
     private String composer;
     private String key;
     private String tuning;
+    @Column(columnDefinition = "integer default 0")
     private int capo;
-    private int tempo;
+    @Column(columnDefinition = "integer default 0")
+    private int tempo = 0;
     private String genre;
     private String duration;
-    private int state;
-    private int threshold;
+    @Column(columnDefinition = "integer default 0")
+    private int state = 0;
+    @Column(columnDefinition = "integer default 0")
+    private int threshold = 0;
     private Boolean alert;
     private LocalDate creationDate;
     private LocalDate modificationDate;
     private LocalDate lastPerformedDate;
-    private int count;
+    @Column(columnDefinition = "integer default 0")
+    private int count = 0;
 
     public Song() {
 
