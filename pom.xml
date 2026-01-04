@@ -28,12 +28,7 @@
         <module>web</module>
         <module>service</module>
     </modules>
-<!--    <scm>-->
-<!--        <connection/>-->
-<!--        <developerConnection/>-->
-<!--        <tag/>-->
-<!--        <url/>-->
-<!--    </scm>-->
+
     <properties>
         <java.version>25</java.version>
         <spring.boot.version>3.5.7</spring.boot.version>

@@ -7,21 +7,48 @@
 <body>
     <h1>Songs</h1>
     <hr>
-    <table border="1px">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Composer</th>
-        <th>Tempo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="song : ${songs}">
-        <td th:text="${song.title}"></td>
-        <td th:text="${song.tempo}"></td>
-    </tr>
-    </tbody>
+
+    <table border="1">
+        <thead>
+        <tr>
+<!--            <th th:text="#{msg.id}" />-->
+<!--            <th th:text="#{msg.name}" />-->
+<!--            <th th:text="1" />-->
+<!--            <th th:text="song page" />-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="song, iStat : ${songPage.content}"
+            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td th:text="${song.id}" />
+            <td th:text="${song.title}" />
+        </tr>
+        </tbody>
     </table>
+    <div th:if="${songPage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/listBooks(size=${songPage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==songPage.number + 1} ? active"></a>
+    </div>
+
+
+<!--    <table border="1px">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Title</th>-->
+<!--        <th>Composer</th>-->
+<!--        <th>Tempo</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="song : ${songs}">-->
+<!--        <td th:text="${song.title}"></td>-->
+<!--        <td th:text="${song.tempo}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--    </table>-->
     <footer>
         <div id="footerId">Footer goes here</div>
     </footer>
