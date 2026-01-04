@@ -2,9 +2,25 @@
 <html lang="en">
 <head id="headId">
     <meta charset="UTF-8">
+    <link rel=”stylesheet” href=”navigation. css”>
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
     <title>Title content</title>
 </head>
 <body>
+<div class="navbar">
+    <a href="#home">Home</a>
+    <a href="#news">News</a>
+    <div class="dropdown">
+        <button class="dropbtn" onclick="myFunction()">Dropdown
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content" id="myDropdown">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+</div>
 <div align="center">
     <h1 id="welcome">Welcome to Repertoire</h1>
 
