@@ -3,6 +3,7 @@ package com.recurringfuture.controller;
 import com.recurringfuture.SongService;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Controller
 public class SongController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SongController.class);
 
     private final SongService songService;
 
@@ -55,12 +58,18 @@ public class SongController {
 //        return ViewNames.SONGS;
 //    }
 
-    @GetMapping("song/{id}")
-    public Song getSong(@RequestParam int id) {
-        Song res = songService.getSong(id);
-        Logger log = LoggerFactory.getLogger(SongController.class);
-        log.info("Res1: " + res.toString());
-        return res;
+    @GetMapping("importSongs")
+    public String importSong() {
+        logger.info("IMPORT");
+        return ViewNames.IMPORT_SONGS;
     }
+
+//    @GetMapping("song/{id}")
+//    public Song getSong(@RequestParam int id) {
+//        Song res = songService.getSong(id);
+//        Logger log = LoggerFactory.getLogger(SongController.class);
+//        log.info("Res1: " + res.toString());
+//        return res;
+//    }
 
 }
