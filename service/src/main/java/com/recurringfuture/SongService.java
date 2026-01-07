@@ -2,6 +2,8 @@ package com.recurringfuture;
 
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.repository.SongRepo;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,6 +53,21 @@ public class SongService {
                 = new PageImpl<Song>(list, PageRequest.of(currentPage, pageSize), songs.size());
 
         return songPage;
+    }
+
+    public void saveCsvFile(File file) throws IOException {
+
+        Collection<Song> songs = new ArrayList<>();
+
+        Reader in = new FileReader(file);
+        Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
+        for (CSVRecord record : records) {
+            Song song = new Song();
+            song.setTitle(record.get(0));
+            songs.add(song);
+        }
+        in.close();
+        songRepo.saveAll(songs);
     }
 
 }

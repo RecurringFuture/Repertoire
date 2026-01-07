@@ -2,6 +2,7 @@ package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -12,8 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
@@ -62,6 +66,13 @@ public class SongController {
     public String importSong() {
         logger.info("IMPORT");
         return ViewNames.IMPORT_SONGS;
+    }
+
+    @PostMapping("process")
+    public String processSong(@RequestParam("file") MultipartFile file) throws IOException {
+        logger.info("PROCESS: " + file.getOriginalFilename());
+        songService.saveCsvFile(FileUtils.multipartToFile(file, "songs.csv"));
+        return "redirect:" + ViewNames.SONGS;
     }
 
 //    @GetMapping("song/{id}")

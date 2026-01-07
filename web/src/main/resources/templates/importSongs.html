@@ -8,9 +8,9 @@
 <div id="navigationId"></div>
 <h1>Import Songs</h1>
 <hr>
-<form action="/action_page.php">
-    <label for="myfile">Select a file:</label>
-    <input type="file" id="myfile" name="myfile"><br><br>
+<form th:action="@{process}" method="post" enctype="multipart/form-data">
+    <label for="file">Select a file:</label>
+    <input type="file" id="file" name="file"><br><br>
     <input type="submit">
 </form>
 <footer id="footerId">Footer goes here</footer>
