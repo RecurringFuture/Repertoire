@@ -50,6 +50,26 @@
     </tr>
     </tbody>
     </table>
+
+<div class="listbox-area">
+    <div>
+        <span id="ss_elem" class="listbox-label">Transuranium elements:</span>
+        <ul th:each="song, songStat : ${songs}">
+            <li th:text="${song.title}"></li>
+        </ul>
+
+
+<!--        <ul id="ss_elem_list" tabindex="0" role="listbox" aria-labelledby="ss_elem">-->
+<!--            <li id="ss_elem_None" role="option">-->
+<!--                <span class="checkmark" aria-hidden="true"></span>-->
+<!--                None-->
+<!--            </li>-->
+<!--        </ul>-->
+    </div>
+</div>
+
+
+
     <footer id="footerId"></footer>
 </body>
 </html>
