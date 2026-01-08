@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -33,34 +34,34 @@ public class SongController {
         this.songService = songService;
     }
 
-    @GetMapping("songs")
-    public String getAllSongs(Model model,
-                              @RequestParam("page") Optional<Integer> page,
-                              @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-
-        Page<Song> songPage = songService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-
-        model.addAttribute("songPage", songPage);
-
-//        List<Song> songs = songService.getSongs();
-//        Logger log = LoggerFactory.getLogger(SongController.class);
-//        log.info("Res: " + songs.toString());
-//
-//        model.addAttribute("songs", songs);
-        return ViewNames.SONGS;
-    }
-
 //    @GetMapping("songs")
-//    public String getAllSongs(Model model) {
-//        List<Song> songs = songService.getSongs();
-//        Logger log = LoggerFactory.getLogger(SongController.class);
-//        log.info("Res: " + songs.toString());
+//    public String getAllSongs(Model model,
+//                              @RequestParam("page") Optional<Integer> page,
+//                              @RequestParam("size") Optional<Integer> size) {
+//        int currentPage = page.orElse(1);
+//        int pageSize = size.orElse(5);
 //
-//        model.addAttribute("songs", songs);
+//        Page<Song> songPage = songService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+//
+//        model.addAttribute("songPage", songPage);
+//
+////        List<Song> songs = songService.getSongs();
+////        Logger log = LoggerFactory.getLogger(SongController.class);
+////        log.info("Res: " + songs.toString());
+////
+////        model.addAttribute("songs", songs);
 //        return ViewNames.SONGS;
 //    }
+
+    @GetMapping("songs")
+    public String getAllSongs(Model model) {
+        List<Song> songs = songService.getSongs();
+        Logger log = LoggerFactory.getLogger(SongController.class);
+        log.info("Res: " + songs.toString());
+
+        model.addAttribute("songs", songs);
+        return ViewNames.SONGS;
+    }
 
     @GetMapping("importSongs")
     public String importSong() {
