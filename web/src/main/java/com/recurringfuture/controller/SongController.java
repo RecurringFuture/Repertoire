@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,31 +35,11 @@ public class SongController {
         this.songService = songService;
     }
 
-//    @GetMapping("songs")
-//    public String getAllSongs(Model model,
-//                              @RequestParam("page") Optional<Integer> page,
-//                              @RequestParam("size") Optional<Integer> size) {
-//        int currentPage = page.orElse(1);
-//        int pageSize = size.orElse(5);
-//
-//        Page<Song> songPage = songService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-//
-//        model.addAttribute("songPage", songPage);
-//
-////        List<Song> songs = songService.getSongs();
-////        Logger log = LoggerFactory.getLogger(SongController.class);
-////        log.info("Res: " + songs.toString());
-////
-////        model.addAttribute("songs", songs);
-//        return ViewNames.SONGS;
-//    }
-
     @GetMapping("songs")
     public String getAllSongs(Model model) {
         List<Song> songs = songService.getSongs();
         Logger log = LoggerFactory.getLogger(SongController.class);
         log.info("Res: " + songs.toString());
-
         model.addAttribute("songs", songs);
         return ViewNames.SONGS;
     }
@@ -69,19 +50,24 @@ public class SongController {
         return ViewNames.IMPORT_SONGS;
     }
 
+    @GetMapping("addSong")
+    public String addSong(Model model) {
+        model.addAttribute("song", new Song());
+        logger.info("ADD SONG");
+        return ViewNames.ADD_SONG;
+    }
+
     @PostMapping("process")
     public String processSong(@RequestParam("file") MultipartFile file) throws IOException {
         logger.info("PROCESS: " + file.getOriginalFilename());
-        songService.saveCsvFile(FileUtils.multipartToFile(file, "songs.csv"));
+        songService.saveCsvFile(FileUtils.multipartToFile(file, file.getOriginalFilename()));
         return "redirect:" + ViewNames.SONGS;
     }
 
-//    @GetMapping("song/{id}")
-//    public Song getSong(@RequestParam int id) {
-//        Song res = songService.getSong(id);
-//        Logger log = LoggerFactory.getLogger(SongController.class);
-//        log.info("Res1: " + res.toString());
-//        return res;
-//    }
+    @PostMapping("saveSong")
+    public String saveSong(@ModelAttribute("song") Song song) {
+        songService.saveSong(song);
+        return "redirect:" + ViewNames.SONGS;
+    }
 
 }

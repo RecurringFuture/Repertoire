@@ -12,10 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service("songService")
 public class SongService {
@@ -56,9 +55,7 @@ public class SongService {
     }
 
     public void saveCsvFile(File file) throws IOException {
-
         Collection<Song> songs = new ArrayList<>();
-
         Reader in = new FileReader(file);
         Iterable<CSVRecord> records = CSVFormat.RFC4180.parse(in);
         for (CSVRecord record : records) {
@@ -68,6 +65,13 @@ public class SongService {
         }
         in.close();
         songRepo.saveAll(songs);
+    }
+
+    public void saveSong(Song song) {
+        LocalDate localDate = LocalDate.now();
+        song.setCreationDate(localDate);
+        song.setModificationDate(localDate);
+        songRepo.save(song);
     }
 
 }

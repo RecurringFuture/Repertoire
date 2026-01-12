@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
-<head>
+<head id="headId">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div id="navigationId"></div>
     <h1>Add Song</h1>
+    <hr>
 
-    <form action="save" method="post">
+    <form th:action="@{addSong}" method="post" th:object="${song}">
         <input id="title" type="text" placeholder="Title">
         <input id="composer" type="text" placeholder="Composer">
         <input id="key" type="text" placeholder="Key">
@@ -19,10 +21,11 @@
         <input id="state" type="number" min="0" max="2" placeholder="State">
         <input id="threshold" type="number" min="0" max="6" placeholder="Threshold">
         <input id="alert" type="checkbox" value="false" placeholder="Alert">
-        <input id="creation" type="date" placeholder="Creation">
-        <input id="modification" type="date" placeholder="Modification">
-        <input id="lastperformed" type="date" placeholder="LastPerformed"><br>
+<!--        <input id="creation" type="date" placeholder="Creation">-->
+<!--        <input id="modification" type="date" placeholder="Modification">-->
+<!--        <input id="lastperformed" type="date" placeholder="LastPerformed"><br>-->
         <input id="submit" type="submit" value="Save">
     </form>
+    <footer id="footerId"></footer>
 </body>
 </html>
