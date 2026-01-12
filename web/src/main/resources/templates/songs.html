@@ -9,67 +9,15 @@
     <h1>Songs</h1>
     <hr>
 
-<!--    <table border="1">-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--&lt;!&ndash;            <th th:text="#{msg.id}" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <th th:text="#{msg.name}" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <th th:text="1" />&ndash;&gt;-->
-<!--&lt;!&ndash;            <th th:text="song page" />&ndash;&gt;-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="song, iStat : ${songPage.content}"-->
-<!--            th:style="${iStat.odd}? 'font-weight: bold;'"-->
-<!--            th:alt-title="${iStat.even}? 'even' : 'odd'">-->
-<!--            <td th:text="${song.id}" />-->
-<!--            <td th:text="${song.title}" />-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--    <div th:if="${songPage.totalPages > 0}" class="pagination"-->
-<!--         th:each="pageNumber : ${pageNumbers}">-->
-<!--        <a th:href="@{/listBooks(size=${songPage.size}, page=${pageNumber})}"-->
-<!--           th:text=${pageNumber}-->
-<!--           th:class="${pageNumber==songPage.number + 1} ? active"></a>-->
-<!--    </div>-->
-
-
-    <table border="1px">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Composer</th>
-        <th>Tempo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="song : ${songs}">
-        <td th:text="${song.title}"></td>
-        <td th:text="${song.tempo}"></td>
-    </tr>
-    </tbody>
-    </table>
-
 <div class="listbox-area">
     <div>
-        <span id="ss_elem" class="listbox-label">Transuranium elements:</span>
-        <ul th:each="song, songStat : ${songs}">
-            <li th:text="${song.title}"></li>
+        <ul id="ss_elem_list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
+            <li th:each="song, iterStat : ${songs}" role="option">
+                <span class="checkmark" aria-hidden="true" th:text="${song.title}"></span>
+            </li>
         </ul>
-
-
-<!--        <ul id="ss_elem_list" tabindex="0" role="listbox" aria-labelledby="ss_elem">-->
-<!--            <li id="ss_elem_None" role="option">-->
-<!--                <span class="checkmark" aria-hidden="true"></span>-->
-<!--                None-->
-<!--            </li>-->
-<!--        </ul>-->
     </div>
 </div>
-
-
-
     <footer id="footerId"></footer>
 </body>
 </html>
