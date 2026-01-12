@@ -2,22 +2,29 @@ package com.recurringfuture;
 
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.repository.SongRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
-import java.sql.Date;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+@Slf4j
 @Service("songService")
 public class SongService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SongService.class);
 
     private final SongRepo songRepo;
 
@@ -27,31 +34,11 @@ public class SongService {
     }
 
     public List<Song> getSongs() {
-        return songRepo.findAll();
+        return songRepo.findAll(Sort.by(Sort.Direction.ASC, "title"));
     }
 
     public Song getSong(int id) {
         return songRepo.getReferenceById(id);
-    }
-
-    public Page<Song> findPaginated(Pageable pageable) {
-        List<Song> songs = getSongs();
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Song> list;
-
-        if (songs.size() < startItem) {
-            list = Collections.emptyList();
-        } else {
-            int toIndex = Math.min(startItem + pageSize, songs.size());
-            list = songs.subList(startItem, toIndex);
-        }
-
-        Page<Song> songPage
-                = new PageImpl<Song>(list, PageRequest.of(currentPage, pageSize), songs.size());
-
-        return songPage;
     }
 
     public void saveCsvFile(File file) throws IOException {
@@ -61,6 +48,7 @@ public class SongService {
         for (CSVRecord record : records) {
             Song song = new Song();
             song.setTitle(record.get(0));
+            setCreationAndModificationDate(song);
             songs.add(song);
         }
         in.close();
@@ -68,10 +56,15 @@ public class SongService {
     }
 
     public void saveSong(Song song) {
+        setCreationAndModificationDate(song);
+        logger.info("Saving song: " + song.getTitle());
+        songRepo.save(song);
+    }
+
+    private void setCreationAndModificationDate(Song song) {
         LocalDate localDate = LocalDate.now();
         song.setCreationDate(localDate);
         song.setModificationDate(localDate);
-        songRepo.save(song);
     }
 
 }
