@@ -5,19 +5,29 @@
     <title>Songs</title>
 </head>
 <body>
-<div id="navigationId"></div>
+<div class="site">
+    <header id="navigationId"></header>
     <h1>Songs</h1>
     <hr>
 
-<div class="listbox-area">
-    <div>
-        <ul id="ss_elem_list" tabindex="0" role="listbox" aria-labelledby="ss_elem">
-            <li th:each="song, iterStat : ${songs}" role="option">
-                <span class="checkmark" aria-hidden="true" th:text="${song.title}"></span>
-            </li>
-        </ul>
-    </div>
-</div>
+    <table>
+        <thead>
+        <tr>
+            <th> Title </th>
+            <th> Author </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${songs.empty}">
+            <td colspan="2"> No Songs </td>
+        </tr>
+        <tr th:each="song : ${songs}">
+            <td><span th:text="${song.title}"> Title </span></td>
+            <td><span th:text="${song.composer}"> Composer </span></td>
+        </tr>
+        </tbody>
+    </table>
     <footer id="footerId"></footer>
+</div>
 </body>
 </html>
