@@ -10,20 +10,18 @@
     <h1>Songs</h1>
     <hr>
 
-    <table>
+    <table id="tableId">
         <thead>
         <tr>
             <th> Title </th>
-            <th> Author </th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${songs.empty}">
+        <tr th:if="${songs.isEmpty()}">
             <td colspan="2"> No Songs </td>
         </tr>
         <tr th:each="song : ${songs}">
-            <td><span th:text="${song.title}"> Title </span></td>
-            <td><span th:text="${song.composer}"> Composer </span></td>
+            <td><a th:href="@{/song(id=${song.getId()})}"><span th:text="${song.title}"> Title </span></a></td>
         </tr>
         </tbody>
     </table>

@@ -38,6 +38,16 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
+    @GetMapping("song")
+    @ResponseBody
+    public String getSong(int id, Model model) {
+        Song song = songService.getSong(id);
+        Logger log = LoggerFactory.getLogger(SongController.class);
+        log.info("Res: " + song.toString());
+        model.addAttribute("song", song);
+        return ViewNames.SONGS;
+    }
+
     @GetMapping("importSongs")
     public String importSong() {
         logger.info("IMPORT");

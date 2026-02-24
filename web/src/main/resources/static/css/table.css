@@ -19,6 +19,10 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
+tr:hover{
+    background:lightblue;
+}
+
 /*table tbody {*/
 /*    display: table;*/
 /*    width: 100%;*/
