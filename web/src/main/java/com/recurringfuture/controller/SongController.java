@@ -30,11 +30,16 @@ public class SongController {
     }
 
     @GetMapping("songs")
-    public String getAllSongs(Model model) {
+    public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs = songService.getSongs();
-        Logger log = LoggerFactory.getLogger(SongController.class);
-        log.info("Res: " + songs.toString());
+//        Logger log = LoggerFactory.getLogger(SongController.class);
+//        log.info("Res: " + songs.toString());
         model.addAttribute("songs", songs);
+
+        if (id != null) {
+            Song selected = songService.getSong(id); // handle not found how you prefer
+            model.addAttribute("selectedSong", selected);
+        }
         return ViewNames.SONGS;
     }
 
@@ -68,11 +73,11 @@ public class SongController {
         return "redirect:" + ViewNames.SONGS;
     }
 
-    @PostMapping("saveSong")
-    public String saveSong(@ModelAttribute("song") Song song, Model model) {
-        logger.info("SAVE SONG");
-        songService.saveSong(song);
-        return getAllSongs(model);
-    }
+//    @PostMapping("saveSong")
+//    public String saveSong(@ModelAttribute("song") Song song, Model model) {
+//        logger.info("SAVE SONG");
+//        songService.saveSong(song);
+//        return getAllSongs(model);
+//    }
 
 }
