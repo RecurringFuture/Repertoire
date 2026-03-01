@@ -1,39 +1,87 @@
+
 table {
-    font-family: arial, sans-serif;
     width: 100%;
-    border: 1px solid #dddddd;
-    border-collapse: collapse;
+    font-family: arial, sans-serif;
+    overflow-x: hidden;
+}
+
+thead, tbody, tr, td, th { display: block; }
+
+tr:after {
+    content: ' ';
     display: block;
-    /*overflow-x: auto;*/
-    white-space: nowrap;
-    height:400px;
-    overflow-y:scroll;
+    visibility: hidden;
+    clear: both;
 }
-th, td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #ddd;
+
+thead th {
+    height: 30px;
+    text-align: left;
 }
+
+tbody {
+    height: 400px;
+    overflow-y: auto;
+}
+
+thead {
+    /* fallback */
+}
+
+
+tbody td, thead th {
+    width: 80%;
+    float: left;
+}
+
 tr:nth-child(even) {
     background-color: #dddddd;
 }
 tr:hover{
     background:lightblue;
 }
+th, td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+}
 
-.form-grid {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 10px 14px;
-    max-width: 700px;
-}
-.form-grid label {
-    font-weight: 600;
-}
-.form-grid input {
-    width: 100%;
-    padding: 6px 8px;
-    box-sizing: border-box;
-}
-.muted {
-    color: #666;
-}
+/*table {*/
+/*    font-family: arial, sans-serif;*/
+/*    width: 100%;*/
+/*    border: 1px solid #dddddd;*/
+/*    border-collapse: collapse;*/
+/*    !*display: block;*!*/
+/*    !*overflow-x: auto;*!*/
+/*    white-space: nowrap;*/
+/*    height:200px;*/
+/*    overflow-y:scroll;*/
+/*}*/
+
+/*th, td {*/
+/*    padding: 8px 10px;*/
+/*    border-bottom: 1px solid #ddd;*/
+/*}*/
+/*tr:nth-child(even) {*/
+/*    background-color: #dddddd;*/
+/*}*/
+/*tr:hover{*/
+/*    background:lightblue;*/
+/*}*/
+
+/*.form-grid {*/
+/*    display: grid;*/
+/*    grid-template-columns: 160px 1fr;*/
+/*    gap: 10px 14px;*/
+/*    max-width: 700px;*/
+/*}*/
+/*.form-grid label {*/
+/*    font-weight: 600;*/
+/*}*/
+/*.form-grid input {*/
+/*    width: 100%;*/
+/*    padding: 6px 8px;*/
+/*    box-sizing: border-box;*/
+/*}*/
+/*.muted {*/
+/*    color: #666;*/
+/*}*/
