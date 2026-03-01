@@ -1,6 +1,12 @@
-.site{
-    min-height: 100dvh;
-    display: grid;
-    grid-template-rows:auto 1fr auto;
-    grid-template-columns: minmax(0, 1fr);
+.layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+.left {
+    flex: 0 0 320px;
+}
+.right {
+    flex: 1 1 auto;
+    min-width: 420px;
 }

@@ -3,50 +3,10 @@
 <head id="headId">
     <meta charset="UTF-8" />
     <title>Songs</title>
-    <style>
-        .layout {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
-        }
-        .left {
-            flex: 0 0 320px;
-        }
-        .right {
-            flex: 1 1 auto;
-            min-width: 420px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .form-grid {
-            display: grid;
-            grid-template-columns: 160px 1fr;
-            gap: 10px 14px;
-            max-width: 700px;
-        }
-        .form-grid label {
-            font-weight: 600;
-        }
-        .form-grid input {
-            width: 100%;
-            padding: 6px 8px;
-            box-sizing: border-box;
-        }
-        .muted {
-            color: #666;
-        }
-    </style>
 </head>
 <header id="navigationId"></header>
 
 <body>
-
 <h1>Songs</h1>
 <hr />
 
@@ -89,8 +49,8 @@
 
         <form th:if="${selectedSong != null}" th:object="${selectedSong}">
             <div class="form-grid">
-                <label for="id">ID</label>
-                <input id="id" type="text" th:field="*{id}" readonly />
+<!--                <label for="id">ID</label>-->
+<!--                <input id="id" type="text" th:field="*{id}" readonly />-->
 
                 <label for="title">Title</label>
                 <input id="title" type="text" th:field="*{title}" />
@@ -123,16 +83,7 @@
                 <input id="threshold" type="number" th:field="*{threshold}" />
 
                 <label for="alert">Alert</label>
-                <input id="alert" type="text" th:value="*{alert}" readonly />
-                <!-- If you want editable boolean, replace with:
-                     <input id="alert" type="checkbox" th:field="*{alert}" />
-                -->
-
-                <label for="creationDate">Creation Date</label>
-                <input id="creationDate" type="text" th:value="*{creationDate}" readonly />
-
-                <label for="modificationDate">Modification Date</label>
-                <input id="modificationDate" type="text" th:value="*{modificationDate}" readonly />
+                <input id="alert" type="text" th:value="*{alert}"/>
 
                 <label for="lastPerformedDate">Last Performed</label>
                 <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
