@@ -10,3 +10,7 @@
     flex: 1 1 auto;
     min-width: 420px;
 }
+
+body {
+    font-family: Arial, serif;
+}

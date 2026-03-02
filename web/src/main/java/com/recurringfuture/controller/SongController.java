@@ -73,11 +73,11 @@ public class SongController {
         return "redirect:" + ViewNames.SONGS;
     }
 
-//    @PostMapping("saveSong")
-//    public String saveSong(@ModelAttribute("song") Song song, Model model) {
-//        logger.info("SAVE SONG");
-//        songService.saveSong(song);
-//        return getAllSongs(model);
-//    }
+    @PostMapping("saveSong")
+    public String saveSong(@ModelAttribute("song") Song song, Model model) {
+        logger.info("SAVE SONG");
+        songService.saveSong(song);
+        return ViewNames.SONGS;
+    }
 
 }

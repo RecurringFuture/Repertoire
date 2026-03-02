@@ -11,19 +11,66 @@
     <hr>
 
     <form th:action="@{saveSong}" th:object="${song}" method="post">
-        <input id="title" type="text" name="title"  placeholder="Title">
-        <input id="composer" type="text" name="composer" placeholder="Composer">
-        <input id="key" type="text" name="key" placeholder="Key">
-        <input id="tuning" type="text" name="tuning" placeholder="Tuning">
-        <input id="tempo" type="number" min="0" max="500" value="0" name="tempo" placeholder="Tempo"><br>
-        <input id="capo" type="number" min="0" max="12" name="capo" placeholder="Capo">
-        <input id="genre" type="text" name="genre" placeholder="Genre">
-        <input id="duration" type="time" min="00:00:00" max="02:00:00"  name="duration" placeholder="Duration">
-        <input id="state" type="number" min="0" max="2" name="state" value="0" placeholder="State">
-        <input id="threshold" type="number" min="0" max="6" name="threshold" value="0" placeholder="Threshold">
-        <input id="alert" type="checkbox" value="false" name="alert" placeholder="Alert">
-        <input id="submit" type="submit" value="Save">
+        <div class="form-grid">
+            <!--                <label for="id">ID</label>-->
+            <!--                <input id="id" type="text" th:field="*{id}" readonly />-->
+
+            <label for="title">Title</label>
+            <input id="title" type="text" th:field="*{title}" />
+
+            <label for="composer">Composer</label>
+            <input id="composer" type="text" th:field="*{composer}" />
+
+            <label for="key">Key</label>
+            <input id="key" type="text" th:field="*{key}" />
+
+            <label for="tuning">Tuning</label>
+            <input id="tuning" type="text" th:field="*{tuning}" />
+
+            <label for="capo">Capo</label>
+            <input id="capo" type="number" th:field="*{capo}" />
+
+            <label for="tempo">Tempo</label>
+            <input id="tempo" type="number" th:field="*{tempo}" />
+
+            <label for="genre">Genre</label>
+            <input id="genre" type="text" th:field="*{genre}" />
+
+            <label for="duration">Duration</label>
+            <input id="duration" type="text" th:field="*{duration}" />
+
+            <label for="state">State</label>
+            <input id="state" type="number" th:field="*{state}" />
+
+            <label for="threshold">Threshold</label>
+            <input id="threshold" type="number" th:field="*{threshold}" />
+
+            <label for="alert">Alert</label>
+            <input id="alert" type="text" th:value="*{alert}"/>
+
+            <label for="lastPerformedDate">Last Performed</label>
+            <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
+
+            <label for="count">Count</label>
+            <input id="count" type="number" th:field="*{count}" />
+
+            <input id="submit" type="submit" value="Save">
+
+        </div>
     </form>
+<!--        <input id="title" type="text" name="title"  placeholder="Title">-->
+<!--        <input id="composer" type="text" name="composer" placeholder="Composer">-->
+<!--        <input id="key" type="text" name="key" placeholder="Key">-->
+<!--        <input id="tuning" type="text" name="tuning" placeholder="Tuning">-->
+<!--        <input id="tempo" type="number" min="0" max="500" value="0" name="tempo" placeholder="Tempo"><br>-->
+<!--        <input id="capo" type="number" min="0" max="12" name="capo" placeholder="Capo">-->
+<!--        <input id="genre" type="text" name="genre" placeholder="Genre">-->
+<!--        <input id="duration" type="time" min="00:00:00" max="02:00:00"  name="duration" placeholder="Duration">-->
+<!--        <input id="state" type="number" min="0" max="2" name="state" value="0" placeholder="State">-->
+<!--        <input id="threshold" type="number" min="0" max="6" name="threshold" value="0" placeholder="Threshold">-->
+<!--        <input id="alert" type="checkbox" value="false" name="alert" placeholder="Alert">-->
+<!--        <input id="submit" type="submit" value="Save">-->
+<!--    </form>-->
     <footer id="footerId"></footer>
 </div>
 </body>
