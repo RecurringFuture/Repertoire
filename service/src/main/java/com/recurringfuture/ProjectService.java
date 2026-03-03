@@ -33,7 +33,7 @@ public class ProjectService {
     }
 
     public void saveProject(Project project) {
-        logger.info("Saving project: " + project.getTitle());
+        logger.info("Saving project: {}", project.getTitle());
         projectRepo.save(project);
     }
 
@@ -42,7 +42,7 @@ public class ProjectService {
     }
 
     public void updateProject(Project project) {
-        logger.info("Updating project: " + project.getTitle());
+        logger.info("Updating project: {}", project.getTitle());
         projectRepo.save(project);
     }
 

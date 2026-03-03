@@ -12,8 +12,6 @@
 
     <form th:action="@{saveSong}" th:object="${song}" method="post">
         <div class="form-grid">
-            <!--                <label for="id">ID</label>-->
-            <!--                <input id="id" type="text" th:field="*{id}" readonly />-->
 
             <label for="title">Title</label>
             <input id="title" type="text" th:field="*{title}" />
@@ -48,8 +46,8 @@
             <label for="alert">Alert</label>
             <input id="alert" type="text" th:value="*{alert}"/>
 
-            <label for="lastPerformedDate">Last Performed</label>
-            <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
+<!--            <label for="lastPerformedDate">Last Performed</label>-->
+<!--            <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />-->
 
             <label for="count">Count</label>
             <input id="count" type="number" th:field="*{count}" />
@@ -58,19 +56,6 @@
 
         </div>
     </form>
-<!--        <input id="title" type="text" name="title"  placeholder="Title">-->
-<!--        <input id="composer" type="text" name="composer" placeholder="Composer">-->
-<!--        <input id="key" type="text" name="key" placeholder="Key">-->
-<!--        <input id="tuning" type="text" name="tuning" placeholder="Tuning">-->
-<!--        <input id="tempo" type="number" min="0" max="500" value="0" name="tempo" placeholder="Tempo"><br>-->
-<!--        <input id="capo" type="number" min="0" max="12" name="capo" placeholder="Capo">-->
-<!--        <input id="genre" type="text" name="genre" placeholder="Genre">-->
-<!--        <input id="duration" type="time" min="00:00:00" max="02:00:00"  name="duration" placeholder="Duration">-->
-<!--        <input id="state" type="number" min="0" max="2" name="state" value="0" placeholder="State">-->
-<!--        <input id="threshold" type="number" min="0" max="6" name="threshold" value="0" placeholder="Threshold">-->
-<!--        <input id="alert" type="checkbox" value="false" name="alert" placeholder="Alert">-->
-<!--        <input id="submit" type="submit" value="Save">-->
-<!--    </form>-->
     <footer id="footerId"></footer>
 </div>
 </body>

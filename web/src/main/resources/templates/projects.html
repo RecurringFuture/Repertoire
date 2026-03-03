@@ -10,6 +10,91 @@
 <h1>Projects</h1>
 <hr />
 
+<div class="layout">
+    <!-- LEFT: Songs list -->
+    <section class="left">
+        <!--        <h2>List</h2>-->
+
+        <table>
+            <thead>
+            <tr>
+                <th>Title</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${projects == null or projects.isEmpty()}">
+                <td class="muted">No Projects</td>
+            </tr>
+
+            <tr th:each="song : ${songs}">
+                <td>
+                    <a th:href="@{/songs(id=${song.id})}"
+                       th:text="${song.title}">
+                        Song title
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- RIGHT: Song details -->
+    <section class="right">
+        <h3>Details</h3>
+
+        <div th:if="${selectedSong == null}" class="muted">
+            Click a song on the left to see its details.
+        </div>
+
+        <form th:if="${selectedSong != null}" th:object="${selectedSong}">
+            <div class="form-grid">
+                <!--                <label for="id">ID</label>-->
+                <!--                <input id="id" type="text" th:field="*{id}" readonly />-->
+
+                <label for="title">Title</label>
+                <input id="title" type="text" th:field="*{title}" />
+
+                <label for="composer">Composer</label>
+                <input id="composer" type="text" th:field="*{composer}" />
+
+                <label for="key">Key</label>
+                <input id="key" type="text" th:field="*{key}" />
+
+                <label for="tuning">Tuning</label>
+                <input id="tuning" type="text" th:field="*{tuning}" />
+
+                <label for="capo">Capo</label>
+                <input id="capo" type="number" th:field="*{capo}" />
+
+                <label for="tempo">Tempo</label>
+                <input id="tempo" type="number" th:field="*{tempo}" />
+
+                <label for="genre">Genre</label>
+                <input id="genre" type="text" th:field="*{genre}" />
+
+                <label for="duration">Duration</label>
+                <input id="duration" type="text" th:field="*{duration}" />
+
+                <label for="state">State</label>
+                <input id="state" type="number" th:field="*{state}" />
+
+                <label for="threshold">Threshold</label>
+                <input id="threshold" type="number" th:field="*{threshold}" />
+
+                <label for="alert">Alert</label>
+                <input id="alert" type="text" th:value="*{alert}"/>
+
+                <label for="lastPerformedDate">Last Performed</label>
+                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
+
+                <label for="count">Count</label>
+                <input id="count" type="number" th:field="*{count}" />
+            </div>
+        </form>
+    </section>
+</div>
+
 
 <footer id="footerId">Footer goes here</footer>
 </body>
