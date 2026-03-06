@@ -1,7 +1,11 @@
 package com.recurringfuture;
 
 import com.recurringfuture.entity.Project;
+import com.recurringfuture.entity.ProjectSong;
+import com.recurringfuture.entity.Song;
 import com.recurringfuture.repository.ProjectRepo;
+import com.recurringfuture.repository.ProjectSongRepo;
+import com.recurringfuture.repository.SongRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +22,14 @@ public class ProjectService {
     private static final Logger logger = LoggerFactory.getLogger(ProjectService.class);
 
     private final ProjectRepo projectRepo;
+    private final ProjectSongRepo projectSongRepo;
+    private final SongRepo songRepo;
 
     @Autowired
-    public ProjectService(ProjectRepo projectRepo) {
+    public ProjectService(ProjectRepo projectRepo, ProjectSongRepo projectSongRepo, SongRepo songRepo) {
         this.projectRepo = projectRepo;
+        this.projectSongRepo = projectSongRepo;
+        this.songRepo = songRepo;
     }
 
     public List<Project> getProjects() {
@@ -44,6 +52,14 @@ public class ProjectService {
     public void updateProject(Project project) {
         logger.info("Updating project: {}", project.getTitle());
         projectRepo.save(project);
+    }
+
+    public List<Song> getSongsForProject(int projectId) {
+        List<ProjectSong> projectSongs = projectSongRepo.findByProjectId(projectId);
+        List<Integer> songIds = projectSongs.stream()
+                .map(ProjectSong::getSongId)
+                .toList();
+        return songRepo.findAllById(songIds);
     }
 
 }

@@ -2,6 +2,7 @@ package com.recurringfuture.controller;
 
 import com.recurringfuture.ProjectService;
 import com.recurringfuture.entity.Project;
+import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -12,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -29,10 +32,25 @@ public class ProjectController {
     }
 
     @GetMapping("/projects")
-    public String getProjects(Model model) {
+    public String getProjects(@RequestParam(required = false) Integer id, Model model) {
         logger.info("PROJECTS: ");
         List<Project> projects = projectService.getProjects();
         model.addAttribute("projects", projects);
+
+        if (id != null) {
+            List<Song> songs = projectService.getSongsForProject(id);
+            model.addAttribute("songs", songs);
+            model.addAttribute("selectedProjectId", id);
+        } else if (!projects.isEmpty()) {
+            int firstProjectId = projects.get(0).getId();
+            List<Song> songs = projectService.getSongsForProject(firstProjectId);
+            model.addAttribute("songs", songs);
+            model.addAttribute("selectedProjectId", firstProjectId);
+        } else {
+            model.addAttribute("songs", new ArrayList<Song>());
+        }
+
+        model.addAttribute("project", new Project());
         return ViewNames.PROJECTS;
     }
 
@@ -40,6 +58,6 @@ public class ProjectController {
     public String addProject(@ModelAttribute("project") Project project, Model model) {
         logger.info("SAVE PROJECTS: {}", project.getTitle());
         projectService.saveProject(project);
-        return ViewNames.PROJECTS;
+        return "redirect:/projects";
     }
 }

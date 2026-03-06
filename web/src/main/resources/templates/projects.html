@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head id="headId">
     <meta charset="UTF-8" />
     <title>Projects</title>
+    <link rel="stylesheet" th:href="@{/css/page.css}" />
+    <link rel="stylesheet" th:href="@{/css/project_page.css}" />
+    <link rel="stylesheet" th:href="@{/css/table.css}" />
 </head>
 <header id="navigationId"></header>
 
@@ -11,90 +14,58 @@
 <hr />
 
 <div class="layout">
-    <!-- LEFT: Songs list -->
+    <!-- LEFT: Projects list -->
     <section class="left">
-        <!--        <h2>List</h2>-->
+        <div th:if="${projects == null or projects.isEmpty()}">
+            <h3>Create your first project</h3>
+            <form th:action="@{/saveProject}" th:object="${project}" method="post">
+                <input type="text" th:field="*{title}" placeholder="Project Title" required />
+                <button type="submit">Create</button>
+            </form>
+        </div>
 
-        <table>
+        <div th:if="${projects != null and !projects.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Project Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${projects}" th:classappend="${p.id == selectedProjectId} ? 'selected' : ''">
+                    <td>
+                        <a th:href="@{/projects(id=${p.id})}" th:text="${p.title}">Project title</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- RIGHT: Songs list for selected project -->
+    <section class="right">
+        <h3>Songs</h3>
+        <div th:if="${songs == null or songs.isEmpty()}" class="muted">
+            No songs in this project.
+        </div>
+        <table th:if="${songs != null and !songs.isEmpty()}">
             <thead>
             <tr>
                 <th>Title</th>
+                <th>Composer</th>
+                <th>Key</th>
             </tr>
             </thead>
-
             <tbody>
-            <tr th:if="${projects == null or projects.isEmpty()}">
-                <td class="muted">No Projects</td>
-            </tr>
-
             <tr th:each="song : ${songs}">
-                <td>
-                    <a th:href="@{/songs(id=${song.id})}"
-                       th:text="${song.title}">
-                        Song title
-                    </a>
-                </td>
+                <td th:text="${song.title}">Song title</td>
+                <td th:text="${song.composer}">Composer</td>
+                <td th:text="${song.key}">Key</td>
             </tr>
             </tbody>
         </table>
     </section>
-
-    <!-- RIGHT: Song details -->
-    <section class="right">
-        <h3>Details</h3>
-
-        <div th:if="${selectedSong == null}" class="muted">
-            Click a song on the left to see its details.
-        </div>
-
-        <form th:if="${selectedSong != null}" th:object="${selectedSong}">
-            <div class="form-grid">
-                <!--                <label for="id">ID</label>-->
-                <!--                <input id="id" type="text" th:field="*{id}" readonly />-->
-
-                <label for="title">Title</label>
-                <input id="title" type="text" th:field="*{title}" />
-
-                <label for="composer">Composer</label>
-                <input id="composer" type="text" th:field="*{composer}" />
-
-                <label for="key">Key</label>
-                <input id="key" type="text" th:field="*{key}" />
-
-                <label for="tuning">Tuning</label>
-                <input id="tuning" type="text" th:field="*{tuning}" />
-
-                <label for="capo">Capo</label>
-                <input id="capo" type="number" th:field="*{capo}" />
-
-                <label for="tempo">Tempo</label>
-                <input id="tempo" type="number" th:field="*{tempo}" />
-
-                <label for="genre">Genre</label>
-                <input id="genre" type="text" th:field="*{genre}" />
-
-                <label for="duration">Duration</label>
-                <input id="duration" type="text" th:field="*{duration}" />
-
-                <label for="state">State</label>
-                <input id="state" type="number" th:field="*{state}" />
-
-                <label for="threshold">Threshold</label>
-                <input id="threshold" type="number" th:field="*{threshold}" />
-
-                <label for="alert">Alert</label>
-                <input id="alert" type="text" th:value="*{alert}"/>
-
-                <label for="lastPerformedDate">Last Performed</label>
-                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
-
-                <label for="count">Count</label>
-                <input id="count" type="number" th:field="*{count}" />
-            </div>
-        </form>
-    </section>
 </div>
-
 
 <footer id="footerId">Footer goes here</footer>
 </body>

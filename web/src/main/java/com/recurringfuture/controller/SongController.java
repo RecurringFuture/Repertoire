@@ -44,7 +44,6 @@ public class SongController {
     }
 
     @GetMapping("song")
-    @ResponseBody
     public String getSong(int id, Model model) {
         Song song = songService.getSong(id);
         Logger log = LoggerFactory.getLogger(SongController.class);
