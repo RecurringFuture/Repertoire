@@ -38,14 +38,18 @@ public class ProjectController {
         model.addAttribute("projects", projects);
 
         if (id != null) {
+            Project project = projectService.getProject(id);
             List<Song> songs = projectService.getSongsForProject(id);
             model.addAttribute("songs", songs);
             model.addAttribute("selectedProjectId", id);
+            model.addAttribute("selectedProjectTitle", project.getTitle());
         } else if (!projects.isEmpty()) {
-            int firstProjectId = projects.get(0).getId();
+            int firstProjectId = projects.getFirst().getId();
+            String projectTitle = projects.get(firstProjectId).getTitle();
             List<Song> songs = projectService.getSongsForProject(firstProjectId);
             model.addAttribute("songs", songs);
             model.addAttribute("selectedProjectId", firstProjectId);
+            model.addAttribute("selectedProjectTitle", projectTitle);
         } else {
             model.addAttribute("songs", new ArrayList<Song>());
         }
