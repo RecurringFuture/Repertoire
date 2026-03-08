@@ -21,6 +21,7 @@ thead th {
 tbody {
     height: 400px;
     overflow-y: auto;
+    overflow-x:hidden ;
 }
 
 thead {
@@ -28,14 +29,14 @@ thead {
 }
 
 tbody td, thead th {
-    width: 80%;
+    width: 100%;
     float: left;
 }
 
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-tr:hover{
+td:hover{
     background:lightblue;
 }
 th, td {
