@@ -38,19 +38,22 @@ public class ProjectController {
         model.addAttribute("projects", projects);
 
         if (id != null) {
+            logger.info("PROJECTS: ID PRESENT");
             Project project = projectService.getProject(id);
             List<Song> songs = projectService.getSongsForProject(id);
             model.addAttribute("songs", songs);
             model.addAttribute("selectedProjectId", id);
             model.addAttribute("selectedProjectTitle", project.getTitle());
         } else if (!projects.isEmpty()) {
+            logger.info("PROJECTS: NO ID");
             int firstProjectId = projects.getFirst().getId();
-            String projectTitle = projects.get(firstProjectId).getTitle();
+            String projectTitle = projects.getFirst().getTitle();
             List<Song> songs = projectService.getSongsForProject(firstProjectId);
             model.addAttribute("songs", songs);
             model.addAttribute("selectedProjectId", firstProjectId);
             model.addAttribute("selectedProjectTitle", projectTitle);
         } else {
+            logger.info("PROJECTS: EMPTY");
             model.addAttribute("songs", new ArrayList<Song>());
         }
 
