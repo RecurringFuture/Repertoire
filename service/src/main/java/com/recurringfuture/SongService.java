@@ -56,7 +56,9 @@ public class SongService {
         for (CSVRecord record : records) {
             Song song = new Song();
             song.setTitle(record.get(0));
-            setCreationAndModificationDate(song);
+            LocalDate localDate = LocalDate.now();
+            song.setCreationDate(localDate);
+            song.setModificationDate(localDate);
             songs.add(song);
         }
         in.close();
@@ -64,15 +66,10 @@ public class SongService {
     }
 
     public void saveSong(Song song) {
-        setCreationAndModificationDate(song);
+        LocalDate localDate = LocalDate.now();
+        song.setModificationDate(localDate);
         logger.info("Saving song: " + song.getTitle());
         songRepo.save(song);
-    }
-
-    private void setCreationAndModificationDate(Song song) {
-        LocalDate localDate = LocalDate.now();
-        song.setCreationDate(localDate);
-        song.setModificationDate(localDate);
     }
 
 }

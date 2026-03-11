@@ -49,8 +49,8 @@
 
         <form th:if="${selectedSong != null}" th:action="@{updateSong}" th:object="${selectedSong}" method="post">
             <div class="form-grid">
-<!--                <label for="id">ID</label>-->
-<!--                <input id="id" type="text" th:field="*{id}" readonly />-->
+
+                <input id="id" type="hidden" th:field="*{id}" readonly />
 
                 <label for="title">Title</label>
                 <input id="title" type="text" th:field="*{title}" />
@@ -90,6 +90,10 @@
 
                 <label for="count">Count</label>
                 <input id="count" type="number" th:field="*{count}" />
+
+                <input id="creationDate" type="hidden" th:value="*{creationDate}" readonly />
+
+                <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly />
 
                 <input id="submit" type="submit" value="Update">
             </div>
