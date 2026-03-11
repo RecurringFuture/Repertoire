@@ -16,7 +16,14 @@
 <div class="project-layout">
     <!-- LEFT: Projects list -->
     <section class="project-left">
+        <div>
+            <form th:action="@{/saveProject}" th:object="${project}" method="post">
+                <input type="text" th:field="*{title}" placeholder="Project Title" required />
+                <button type="submit">Create</button>
+            </form>
+        </div>
         <div th:if="${projects != null and !projects.isEmpty()}">
+            <br>
             <table>
                 <thead>
                 <tr>
@@ -34,12 +41,6 @@
         </div>
         <div th:if="${projects == null or projects.isEmpty()}">
             <h3>Create your first project</h3>
-        </div>
-        <div>
-            <form th:action="@{/saveProject}" th:object="${project}" method="post">
-                <input type="text" th:field="*{title}" placeholder="Project Title" required />
-                <button type="submit">Create</button>
-            </form>
         </div>
     </section>
 
