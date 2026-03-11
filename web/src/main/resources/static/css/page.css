@@ -45,7 +45,7 @@ a:active {
 
 .song-layout {
     display: flex;
-    gap: 24px;
+    gap: 50px;
     align-items: flex-start;
 }
 .song-left {
@@ -59,14 +59,17 @@ a:active {
 /* Project Settings*/
 .project-layout {
     display: flex;
-    gap: 24px;
+    gap: 50px;
     align-items: flex-start;
+    border: 1px solid black;
 }
 .project-left {
     flex: 0 0 320px;
+    border: 1px solid black;
 }
 .project-right {
     flex: 1 1 auto;
     min-width: 320px;
     flex-direction: row;
+    border: 1px solid black;
 }

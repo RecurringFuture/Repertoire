@@ -32,8 +32,7 @@ public class SongController {
     @GetMapping("songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs = songService.getSongs();
-//        Logger log = LoggerFactory.getLogger(SongController.class);
-//        log.info("Res: " + songs.toString());
+        logger.info("SONGS: " + songs.size());
         model.addAttribute("songs", songs);
 
         if (id != null) {
@@ -76,6 +75,13 @@ public class SongController {
     public String saveSong(@ModelAttribute("song") Song song, Model model) {
         logger.info("SAVE SONG");
         songService.saveSong(song);
+        return ViewNames.SONGS;
+    }
+
+    @PostMapping("updateSong")
+    public String updateSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
+        logger.info("UPDATE SONG");
+        songService.updateSong(selectedSong);
         return ViewNames.SONGS;
     }
 

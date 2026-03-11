@@ -41,6 +41,14 @@ public class SongService {
         return songRepo.getReferenceById(id);
     }
 
+    public void deleteSong(int id) {
+        songRepo.deleteById(id);
+    }
+
+    public void updateSong(Song song) {
+        songRepo.save(song);
+    }
+
     public void saveCsvFile(File file) throws IOException {
         Collection<Song> songs = new ArrayList<>();
         Reader in = new FileReader(file);
