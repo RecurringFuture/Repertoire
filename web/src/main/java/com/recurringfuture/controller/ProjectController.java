@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.ProjectService;
+import com.recurringfuture.SongService;
 import com.recurringfuture.entity.Project;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
@@ -25,10 +26,12 @@ public class ProjectController {
     private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
     private final ProjectService projectService;
+    private final SongService songService;
 
     @Autowired
-    public ProjectController(ProjectService projectService) {
+    public ProjectController(ProjectService projectService, SongService songService) {
         this.projectService = projectService;
+        this.songService = songService;
     }
 
     @GetMapping("/projects")

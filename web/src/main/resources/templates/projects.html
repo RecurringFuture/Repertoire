@@ -13,9 +13,9 @@
 <h1>Projects</h1>
 <hr />
 
-<div class="layout">
+<div class="project-layout">
     <!-- LEFT: Projects list -->
-    <section class="left">
+    <section class="project-left">
         <div th:if="${projects != null and !projects.isEmpty()}">
             <table>
                 <thead>
@@ -44,7 +44,7 @@
     </section>
 
     <!-- RIGHT: Songs list for selected project -->
-    <section class="right">
+    <section class="project-right">
         <div>
         <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
         <div th:if="${songs == null or songs.isEmpty()}" class="muted">
