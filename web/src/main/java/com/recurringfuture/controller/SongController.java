@@ -85,4 +85,10 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
+    @PostMapping("deleteSong")
+    public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
+        songService.deleteSong(selectedSong.getId());
+        return ViewNames.SONGS;
+    }
+
 }

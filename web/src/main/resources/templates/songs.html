@@ -96,6 +96,7 @@
                 <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly />
 
                 <input id="submit" type="submit" value="Update">
+                <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />
             </div>
         </form>
     </section>
