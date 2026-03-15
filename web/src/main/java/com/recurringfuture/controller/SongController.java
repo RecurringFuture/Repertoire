@@ -75,20 +75,20 @@ public class SongController {
     public String saveSong(@ModelAttribute("song") Song song, Model model) {
         logger.info("SAVE SONG");
         songService.saveSong(song);
-        return ViewNames.SONGS;
+        return "redirect:" + ViewNames.ADD_SONG;
     }
 
     @PostMapping("updateSong")
     public String updateSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
         logger.info("UPDATE SONG");
         songService.updateSong(selectedSong);
-        return ViewNames.SONGS;
+        return "redirect:/" + ViewNames.SONGS;
     }
 
     @PostMapping("deleteSong")
     public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
         songService.deleteSong(selectedSong.getId());
-        return ViewNames.SONGS;
+        return "redirect:/" + ViewNames.SONGS;
     }
 
 }

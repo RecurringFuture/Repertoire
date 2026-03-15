@@ -46,6 +46,8 @@ public class SongService {
     }
 
     public void updateSong(Song song) {
+        LocalDate localDate = LocalDate.now();
+        song.setModificationDate(localDate);
         songRepo.save(song);
     }
 
@@ -67,6 +69,7 @@ public class SongService {
 
     public void saveSong(Song song) {
         LocalDate localDate = LocalDate.now();
+        song.setCreationDate(localDate);
         song.setModificationDate(localDate);
         logger.info("Saving song: " + song.getTitle());
         songRepo.save(song);
