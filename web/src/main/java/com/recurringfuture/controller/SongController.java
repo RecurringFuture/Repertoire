@@ -1,7 +1,10 @@
 package com.recurringfuture.controller;
 
+import com.recurringfuture.GenreService;
 import com.recurringfuture.SongService;
+import com.recurringfuture.TuningService;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +26,14 @@ public class SongController {
     private static final Logger logger = LoggerFactory.getLogger(SongController.class);
 
     private final SongService songService;
+    private final GenreService genreService;
+    private final TuningService tuningService;
 
     @Autowired
-    public SongController(SongService songService) {
+    public SongController(SongService songService, GenreService genreService, TuningService tuningService) {
         this.songService = songService;
+        this.genreService = genreService;
+        this.tuningService = tuningService;
     }
 
     @GetMapping("songs")
@@ -38,6 +45,10 @@ public class SongController {
         if (id != null) {
             Song selected = songService.getSong(id); // handle not found how you prefer
             model.addAttribute("selectedSong", selected);
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("tunings", tuningService.getTunings());
+            model.addAttribute("capo_positions", RepertoireData.getCapoPositions());
+            model.addAttribute("keys", RepertoireData.getKeys());
         }
         return ViewNames.SONGS;
     }

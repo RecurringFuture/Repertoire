@@ -58,11 +58,20 @@
                 <label for="composer">Composer</label>
                 <input id="composer" type="text" th:field="*{composer}" />
 
-                <label for="key">Key</label>
-                <input id="key" type="text" th:field="*{key}" />
+<!--                <select id="keyId">-->
+<!--                    <option value="0">Key</option>-->
+<!--                    <option th:each="key : ${keys}" th:value="${key.getId()}" th:text="${key.v}"></option>-->
+<!--                </select>-->
 
-                <label for="tuning">Tuning</label>
-                <input id="tuning" type="text" th:field="*{tuning}" />
+<!--                <label for="key">Key</label>-->
+<!--                <input id="key" type="text" th:field="*{key}" />-->
+
+                <select id="tuningId">
+                    <option value="0">Tuning</option>
+                    <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
+                </select>
+<!--                <label for="tuning">Tuning</label>-->
+<!--                <input id="tuning" type="text" th:field="*{tuning}" />-->
 
                 <label for="capo">Capo</label>
                 <input id="capo" type="number" th:field="*{capo}" />
@@ -70,8 +79,10 @@
                 <label for="tempo">Tempo</label>
                 <input id="tempo" type="number" th:field="*{tempo}" />
 
-                <label for="genre">Genre</label>
-                <input id="genre" type="text" th:field="*{genre}" />
+                <select id="genreId">
+                    <option value="0">Genre</option>
+                    <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
+                </select>
 
                 <label for="duration">Duration</label>
                 <input id="duration" type="text" th:field="*{duration}" />
