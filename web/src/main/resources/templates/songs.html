@@ -66,12 +66,11 @@
 <!--                <label for="key">Key</label>-->
 <!--                <input id="key" type="text" th:field="*{key}" />-->
 
+                <label for="tuningId"></label>
                 <select id="tuningId">
                     <option value="0">Tuning</option>
                     <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
                 </select>
-<!--                <label for="tuning">Tuning</label>-->
-<!--                <input id="tuning" type="text" th:field="*{tuning}" />-->
 
                 <label for="capo">Capo</label>
                 <input id="capo" type="number" th:field="*{capo}" />
@@ -79,6 +78,7 @@
                 <label for="tempo">Tempo</label>
                 <input id="tempo" type="number" th:field="*{tempo}" />
 
+                <label for="genreId"></label>
                 <select id="genreId">
                     <option value="0">Genre</option>
                     <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
@@ -106,8 +106,7 @@
 
                 <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly /><br>
 
-                <button type="submit" name="update" value="Update" th:action="@{updateSong}">
-                <button type="submit" name="delete" value="Delete" th:action="@{deleteSong}">
+                <input type="submit" name="update" value="Update">
                 <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />
             </div>
         </form>

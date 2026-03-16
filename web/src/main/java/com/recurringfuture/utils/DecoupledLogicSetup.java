@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 @Slf4j
-//@Component
+@Component
 public class DecoupledLogicSetup {
 
     private final SpringResourceTemplateResolver springResourceTemplateResolver;
@@ -15,10 +15,10 @@ public class DecoupledLogicSetup {
         this.springResourceTemplateResolver = springResourceTemplateResolver;
     }
 
-//    @PostConstruct
-//    public void init(){
-//        springResourceTemplateResolver.setUseDecoupledLogic(true);
-//        log.info("Init DecoupledLogicSetup");
-//    }
+    @PostConstruct
+    public void init(){
+        springResourceTemplateResolver.setUseDecoupledLogic(true);
+        log.info("Init DecoupledLogicSetup");
+    }
 
 }
