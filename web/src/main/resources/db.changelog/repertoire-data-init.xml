@@ -1,0 +1,23 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+    <changeSet id="1773674707900-1" author="hahn">
+        <sql>
+            INSERT INTO tuning (tuning) VALUES ('Standard');
+            INSERT INTO tuning (tuning) VALUES ('Drop D');
+            INSERT INTO tuning (tuning) VALUES ('DADGAD');
+
+            INSERT INTO genre (title) VALUES ('Blues');
+            INSERT INTO genre (title) VALUES ('Rock');
+            INSERT INTO genre (title) VALUES ('Pop');
+            INSERT INTO genre (title) VALUES ('Fingerstyle');
+            INSERT INTO genre (title) VALUES ('Country');
+            INSERT INTO genre (title) VALUES ('Folk');
+            INSERT INTO genre (title) VALUES ('Techno');
+            INSERT INTO genre (title) VALUES ('EDM');
+        </sql>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -47,7 +47,7 @@
             Click a song on the left to see its details.
         </div>
 
-        <form th:if="${selectedSong != null}" th:action="@{updateSong}" th:object="${selectedSong}" method="post">
+        <form action="#" th:if="${selectedSong != null}"  th:object="${selectedSong}" method="post">
             <div class="form-grid">
 
                 <input id="id" type="hidden" th:field="*{id}" readonly />
@@ -106,7 +106,8 @@
 
                 <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly /><br>
 
-                <input id="submit" type="submit" value="Update">
+                <button type="submit" name="update" value="Update" th:action="@{updateSong}">
+                <button type="submit" name="delete" value="Delete" th:action="@{deleteSong}">
                 <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />
             </div>
         </form>
