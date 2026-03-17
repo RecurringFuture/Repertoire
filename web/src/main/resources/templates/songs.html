@@ -41,7 +41,7 @@
 
     <!-- RIGHT: Song details -->
     <section class="song-right">
-        <h3>Details</h3>
+        <h4>Details</h4>
 
         <div th:if="${selectedSong == null}" class="muted">
             Click a song on the left to see its details.
@@ -58,13 +58,11 @@
                 <label for="composer">Composer</label>
                 <input id="composer" type="text" th:field="*{composer}" />
 
-<!--                <select id="keyId">-->
-<!--                    <option value="0">Key</option>-->
-<!--                    <option th:each="key : ${keys}" th:value="${key.getId()}" th:text="${key.v}"></option>-->
-<!--                </select>-->
-
-<!--                <label for="key">Key</label>-->
-<!--                <input id="key" type="text" th:field="*{key}" />-->
+                <label for="keyId"></label>
+                <select id="keyId">
+                    <option value="0">Key</option>
+                    <option th:each="key : ${keys}"  th:text="${key}"></option>
+                </select>
 
                 <label for="tuningId"></label>
                 <select id="tuningId">
@@ -72,11 +70,15 @@
                     <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
                 </select>
 
-                <label for="capo">Capo</label>
-                <input id="capo" type="number" th:field="*{capo}" />
+                <label for="capoId"></label>
+                <select id="capoId">
+                    <option value="0">Capo</option>
+                    <option th:each="pos : ${capo_positions}"  th:text="${pos}"></option>
+                </select>
 
                 <label for="tempo">Tempo</label>
-                <input id="tempo" type="number" th:field="*{tempo}" />
+<!--                <input id="tempo" type="number" th:field="*{tempo}" />-->
+                <input id="tempo" type="number" min="0" th:field="*{tempo}" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
                 <label for="genreId"></label>
                 <select id="genreId">
@@ -87,20 +89,26 @@
                 <label for="duration">Duration</label>
                 <input id="duration" type="text" th:field="*{duration}" />
 
-                <label for="state">State</label>
-                <input id="state" type="number" th:field="*{state}" />
+                <label for="statedId"></label>
+                <select id="statedId">
+                    <option value="0">State</option>
+                    <option th:each="state : ${states}"  th:text="${state}"></option>
+                </select>
 
-                <label for="threshold">Threshold</label>
-                <input id="threshold" type="number" th:field="*{threshold}" />
+                <label for="periodId"></label>
+                <select id="periodId">
+                    <option value="0">Period</option>
+                    <option th:each="p : ${thresholds}"  th:text="${p}"></option>
+                </select>
 
                 <label for="alert">Alert</label>
-                <input id="alert" type="text" th:value="*{alert}"/>
+                <input id="alert" type="checkbox" th:checked="${alert}"/>
 
                 <label for="lastPerformedDate">Last Performed</label>
                 <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
 
                 <label for="count">Count</label>
-                <input id="count" type="number" th:field="*{count}" />
+                <input id="count" type="number" th:field="*{count}" readonly/>
 
                 <input id="creationDate" type="hidden" th:value="*{creationDate}" readonly />
 
