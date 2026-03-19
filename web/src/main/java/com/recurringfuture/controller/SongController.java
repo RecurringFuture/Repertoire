@@ -47,7 +47,7 @@ public class SongController {
             model.addAttribute("selectedSong", selected);
             model.addAttribute("genres", genreService.findAll());
             model.addAttribute("tunings", tuningService.getTunings());
-            model.addAttribute("capo_positions", RepertoireData.getCapoPositions());
+            model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
             model.addAttribute("keys", RepertoireData.getKeys());
             model.addAttribute("thresholds", RepertoireData.getThresholds());
             model.addAttribute("states", RepertoireData.getStates());

@@ -9,7 +9,7 @@ public class RepertoireData {
     }
 
     public static List<String> getStates() {
-        return List.of("State", "ToDo", "In Progress", "Repertoire");
+        return List.of("ToDo", "In Progress", "Repertoire");
     }
 
     public static List<String> getCapoPositions() {
