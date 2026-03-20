@@ -33,6 +33,11 @@ a:active {
     height: 600px;
 }
 
+.chk {
+    /*align-items: center;*/
+    justify-content: left;
+}
+
 /* Song Settings*/
 /*.song-settings {*/
 /*    display: flex;*/

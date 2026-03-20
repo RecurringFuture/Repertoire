@@ -59,13 +59,11 @@
 
                 <label for="keyId">Key</label>
                 <select name="keyStat" id="keyId" >
-<!--                    <option value="0">Key</option>-->
                     <option th:each="key : ${keys}" th:value="${keys.indexOf(key)}" th:text="${key}"></option>
                 </select>
 
                 <label for="tuningId">Tuning</label>
                 <select id="tuningId" th:field="*{tuning}">
-<!--                    <option value="0">Tuning</option>-->
                     <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
                 </select>
 
@@ -74,18 +72,16 @@
 
                 <label for="capoId">Capo position</label>
                 <select id="capoId" th:field="*{capo}">
-<!--                    <option value="0">Capo</option>-->
                     <option th:each="capo_position : ${capoPositions}" th:value="${capoPositions.indexOf(capo_position)}" th:text="${capo_position}"></option>
                 </select>
 
                 <label for="genreId">Genre</label>
                 <select id="genreId"  th:field="*{genre}">
-<!--                    <option value="0" disabled>Genre</option>-->
                     <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
                 </select>
 
                 <label for="tempo">Tempo</label>
-                <input id="tempo" type="number" min="0" th:field="*{tempo}" onkeypress="return (event.charCode !=8 &&
+                <input id="tempo" type="number" min="0" th:field="*{tempo}" th:onkeypress="return (event.charCode !=8 &&
                 event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
 
@@ -94,16 +90,14 @@
 
                 <label for="statedId">State</label>
                 <select id="statedId" >
-<!--                    <option value="0">State</option>-->
                     <option th:each="state : ${states}"  th:text="${state}"></option>
                 </select>
 
                 <label for="alert">Alert</label>
-                <input id="alert" type="checkbox" th:checked="${alert}"/>
+                <input class=".chk" id="alert" type="checkbox" th:checked="${alert}"/>
 
                 <label for="periodId">Alert frequency</label>
                 <select id="periodId" >
-<!--                    <option value="0">Period</option>-->
                     <option th:each="p : ${thresholds}"  th:text="${p}"></option>
                 </select>
 
