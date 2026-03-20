@@ -34,7 +34,6 @@ a:active {
 }
 
 .chk {
-    /*align-items: center;*/
     justify-content: left;
 }
 
@@ -55,6 +54,7 @@ a:active {
 }
 .song-left {
     flex: 0 0 320px;
+    padding-left: 10px;
 }
 .song-right {
     flex: 1 1 auto;
