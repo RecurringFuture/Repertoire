@@ -17,8 +17,8 @@
 
         <table>
             <thead>
-            <tr>
-                <th>Total: "${songs.rowcount}"}</th>
+            <tr th:if="${songs != null or !songs.isEmpty()}">
+                <th th:text="${total}">Total:</th>
             </tr>
             </thead>
 
@@ -27,7 +27,8 @@
                 <td class="muted">No Songs</td>
             </tr>
 
-            <tr th:each="song : ${songs}">
+            <tr th:each="song, iStat : ${songs}">
+                <td th:text="${iStat.index + 1}"></td>
                 <td>
                     <a th:href="@{/songs(id=${song.id})}"
                        th:text="${song.title}">

@@ -66,15 +66,13 @@ a:active {
     display: flex;
     gap: 50px;
     align-items: flex-start;
-    border: 1px solid black;
 }
 .project-left {
     flex: 0 0 320px;
-    border: 1px solid black;
+    padding-left: 10px;
 }
 .project-right {
     flex: 1 1 auto;
     min-width: 320px;
     flex-direction: row;
-    border: 1px solid black;
 }
