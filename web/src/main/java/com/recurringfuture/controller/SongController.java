@@ -51,6 +51,7 @@ public class SongController {
             model.addAttribute("keys", RepertoireData.getKeys());
             model.addAttribute("thresholds", RepertoireData.getThresholds());
             model.addAttribute("states", RepertoireData.getStates());
+            model.addAttribute("total", songs.size());
         }
         return ViewNames.SONGS;
     }
