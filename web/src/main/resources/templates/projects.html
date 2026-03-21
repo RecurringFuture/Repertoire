@@ -60,21 +60,6 @@
         </table>
         </div>
     </section>
-    <section class="project-right">
-        <div>
-            <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
-            <div th:if="${songs == null or songs.isEmpty()}" class="muted">
-                No songs in this project.
-            </div>
-            <table th:if="${songs != null and !songs.isEmpty()}">
-                <tbody>
-                <tr th:each="song : ${songs}">
-                    <td th:text="${song.title}">Song title</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
 </div>
 
 <footer id="footerId">Footer goes here</footer>
