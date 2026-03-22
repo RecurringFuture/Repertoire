@@ -40,6 +40,7 @@ public class ProjectController {
         List<Project> projects = projectService.getProjects();
         model.addAttribute("projects", projects);
 
+
         if (id != null) {
             logger.info("PROJECTS: ID PRESENT");
             Project project = projectService.getProject(id);
@@ -47,6 +48,8 @@ public class ProjectController {
             model.addAttribute("songs", songs);
             model.addAttribute("selectedProjectId", id);
             model.addAttribute("selectedProjectTitle", project.getTitle());
+            List<Song> availableSongs = projectService.getSongsForProject(project.getId());
+            model.addAttribute("availableSongs", availableSongs);
         } else if (!projects.isEmpty()) {
             logger.info("PROJECTS: NO ID");
             int firstProjectId = projects.getFirst().getId();
