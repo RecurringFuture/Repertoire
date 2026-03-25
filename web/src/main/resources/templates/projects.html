@@ -48,16 +48,23 @@
     <section class="project-right">
         <div>
         <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
-        <div th:if="${songs == null or songs.isEmpty()}" class="muted">
+        <div th:if="${projectSongs == null or projectSongs.isEmpty()}" class="muted">
             No songs in this project.
         </div>
-        <table th:if="${songs != null and !songs.isEmpty()}">
+        <table th:if="${projectSongs != null and !projectSongs.isEmpty()}">
             <tbody>
-            <tr th:each="song : ${songs}">
+            <tr th:each="song : ${projectSongs}">
                 <td th:text="${song.title}">Song title</td>
             </tr>
             </tbody>
         </table>
+            <table th:if="${projectSongs != null and !projectSongs.isEmpty()}">
+                <tbody>
+                <tr th:each="song : ${availableSongs}">
+                    <td th:text="${song.title}">Song title</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 </div>

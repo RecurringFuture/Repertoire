@@ -40,24 +40,25 @@ public class ProjectController {
         List<Project> projects = projectService.getProjects();
         model.addAttribute("projects", projects);
 
-
         if (id != null) {
             logger.info("PROJECTS: ID PRESENT");
             Project project = projectService.getProject(id);
-            List<Song> songs = projectService.getSongsForProject(id);
-            model.addAttribute("songs", songs);
+            List<Song> projectSongs = projectService.getSongsForProject(id);
+            model.addAttribute("projectSongs", projectSongs);
             model.addAttribute("selectedProjectId", id);
             model.addAttribute("selectedProjectTitle", project.getTitle());
-            List<Song> availableSongs = projectService.getSongsForProject(project.getId());
+            List<Song> availableSongs = projectService.getAvailableSongsForProject(id);
             model.addAttribute("availableSongs", availableSongs);
         } else if (!projects.isEmpty()) {
             logger.info("PROJECTS: NO ID");
             int firstProjectId = projects.getFirst().getId();
             String projectTitle = projects.getFirst().getTitle();
-            List<Song> songs = projectService.getSongsForProject(firstProjectId);
-            model.addAttribute("songs", songs);
+            List<Song> projectSongs = projectService.getSongsForProject(firstProjectId);
+            model.addAttribute("songs", projectSongs);
             model.addAttribute("selectedProjectId", firstProjectId);
             model.addAttribute("selectedProjectTitle", projectTitle);
+            List<Song> availableSongs = projectService.getAvailableSongsForProject(firstProjectId);
+            model.addAttribute("availableSongs", availableSongs);
         } else {
             logger.info("PROJECTS: EMPTY");
             model.addAttribute("songs", new ArrayList<Song>());

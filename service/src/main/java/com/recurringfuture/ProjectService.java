@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -60,6 +61,15 @@ public class ProjectService {
                 .map(ProjectSong::getSongId)
                 .toList();
         return songRepo.findAllById(songIds);
+    }
+
+    public List<Song> getAvailableSongsForProject(int projectId) {
+        List<Song>  projectSongs = getSongsForProject(projectId);
+        List<Song> allSongs = songRepo.findAll();
+        return allSongs.stream()
+                .distinct()
+                .filter(s -> !allSongs.contains(projectSongs))
+                .collect(Collectors.toList());
     }
 
 }
