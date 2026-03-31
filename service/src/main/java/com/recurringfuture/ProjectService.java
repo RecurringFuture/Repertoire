@@ -65,7 +65,7 @@ public class ProjectService {
 
     public List<Song> getAvailableSongsForProject(int projectId) {
         List<Song>  projectSongs = getSongsForProject(projectId);
-        List<Song> allSongs = songRepo.findAll();
+        List<Song> allSongs = songRepo.findAll(Sort.by(Sort.Direction.ASC, "title"));
         return allSongs.stream()
                 .distinct()
                 .filter(s -> !allSongs.contains(projectSongs))
