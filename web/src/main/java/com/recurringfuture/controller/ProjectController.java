@@ -74,4 +74,16 @@ public class ProjectController {
         projectService.saveProject(project);
         return "redirect:/projects";
     }
+
+    @PostMapping("/projects/addSong")
+    public String addSongToProject(@RequestParam int projectId, @RequestParam int songId) {
+        projectService.addSongToProject(projectId, songId);
+        return "redirect:/projects?id=" + projectId;
+    }
+
+    @PostMapping("/projects/removeSong")
+    public String removeSongFromProject(@RequestParam int projectId, @RequestParam int songId) {
+        projectService.removeSongFromProject(projectId, songId);
+        return "redirect:/projects?id=" + projectId;
+    }
 }

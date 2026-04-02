@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ProjectSongRepo extends JpaRepository<ProjectSong, Integer> {
-    @Query(value = "SELECT * FROM project_song WHERE project_id = ?1", nativeQuery = true)
     List<ProjectSong> findByProjectId(int projectId);
+
+    void deleteByProjectIdAndSongId(int projectId, int songId);
 }

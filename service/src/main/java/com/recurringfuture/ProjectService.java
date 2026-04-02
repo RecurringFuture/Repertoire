@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,12 +65,24 @@ public class ProjectService {
     }
 
     public List<Song> getAvailableSongsForProject(int projectId) {
-        List<Song>  projectSongs = getSongsForProject(projectId);
+        List<Song> projectSongs = getSongsForProject(projectId);
+        List<Integer> projectSongIds = projectSongs.stream().map(Song::getId).toList();
         List<Song> allSongs = songRepo.findAll(Sort.by(Sort.Direction.ASC, "title"));
         return allSongs.stream()
-                .distinct()
-                .filter(s -> !allSongs.contains(projectSongs))
+                .filter(s -> !projectSongIds.contains(s.getId()))
                 .collect(Collectors.toList());
+    }
+
+    public void addSongToProject(int projectId, int songId) {
+        ProjectSong projectSong = new ProjectSong();
+        projectSong.setProjectId(projectId);
+        projectSong.setSongId(songId);
+        projectSongRepo.save(projectSong);
+    }
+
+    @Transactional
+    public void removeSongFromProject(int projectId, int songId) {
+        projectSongRepo.deleteByProjectIdAndSongId(projectId, songId);
     }
 
 }

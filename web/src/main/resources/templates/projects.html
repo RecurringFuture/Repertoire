@@ -5,6 +5,27 @@
     <title>Projects</title>
     <link rel="stylesheet" th:href="@{/css/page.css}" />
     <link rel="stylesheet" th:href="@{/css/table.css}" />
+    <style>
+        .selected-row {
+            background-color: #a0d8ef !important;
+        }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+        .buttons-container button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .project-right table {
+            width: 250px;
+        }
+        .project-right tbody {
+            height: 300px;
+        }
+    </style>
 </head>
 <header id="navigationId"></header>
 
@@ -45,29 +66,88 @@
 
     <section class="project-right">
         <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
-        <div th:if="${projectSongs == null or projectSongs.isEmpty()}" class="muted">
-            No songs in this project.
+        <div th:if="${(projectSongs == null or projectSongs.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">
+            No songs available.
         </div>
-        <div class="tables-container">
-            <div th:if="${projectSongs != null and !projectSongs.isEmpty()}">
+        <div class="tables-container" th:if="${selectedProjectId != null}">
+            <div id="project-songs-list">
+                <h4>In Project</h4>
                 <table>
-                    <tbody>
-                    <tr th:each="song : ${projectSongs}">
+                    <tbody id="projectSongsBody">
+                    <tr th:each="song : ${projectSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">
                         <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    <tr th:if="${projectSongs == null or projectSongs.isEmpty()}">
+                        <td class="muted">Empty</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div th:if="${availableSongs != null and !availableSongs.isEmpty()}">
+
+            <div class="buttons-container">
+                <button type="button" id="btnMoveLeft" onclick="moveLeft()" title="Add to Project">&lt;&lt;</button>
+                <button type="button" id="btnMoveRight" onclick="moveRight()" title="Remove from Project">&gt;&gt;</button>
+            </div>
+
+            <div id="available-songs-list">
+                <h4>Available</h4>
                 <table>
-                    <tbody>
-                    <tr th:each="song : ${availableSongs}">
+                    <tbody id="availableSongsBody">
+                    <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">
                         <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    <tr th:if="${availableSongs == null or availableSongs.isEmpty()}">
+                        <td class="muted">Empty</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <!-- Hidden forms for movement -->
+        <form id="addSongForm" th:action="@{/projects/addSong}" method="post" style="display:none;">
+            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+            <input type="hidden" name="songId" id="addSongId" />
+        </form>
+        <form id="removeSongForm" th:action="@{/projects/removeSong}" method="post" style="display:none;">
+            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+            <input type="hidden" name="songId" id="removeSongId" />
+        </form>
+
+        <script th:inline="javascript">
+            let selectedSongId = null;
+            let selectedSide = null;
+
+            function selectRow(row, side) {
+                // Deselect all
+                document.querySelectorAll('tr').forEach(r => r.classList.remove('selected-row'));
+                
+                // Select current
+                row.classList.add('selected-row');
+                selectedSongId = row.getAttribute('data-id');
+                selectedSide = side;
+                
+                console.log("Selected song ID:", selectedSongId, "on side:", selectedSide);
+            }
+
+            function moveLeft() {
+                if (selectedSide === 'right' && selectedSongId) {
+                    document.getElementById('addSongId').value = selectedSongId;
+                    document.getElementById('addSongForm').submit();
+                } else {
+                    alert("Please select a song from the 'Available' list first.");
+                }
+            }
+
+            function moveRight() {
+                if (selectedSide === 'left' && selectedSongId) {
+                    document.getElementById('removeSongId').value = selectedSongId;
+                    document.getElementById('removeSongForm').submit();
+                } else {
+                    alert("Please select a song from the 'In Project' list first.");
+                }
+            }
+        </script>
     </section>
 </div>
 
