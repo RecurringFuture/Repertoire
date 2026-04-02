@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <title>Projects</title>
     <link rel="stylesheet" th:href="@{/css/page.css}" />
-    <link rel="stylesheet" th:href="@{/css/project_page.css}" />
     <link rel="stylesheet" th:href="@{/css/table.css}" />
 </head>
 <header id="navigationId"></header>
@@ -44,30 +43,29 @@
         </div>
     </section>
 
-    <!-- RIGHT: Songs list for selected project -->
     <section class="project-right">
-        <div>
         <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
         <div th:if="${projectSongs == null or projectSongs.isEmpty()}" class="muted">
             No songs in this project.
         </div>
-            <div>
-        <table th:if="${projectSongs != null and !projectSongs.isEmpty()}">
-            <tbody>
-            <tr th:each="song : ${projectSongs}">
-                <td th:text="${song.title}">Song title</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="tables-container">
+            <div th:if="${projectSongs != null and !projectSongs.isEmpty()}">
+                <table>
+                    <tbody>
+                    <tr th:each="song : ${projectSongs}">
+                        <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div>
-            <table th:if="${projectSongs != null and !projectSongs.isEmpty()}">
-                <tbody>
-                <tr th:each="song : ${availableSongs}">
-                    <td th:text="${song.title}">Song title</td>
-                </tr>
-                </tbody>
-            </table>
+            <div th:if="${availableSongs != null and !availableSongs.isEmpty()}">
+                <table>
+                    <tbody>
+                    <tr th:each="song : ${availableSongs}">
+                        <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>

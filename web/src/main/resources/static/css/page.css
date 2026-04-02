@@ -72,7 +72,11 @@ a:active {
     padding-left: 10px;
 }
 .project-right {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     min-width: 320px;
-    flex-direction: row;
+}
+.tables-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
 }

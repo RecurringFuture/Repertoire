@@ -54,7 +54,7 @@ public class ProjectController {
             int firstProjectId = projects.getFirst().getId();
             String projectTitle = projects.getFirst().getTitle();
             List<Song> projectSongs = projectService.getSongsForProject(firstProjectId);
-            model.addAttribute("songs", projectSongs);
+            model.addAttribute("projectSongs", projectSongs);
             model.addAttribute("selectedProjectId", firstProjectId);
             model.addAttribute("selectedProjectTitle", projectTitle);
             List<Song> availableSongs = projectService.getAvailableSongsForProject(firstProjectId);
