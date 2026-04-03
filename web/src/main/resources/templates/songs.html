@@ -18,7 +18,7 @@
         <table>
             <thead>
             <tr th:if="${songs != null or !songs.isEmpty()}">
-                <th th:text="${total}">Total:</th>
+                <th th:text="Total + ${total}">Total:</th>
             </tr>
             </thead>
 
@@ -28,10 +28,10 @@
             </tr>
 
             <tr th:each="song, iStat : ${songs}">
-                <td th:text="${iStat.index + 1}"></td>
+<!--                <td th:text="${iStat.index + 1}"></td>-->
                 <td>
                     <a th:href="@{/songs(id=${song.id})}"
-                       th:text="${song.title}">
+                       th:text="${(iStat.index + 1) + ' '+ song.title}">
                         Song title
                     </a>
                 </td>
