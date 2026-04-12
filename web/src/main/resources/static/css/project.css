@@ -1,0 +1,19 @@
+.selected-row {
+    background-color: #a0d8ef !important;
+}
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+.buttons-container button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.project-right table {
+    width: 300px;
+}
+.project-right tbody {
+    height: 300px;
+}

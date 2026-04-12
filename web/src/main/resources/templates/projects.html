@@ -1,29 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head id="headId">
+<head id="projectHeadId">
     <meta charset="UTF-8" />
     <title>Projects</title>
-    <style>
-        .selected-row {
-            background-color: #a0d8ef !important;
-        }
-        .buttons-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 10px;
-        }
-        .buttons-container button {
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        /*.project-right table {*/
-        /*    width: 250px;*/
-        /*}*/
-        /*.project-right tbody {*/
-        /*    height: 200px;*/
-        /*}*/
-    </style>
 </head>
 <header id="navigationId"></header>
 
@@ -111,41 +90,6 @@
             <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
             <input type="hidden" name="songId" id="removeSongId" />
         </form>
-
-        <script th:inline="javascript">
-            let selectedSongId = null;
-            let selectedSide = null;
-
-            function selectRow(row, side) {
-                // Deselect all
-                document.querySelectorAll('tr').forEach(r => r.classList.remove('selected-row'));
-                
-                // Select current
-                row.classList.add('selected-row');
-                selectedSongId = row.getAttribute('data-id');
-                selectedSide = side;
-                
-                console.log("Selected song ID:", selectedSongId, "on side:", selectedSide);
-            }
-
-            function moveLeft() {
-                if (selectedSide === 'right' && selectedSongId) {
-                    document.getElementById('addSongId').value = selectedSongId;
-                    document.getElementById('addSongForm').submit();
-                } else {
-                    alert("Please select a song from the 'Available' list first.");
-                }
-            }
-
-            function moveRight() {
-                if (selectedSide === 'left' && selectedSongId) {
-                    document.getElementById('removeSongId').value = selectedSongId;
-                    document.getElementById('removeSongForm').submit();
-                } else {
-                    alert("Please select a song from the 'In Project' list first.");
-                }
-            }
-        </script>
     </section>
 </div>
 
