@@ -41,9 +41,10 @@ public class SongController {
         List<Song> songs = songService.getSongs();
         logger.info("SONGS: " + songs.size());
         model.addAttribute("songs", songs);
+        model.addAttribute("total", songs.size());
 
         if (id != null) {
-            Song selected = songService.getSong(id); // handle not found how you prefer
+            Song selected = songService.getSong(id);
             model.addAttribute("selectedSong", selected);
             model.addAttribute("genres", genreService.findAll());
             model.addAttribute("tunings", tuningService.getTunings());
