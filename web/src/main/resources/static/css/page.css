@@ -35,7 +35,7 @@ a:active {
 .logo {
     display: grid;
     place-items: center; /* Align items to the center of the grid cell */
-    height: 600px;
+    height: 500px;
 }
 
 .chk {

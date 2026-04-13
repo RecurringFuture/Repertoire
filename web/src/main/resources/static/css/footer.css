@@ -1,14 +1,17 @@
 .footer {
-    overflow: hidden;
-    text-align: center;
-    color: white;
     position: fixed;
     width: 100%;
-    justify-content: center;
-    height: 50px;
     bottom: 0;
     left: 0;
-    background-color: #474044;
-    padding: 8px;
+}
+.footer-content {
+    text-align: center;
+    color: white;
+    height: 40px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #474044;
+    margin: 8px;
 }
