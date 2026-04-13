@@ -1,5 +1,5 @@
 .selected-row {
-    background-color: #a0d8ef !important;
+    background-color: lightblue !important;
 }
 .buttons-container {
     display: flex;
@@ -10,4 +10,8 @@
 .buttons-container button {
     padding: 5px 10px;
     cursor: pointer;
+}
+
+.tbody {
+    height: 350px !important;
 }

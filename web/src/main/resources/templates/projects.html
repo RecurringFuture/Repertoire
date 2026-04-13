@@ -50,7 +50,7 @@
             <div id="project-songs-list">
                 <h4>In Project</h4>
                 <table>
-                    <tbody id="projectSongsBody">
+                    <tbody id="projectSongsBody" class="tbody">
                     <tr th:each="song : ${projectSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">
                         <td th:text="${song.title}">Song title</td>
                     </tr>
@@ -69,7 +69,7 @@
             <div id="available-songs-list">
                 <h4>Available</h4>
                 <table>
-                    <tbody id="availableSongsBody">
+                    <tbody id="availableSongsBody" class="tbody">
                     <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">
                         <td th:text="${song.title}">Song title</td>
                     </tr>

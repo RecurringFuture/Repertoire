@@ -3,6 +3,7 @@ table {
     overflow-x: hidden;
     width: 300px;
     border: 1px solid black;
+    background-color: white;
 }
 
 thead, tbody, tr, td, th { display: block; }
