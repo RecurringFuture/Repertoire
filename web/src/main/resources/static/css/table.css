@@ -1,7 +1,8 @@
 table {
-    /*width: 100%;*/
     font-family: arial, sans-serif;
     overflow-x: hidden;
+    width: 300px;
+    border: 1px solid black;
 }
 
 thead, tbody, tr, td, th { display: block; }

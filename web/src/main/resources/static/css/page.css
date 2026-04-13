@@ -1,5 +1,8 @@
 body {
     font-family: Arial, serif;
+    background-image: linear-gradient(to bottom, grey, white);
+    /*background-color: gray;*/
+    /*background-image: url(../images/RepertoireBg.png);*/
 }
 
 a:link {
