@@ -1,15 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
-<head id="headId">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head id="projectHeadId">
     <meta charset="UTF-8" />
-    <title>Practice</title>
+    <title>Projects</title>
 </head>
 <header id="navigationId"></header>
 
 <body>
 <h1>Practice</h1>
-<hr />
+<hr/>
 
+<div class="project-layout">
+    <!-- LEFT: Projects list -->
+    <section class="project-left">
+        <div>
+            <form th:action="@{/saveProject}" th:object="${project}" method="post">
+                <input type="text" th:field="*{title}" placeholder="Project Title" required />
+                <button type="submit">Create</button>
+            </form>
+        </div>
+        <div th:if="${projects != null and !projects.isEmpty()}">
+            <br>
+            <table>
+                <thead>
+                <tr>
+                    <th>Project Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${projects}" th:classappend="${p.id == selectedProjectId} ? 'selected' : ''">
+                    <td>
+                        <a th:href="@{/projects(id=${p.id})}" th:text="${p.title}">Project title</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${projects == null or projects.isEmpty()}">
+            <h3>Create your first project</h3>
+        </div>
+    </section>
+
+    <section class="project-right">
+        <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
+        <div th:if="${(projectSongs == null or projectSongs.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">
+            No songs available.
+        </div>
+        <div class="tables-container" th:if="${selectedProjectId != null}">
+            <div id="project-songs-list">
+                <h4>In Project</h4>
+                <table>
+                    <tbody id="projectSongsBody" class="tbody">
+                    <tr th:each="song : ${projectSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">
+                        <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    <tr th:if="${projectSongs == null or projectSongs.isEmpty()}">
+                        <td class="muted">Empty</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="buttons-container">
+                <button type="button" id="btnMoveLeft" onclick="moveLeft()" title="Add to Project">&lt;&lt;</button>
+                <button type="button" id="btnMoveRight" onclick="moveRight()" title="Remove from Project">&gt;&gt;</button>
+            </div>
+
+            <div id="available-songs-list">
+                <h4>Available</h4>
+                <table>
+                    <tbody id="availableSongsBody" class="tbody">
+                    <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">
+                        <td th:text="${song.title}">Song title</td>
+                    </tr>
+                    <tr th:if="${availableSongs == null or availableSongs.isEmpty()}">
+                        <td class="muted">Empty</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Hidden forms for movement -->
+        <form id="addSongForm" th:action="@{/projects/addSong}" method="post" style="display:none;">
+            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+            <input type="hidden" name="songId" id="addSongId" />
+        </form>
+        <form id="removeSongForm" th:action="@{/projects/removeSong}" method="post" style="display:none;">
+            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+            <input type="hidden" name="songId" id="removeSongId" />
+        </form>
+    </section>
+</div>
 
 <footer id="footerId">Footer goes here</footer>
 </body>

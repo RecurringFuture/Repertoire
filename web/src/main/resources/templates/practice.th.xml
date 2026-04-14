@@ -3,7 +3,6 @@
           th:replace="~{fragments/header :: headFragment}"/>
     <attr sel="#navigationId"
           th:replace="~{fragments/navigation :: navbar}"/>
-
     <attr sel="#footerId"
           th:replace="~{fragments/footer :: footer}"/>
 </thlogic>
