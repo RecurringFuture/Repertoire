@@ -4,6 +4,10 @@ function songsFunction() {
     document.getElementById("songsDropdown").classList.toggle("show");
 }
 
+function showFunction() {
+    document.getElementById("practiceDropdown").classList.toggle("show");
+}
+
 document.getElementById("songsButton").addEventListener("mouseout", (event) => {
     if (!e.target.matches('.dropbtn')) {
         var songsDropdown = document.getElementById("songsDropdown");

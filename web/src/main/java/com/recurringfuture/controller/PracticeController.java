@@ -73,7 +73,7 @@ public class PracticeController {
         return ViewNames.PRACTICE;
     }
 
-    @PostMapping("savePracticeSet")
+    @PostMapping("/savePracticeSet")
     public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet, Model model) {
         logger.info("SAVE PRACTICESET: {}", practiceSet.getTitle());
         practiceService.savePracticeSet(practiceSet);
