@@ -26,12 +26,10 @@ public class ProjectController {
     private static final Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
     private final ProjectService projectService;
-    private final SongService songService;
 
     @Autowired
-    public ProjectController(ProjectService projectService, SongService songService) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.songService = songService;
     }
 
     @GetMapping("/projects")
