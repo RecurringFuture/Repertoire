@@ -2,7 +2,6 @@ package com.recurringfuture;
 
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.PracticeSetSong;
-import com.recurringfuture.entity.ProjectSong;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.repository.PracticeSetRepo;
 import com.recurringfuture.repository.PracticeSongRepo;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,5 +71,17 @@ public class PracticeService {
         return allSongs.stream()
                 .filter(s -> !practiceSetSongIds.contains(s.getId()))
                 .collect(Collectors.toList());
+    }
+
+    public void addSongToPracticeSet(int practiceSetId, int songId) {
+        PracticeSetSong practiceSetSong = new PracticeSetSong();
+        practiceSetSong.setPracticeSetId(practiceSetId);
+        practiceSetSong.setSongId(songId);
+        practiceSongRepo.save(practiceSetSong);
+    }
+
+    @Transactional
+    public void removeSongFromPracticeSet(int practiceSetId, int songId) {
+        practiceSongRepo.deleteByPracticeSetIdAndSongId(practiceSetId, songId);
     }
 }

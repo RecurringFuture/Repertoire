@@ -2,7 +2,6 @@ package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
 import com.recurringfuture.entity.PracticeSet;
-import com.recurringfuture.entity.Project;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -70,5 +71,24 @@ public class PracticeController {
 
         model.addAttribute("practiceSet", new PracticeSet());
         return ViewNames.PRACTICE;
+    }
+
+    @PostMapping("savePracticeSet")
+    public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet, Model model) {
+        logger.info("SAVE PRACTICESET: {}", practiceSet.getTitle());
+        practiceService.savePracticeSet(practiceSet);
+        return "redirect:/practiceSets";
+    }
+
+    @PostMapping("/practiceSet/addSong")
+    public String addSongToPracticeSet(@RequestParam int practiceSetId, @RequestParam int songId) {
+        practiceService.addSongToPracticeSet(practiceSetId, songId);
+        return "redirect:/practiceSets?id=" + practiceSetId;
+    }
+
+    @PostMapping("/practiceSet/removeSong")
+    public String removeSongFromProject(@RequestParam int projectId, @RequestParam int songId) {
+        practiceService.removeSongFromPracticeSet(projectId, songId);
+        return "redirect:/practiceSets?id=" + projectId;
     }
 }

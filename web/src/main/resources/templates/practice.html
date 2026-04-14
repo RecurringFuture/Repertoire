@@ -14,47 +14,47 @@
     <!-- LEFT: Projects list -->
     <section class="project-left">
         <div>
-            <form th:action="@{/saveProject}" th:object="${project}" method="post">
-                <input type="text" th:field="*{title}" placeholder="Project Title" required />
+            <form th:action="@{/savePracticeSet}" th:object="${practiceSet}" method="post">
+                <input type="text" th:field="*{title}" placeholder="PracticeSet Title" required />
                 <button type="submit">Create</button>
             </form>
         </div>
-        <div th:if="${projects != null and !projects.isEmpty()}">
+        <div th:if="${practiceSets != null and !practiceSets.isEmpty()}">
             <br>
             <table>
                 <thead>
                 <tr>
-                    <th>Project Title</th>
+                    <th>PracticeSet Title</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="p : ${projects}" th:classappend="${p.id == selectedProjectId} ? 'selected' : ''">
+                <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
                     <td>
-                        <a th:href="@{/projects(id=${p.id})}" th:text="${p.title}">Project title</a>
+                        <a th:href="@{/practiceSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div th:if="${projects == null or projects.isEmpty()}">
-            <h3>Create your first project</h3>
+        <div th:if="${practiceSets == null or practiceSets.isEmpty()}">
+            <h4>Create your first Practice Set</h4>
         </div>
     </section>
 
     <section class="project-right">
-        <h3 th:text="${selectedProjectTitle}">Songs in project</h3>
-        <div th:if="${(projectSongs == null or projectSongs.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">
+        <h3 th:text="${selectedPracticeSetTitle}">Songs in Practice Set</h3>
+        <div th:if="${(practiceSets == null or practiceSets.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">
             No songs available.
         </div>
-        <div class="tables-container" th:if="${selectedProjectId != null}">
+        <div class="tables-container" th:if="${selectedPracticeSetId != null}">
             <div id="project-songs-list">
-                <h4>In Project</h4>
+                <h4>In Practice Set</h4>
                 <table>
                     <tbody id="projectSongsBody" class="tbody">
-                    <tr th:each="song : ${projectSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">
+                    <tr th:each="song : ${practiceSetSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">
                         <td th:text="${song.title}">Song title</td>
                     </tr>
-                    <tr th:if="${projectSongs == null or projectSongs.isEmpty()}">
+                    <tr th:if="${practiceSetSongs == null or practiceSetSongs.isEmpty()}">
                         <td class="muted">Empty</td>
                     </tr>
                     </tbody>
@@ -82,12 +82,12 @@
         </div>
 
         <!-- Hidden forms for movement -->
-        <form id="addSongForm" th:action="@{/projects/addSong}" method="post" style="display:none;">
-            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+        <form id="addSongForm" th:action="@{/practiceSet/addSong}" method="post" style="display:none;">
+            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />
             <input type="hidden" name="songId" id="addSongId" />
         </form>
-        <form id="removeSongForm" th:action="@{/projects/removeSong}" method="post" style="display:none;">
-            <input type="hidden" name="projectId" th:value="${selectedProjectId}" />
+        <form id="removeSongForm" th:action="@{/practiceSet/removeSong}" method="post" style="display:none;">
+            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />
             <input type="hidden" name="songId" id="removeSongId" />
         </form>
     </section>
