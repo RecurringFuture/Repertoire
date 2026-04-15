@@ -1,5 +1,5 @@
 <thlogic>
     <attr sel="#footerId"
-          th:fragment="footer"/>
+          th:fragment="footerFragment"/>
     <attr sel="#created-by" th:text="|Created by Recurring Future|"/>
 </thlogic>

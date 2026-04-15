@@ -1,14 +1,11 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function songsFunction() {
-    document.getElementById("songsDropdown").classList.toggle("show");
-}
-
-function showFunction() {
-    document.getElementById("practiceDropdown").classList.toggle("show");
+function showFunction(elementId) {
+    document.getElementById(elementId).classList.toggle("show");
 }
 
 document.getElementById("songsButton").addEventListener("mouseout", (event) => {
+    console.log("Mouse out");
     if (!e.target.matches('.dropbtn')) {
         var songsDropdown = document.getElementById("songsDropdown");
         if (songsDropdown.classList.contains('show')) {

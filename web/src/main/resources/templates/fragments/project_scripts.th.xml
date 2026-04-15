@@ -1,0 +1,4 @@
+<thlogic>
+    <attr sel="#scriptId"
+          th:fragment="projectScriptsFragment"/>
+</thlogic>

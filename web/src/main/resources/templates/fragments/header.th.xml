@@ -1,5 +1,5 @@
 <thlogic>
     <attr sel="#headId"
-          th:fragment="headFragment"/>
+          th:fragment="headerFragment"/>
     <attr sel="#title" th:text="Repertoire"/>
 </thlogic>
