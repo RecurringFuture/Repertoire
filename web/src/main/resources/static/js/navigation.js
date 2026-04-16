@@ -4,22 +4,27 @@ function showFunction(elementId) {
     document.getElementById(elementId).classList.toggle("show");
 }
 
-document.getElementById("songsButton").addEventListener("mouseout", (event) => {
-    console.log("Mouse out");
-    if (!e.target.matches('.dropbtn')) {
-        var songsDropdown = document.getElementById("songsDropdown");
-        if (songsDropdown.classList.contains('show')) {
-            songsDropdown.classList.remove('show');
-        }
-    }
-})
+// document.getElementById("songsButton").addEventListener("mouseout", (e) => {
+//     console.log("Mouse out");
+//     if (!e.target.matches('.dropbtn')) {
+//         let songsDropdown = document.getElementById("songsDropdown");
+//         if (songsDropdown.classList.contains('show')) {
+//             songsDropdown.classList.remove('show');
+//         }
+//     }
+// })
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(e) {
     if (!e.target.matches('.dropbtn')) {
-        var songsDropdown = document.getElementById("songsDropdown");
+        let songsDropdown = document.getElementById("songsDropdown");
         if (songsDropdown.classList.contains('show')) {
             songsDropdown.classList.remove('show');
+        }
+
+        let practiceDropdown = document.getElementById("practiceDropdown");
+        if (practiceDropdown.classList.contains('show')) {
+            practiceDropdown.classList.remove('show');
         }
     }
 }
