@@ -36,7 +36,7 @@ public class PracticeController {
         logger.info("PRACTICE SETS: ");
         List<PracticeSet> practiceSets = practiceService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);
-        return ViewNames.PRACTICE;
+        return ViewNames.PRACTICE_SETS;
     }
 
     @GetMapping("/practiceSets")
@@ -70,7 +70,7 @@ public class PracticeController {
         }
 
         model.addAttribute("practiceSet", new PracticeSet());
-        return ViewNames.PRACTICE;
+        return ViewNames.PRACTICE_SETS;
     }
 
     @PostMapping("/savePracticeSet")
