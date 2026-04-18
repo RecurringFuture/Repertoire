@@ -1,10 +1,10 @@
 <thlogic>
     <attr sel="#projectHeadId"
-          th:replace="~{fragments/header :: headerFragment}"/>
+          th:replace="~{fragments/project_header :: projectHeadFragment}"/>
     <attr sel="#navigationId"
           th:replace="~{fragments/navigation :: navbarFragment}"/>
-    <attr sel="#scriptsId"
-          th:replace="~{fragments/scripts :: scriptsFragment}"/>
+    <attr sel="#projectScriptsId"
+          th:replace="~{fragments/project_scripts :: projectScriptsFragment}"/>
     <attr sel="#footerId"
           th:replace="~{fragments/footer :: footerFragment}"/>
 </thlogic>
