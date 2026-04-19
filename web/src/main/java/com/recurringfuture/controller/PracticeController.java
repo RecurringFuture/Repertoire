@@ -33,10 +33,10 @@ public class PracticeController {
 
     @GetMapping("/practice")
     public String getPracticeSets(Model model) {
-        logger.info("PRACTICE SETS: ");
+        logger.info("PRACTICE: ");
         List<PracticeSet> practiceSets = practiceService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);
-        return ViewNames.PRACTICE_SETS;
+        return ViewNames.PRACTICE;
     }
 
     @GetMapping("/practiceSets")
