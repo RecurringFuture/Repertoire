@@ -13,29 +13,6 @@
 <div class="project-layout">
     <!-- LEFT: Projects list -->
     <section class="project-left">
-        <!--        <div>-->
-        <!--            <form th:action="@{/savePracticeSet}" th:object="${practiceSet}" method="post">-->
-        <!--                <input type="text" th:field="*{title}" placeholder="PracticeSet Title" required />-->
-        <!--                <button type="submit">Create</button>-->
-        <!--            </form>-->
-        <!--        </div>-->
-        <!--        <div th:if="${practiceSets != null and !practiceSets.isEmpty()}">-->
-        <!--            <br>-->
-        <!--            <table>-->
-        <!--                <thead>-->
-        <!--                <tr>-->
-        <!--                    <th>PracticeSet Title</th>-->
-        <!--                </tr>-->
-        <!--                </thead>-->
-        <!--                <tbody>-->
-        <!--                <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">-->
-        <!--                    <td>-->
-        <!--                        <a th:href="@{/practiceSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>-->
-        <!--                    </td>-->
-        <!--                </tr>-->
-        <!--                </tbody>-->
-        <!--            </table>-->
-        <!--        </div>-->
         <div th:if="${practiceSets == null or practiceSets.isEmpty()}">
             <div>
                 <label for="chooseRandom">Choose a number of random songs from <br>all songs to practice</label><br>
@@ -45,7 +22,7 @@
                 <button class="button" type="button" id="choosePracticeSet">Practice Set</button>
                 <hr/>
                 <label for="chooseFromAll">Choose songs from all songs to practice</label>
-                <button class="button" type="button" id="chooseFromAll">Choose songs</button>
+                <button class="button" type="button" id="chooseFromAll" th:onclick="@{/songs}">Choose songs</button>
 
             </div>
         </div>

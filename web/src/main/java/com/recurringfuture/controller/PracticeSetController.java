@@ -41,7 +41,7 @@ public class PracticeSetController {
 
     @GetMapping("/practiceSets")
     public String getPracticeSets(@RequestParam(required = false) Integer id, Model model) {
-        logger.info("PRACTICE: ");
+        logger.info("PRACTICE SETS: ");
         List<PracticeSet> practiceSets = practiceService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);
 
