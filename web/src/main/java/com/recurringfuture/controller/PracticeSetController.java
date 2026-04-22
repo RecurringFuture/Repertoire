@@ -20,14 +20,14 @@ import java.util.List;
 
 @Slf4j
 @Controller
-public class PracticeController {
+public class PracticeSetController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PracticeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PracticeSetController.class);
 
     private final PracticeService practiceService;
 
     @Autowired
-    public PracticeController(PracticeService practiceService) {
+    public PracticeSetController(PracticeService practiceService) {
         this.practiceService = practiceService;
     }
 

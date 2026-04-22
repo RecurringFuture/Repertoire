@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head id="projectHeadId">
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Practice</title>
 </head>
 <header id="navigationId"></header>
@@ -13,84 +13,94 @@
 <div class="project-layout">
     <!-- LEFT: Projects list -->
     <section class="project-left">
-<!--        <div>-->
-<!--            <form th:action="@{/savePracticeSet}" th:object="${practiceSet}" method="post">-->
-<!--                <input type="text" th:field="*{title}" placeholder="PracticeSet Title" required />-->
-<!--                <button type="submit">Create</button>-->
-<!--            </form>-->
-<!--        </div>-->
-        <div th:if="${practiceSets != null and !practiceSets.isEmpty()}">
-            <br>
-            <table>
-                <thead>
-                <tr>
-                    <th>PracticeSet Title</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
-                    <td>
-                        <a th:href="@{/practiceSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <!--        <div>-->
+        <!--            <form th:action="@{/savePracticeSet}" th:object="${practiceSet}" method="post">-->
+        <!--                <input type="text" th:field="*{title}" placeholder="PracticeSet Title" required />-->
+        <!--                <button type="submit">Create</button>-->
+        <!--            </form>-->
+        <!--        </div>-->
+        <!--        <div th:if="${practiceSets != null and !practiceSets.isEmpty()}">-->
+        <!--            <br>-->
+        <!--            <table>-->
+        <!--                <thead>-->
+        <!--                <tr>-->
+        <!--                    <th>PracticeSet Title</th>-->
+        <!--                </tr>-->
+        <!--                </thead>-->
+        <!--                <tbody>-->
+        <!--                <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">-->
+        <!--                    <td>-->
+        <!--                        <a th:href="@{/practiceSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>-->
+        <!--                    </td>-->
+        <!--                </tr>-->
+        <!--                </tbody>-->
+        <!--            </table>-->
+        <!--        </div>-->
         <div th:if="${practiceSets == null or practiceSets.isEmpty()}">
-            <h4>Create your first Practice Set</h4>
+            <div>
+                <label for="chooseRandom">Choose a number of random songs from <br>all songs to practice</label><br>
+                <button class="button" type="button" id="chooseRandom">Random</button>
+                <hr/>
+                <label for="choosePracticeSet">Choose a Practice Set to practice</label>
+                <button class="button" type="button" id="choosePracticeSet">Practice Set</button>
+                <hr/>
+                <label for="chooseFromAll">Choose songs from all songs to practice</label>
+                <button class="button" type="button" id="chooseFromAll">Choose songs</button>
+
+            </div>
         </div>
     </section>
 
-<!--    <section class="project-right">-->
-<!--        <h3 th:text="${selectedPracticeSetTitle}">Songs in Practice Set</h3>-->
-<!--        <div th:if="${(practiceSets == null or practiceSets.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">-->
-<!--            No songs available.-->
-<!--        </div>-->
-<!--        <div class="tables-container" th:if="${selectedPracticeSetId != null}">-->
-<!--            <div id="project-songs-list">-->
-<!--                <h4>In Practice Set</h4>-->
-<!--                <table>-->
-<!--                    <tbody id="projectSongsBody" class="tbody">-->
-<!--                    <tr th:each="song : ${practiceSetSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">-->
-<!--                        <td th:text="${song.title}">Song title</td>-->
-<!--                    </tr>-->
-<!--                    <tr th:if="${practiceSetSongs == null or practiceSetSongs.isEmpty()}">-->
-<!--                        <td class="muted">Empty</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
+    <!--    <section class="project-right">-->
+    <!--        <h3 th:text="${selectedPracticeSetTitle}">Songs in Practice Set</h3>-->
+    <!--        <div th:if="${(practiceSets == null or practiceSets.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">-->
+    <!--            No songs available.-->
+    <!--        </div>-->
+    <!--        <div class="tables-container" th:if="${selectedPracticeSetId != null}">-->
+    <!--            <div id="project-songs-list">-->
+    <!--                <h4>In Practice Set</h4>-->
+    <!--                <table>-->
+    <!--                    <tbody id="projectSongsBody" class="tbody">-->
+    <!--                    <tr th:each="song : ${practiceSetSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">-->
+    <!--                        <td th:text="${song.title}">Song title</td>-->
+    <!--                    </tr>-->
+    <!--                    <tr th:if="${practiceSetSongs == null or practiceSetSongs.isEmpty()}">-->
+    <!--                        <td class="muted">Empty</td>-->
+    <!--                    </tr>-->
+    <!--                    </tbody>-->
+    <!--                </table>-->
+    <!--            </div>-->
 
-<!--            <div class="buttons-container">-->
-<!--                <button type="button" id="btnMoveLeft" onclick="moveLeft()" title="Add to Project">&lt;&lt;</button>-->
-<!--                <button type="button" id="btnMoveRight" onclick="moveRight()" title="Remove from Project">&gt;&gt;</button>-->
-<!--            </div>-->
+    <!--            <div class="buttons-container">-->
+    <!--                <button type="button" id="btnMoveLeft" onclick="moveLeft()" title="Add to Project">&lt;&lt;</button>-->
+    <!--                <button type="button" id="btnMoveRight" onclick="moveRight()" title="Remove from Project">&gt;&gt;</button>-->
+    <!--            </div>-->
 
-<!--            <div id="available-songs-list">-->
-<!--                <h4>Available</h4>-->
-<!--                <table>-->
-<!--                    <tbody id="availableSongsBody" class="tbody">-->
-<!--                    <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">-->
-<!--                        <td th:text="${song.title}">Song title</td>-->
-<!--                    </tr>-->
-<!--                    <tr th:if="${availableSongs == null or availableSongs.isEmpty()}">-->
-<!--                        <td class="muted">Empty</td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-<!--        </div>-->
+    <!--            <div id="available-songs-list">-->
+    <!--                <h4>Available</h4>-->
+    <!--                <table>-->
+    <!--                    <tbody id="availableSongsBody" class="tbody">-->
+    <!--                    <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">-->
+    <!--                        <td th:text="${song.title}">Song title</td>-->
+    <!--                    </tr>-->
+    <!--                    <tr th:if="${availableSongs == null or availableSongs.isEmpty()}">-->
+    <!--                        <td class="muted">Empty</td>-->
+    <!--                    </tr>-->
+    <!--                    </tbody>-->
+    <!--                </table>-->
+    <!--            </div>-->
+    <!--        </div>-->
 
-<!--        &lt;!&ndash; Hidden forms for movement &ndash;&gt;-->
-<!--        <form id="addSongForm" th:action="@{/practiceSet/addSong}" method="post" style="display:none;">-->
-<!--            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />-->
-<!--            <input type="hidden" name="songId" id="addSongId" />-->
-<!--        </form>-->
-<!--        <form id="removeSongForm" th:action="@{/practiceSet/removeSong}" method="post" style="display:none;">-->
-<!--            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />-->
-<!--            <input type="hidden" name="songId" id="removeSongId" />-->
-<!--        </form>-->
-<!--    </section>-->
+    <!--        &lt;!&ndash; Hidden forms for movement &ndash;&gt;-->
+    <!--        <form id="addSongForm" th:action="@{/practiceSet/addSong}" method="post" style="display:none;">-->
+    <!--            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />-->
+    <!--            <input type="hidden" name="songId" id="addSongId" />-->
+    <!--        </form>-->
+    <!--        <form id="removeSongForm" th:action="@{/practiceSet/removeSong}" method="post" style="display:none;">-->
+    <!--            <input type="hidden" name="practiceSetId" th:value="${selectedPracticeSetId}" />-->
+    <!--            <input type="hidden" name="songId" id="removeSongId" />-->
+    <!--        </form>-->
+    <!--    </section>-->
 </div>
 
 <footer id="footerId">Footer goes here</footer>
