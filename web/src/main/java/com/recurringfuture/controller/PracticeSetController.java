@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
+import com.recurringfuture.PracticeSetService;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
@@ -24,17 +25,17 @@ public class PracticeSetController {
 
     private static final Logger logger = LoggerFactory.getLogger(PracticeSetController.class);
 
-    private final PracticeService practiceService;
+    private final PracticeSetService practiceSetService;
 
     @Autowired
-    public PracticeSetController(PracticeService practiceService) {
-        this.practiceService = practiceService;
+    public PracticeSetController(PracticeSetService practiceSetService) {
+        this.practiceSetService = practiceSetService;
     }
 
     @GetMapping("/practice")
     public String getPracticeSets(Model model) {
         logger.info("PRACTICE: ");
-        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
+        List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);
         return ViewNames.PRACTICE;
     }
@@ -42,27 +43,27 @@ public class PracticeSetController {
     @GetMapping("/practiceSets")
     public String getPracticeSets(@RequestParam(required = false) Integer id, Model model) {
         logger.info("PRACTICE SETS: ");
-        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
+        List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);
 
         if (id != null) {
             logger.info("PRACTICE: ID PRESENT");
-            PracticeSet practiceSet = practiceService.getPracticeSet(id);
-            List<Song> practiceSetSongs = practiceService.getSongsToPractice(id);
+            PracticeSet practiceSet = practiceSetService.getPracticeSet(id);
+            List<Song> practiceSetSongs = practiceSetService.getSongsToPractice(id);
             model.addAttribute("practiceSetSongs", practiceSetSongs);
             model.addAttribute("selectedPracticeSetId", id);
             model.addAttribute("selectedPracticeSetTitle", practiceSet.getTitle());
-            List<Song> availableSongs = practiceService.getAvailableSongsToPractice(id);
+            List<Song> availableSongs = practiceSetService.getAvailableSongsToPractice(id);
             model.addAttribute("availableSongs", availableSongs);
         } else if (!practiceSets.isEmpty()) {
             logger.info("PRACTICE: NO ID");
             int firstPracticeSettId = practiceSets.getFirst().getId();
             String practiceSetTitle = practiceSets.getFirst().getTitle();
-            List<Song> practiceSetSongs = practiceService.getSongsToPractice(firstPracticeSettId);
+            List<Song> practiceSetSongs = practiceSetService.getSongsToPractice(firstPracticeSettId);
             model.addAttribute("practiceSetSongs", practiceSetSongs);
             model.addAttribute("selectedPracticeSetId", firstPracticeSettId);
             model.addAttribute("selectedPracticeSetTitle", practiceSetTitle);
-            List<Song> availableSongs = practiceService.getAvailableSongsToPractice(firstPracticeSettId);
+            List<Song> availableSongs = practiceSetService.getAvailableSongsToPractice(firstPracticeSettId);
             model.addAttribute("availableSongs", availableSongs);
         } else {
             logger.info("PRACTICE: EMPTY");
@@ -76,19 +77,19 @@ public class PracticeSetController {
     @PostMapping("/savePracticeSet")
     public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet, Model model) {
         logger.info("SAVE PRACTICESET: {}", practiceSet.getTitle());
-        practiceService.savePracticeSet(practiceSet);
+        practiceSetService.savePracticeSet(practiceSet);
         return "redirect:/practiceSets";
     }
 
     @PostMapping("/practiceSet/addSong")
     public String addSongToPracticeSet(@RequestParam int practiceSetId, @RequestParam int songId) {
-        practiceService.addSongToPracticeSet(practiceSetId, songId);
+        practiceSetService.addSongToPracticeSet(practiceSetId, songId);
         return "redirect:/practiceSets?id=" + practiceSetId;
     }
 
     @PostMapping("/practiceSet/removeSong")
     public String removeSongFromProject(@RequestParam int projectId, @RequestParam int songId) {
-        practiceService.removeSongFromPracticeSet(projectId, songId);
+        practiceSetService.removeSongFromPracticeSet(projectId, songId);
         return "redirect:/practiceSets?id=" + projectId;
     }
 }
