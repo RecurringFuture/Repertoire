@@ -1,8 +1,6 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
-import com.recurringfuture.PracticeSetService;
-import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -11,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -23,7 +19,6 @@ public class PracticeController {
     private final PracticeService practiceService;
 
     @Autowired
-
     public PracticeController(PracticeService practiceSetService) {
         this.practiceService = practiceSetService;
     }
@@ -43,5 +38,5 @@ public class PracticeController {
 //        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
 //        model.addAttribute("practiceSets", practiceSets);
 //        return ViewNames.PRACTICE;
-    }
+//    }
 }

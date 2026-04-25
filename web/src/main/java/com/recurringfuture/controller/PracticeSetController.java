@@ -1,6 +1,5 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.PracticeService;
 import com.recurringfuture.PracticeSetService;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
@@ -32,16 +31,18 @@ public class PracticeSetController {
         this.practiceSetService = practiceSetService;
     }
 
-    @GetMapping("/practice")
+    @GetMapping("practiceSets")
     public String getPracticeSets(Model model) {
         logger.info("PRACTICE: ");
         List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
+        logger.info("PRACTICE 1: " + practiceSets);
         model.addAttribute("practiceSets", practiceSets);
-        return ViewNames.PRACTICE;
+        model.addAttribute("practiceSet", new PracticeSet());
+        return ViewNames.PRACTICE_SETS;
     }
 
-    @GetMapping("/practiceSets")
-    public String getPracticeSets(@RequestParam(required = false) Integer id, Model model) {
+    @GetMapping("/showPracticeSets")
+    public String showPracticeSets(@RequestParam(required = false) Integer id, Model model) {
         logger.info("PRACTICE SETS: ");
         List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
         model.addAttribute("practiceSets", practiceSets);

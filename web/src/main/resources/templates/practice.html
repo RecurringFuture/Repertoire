@@ -26,7 +26,10 @@
                 <button class="button" type="button" id="chooseFromAll" th:onclick="@{/songs/}">Choose songs</button>
 
             </div>
-<!--        </div>-->
+        <!-- Hidden forms for movement -->
+        <form id="getRandomSongs" th:action="@{/practice/addSong}" method="post" style="display:none;">
+            <input type="hidden" name="numberOfRandomSongs" th:value="${numberOfRandomSongs}" />
+        </form>
     </section>
 
     <!--    <section class="project-right">-->

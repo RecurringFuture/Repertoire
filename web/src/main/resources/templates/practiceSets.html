@@ -30,7 +30,7 @@
                 <tbody>
                 <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
                     <td>
-                        <a th:href="@{/practiceSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
+                        <a th:href="@{/showPracticeSets(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
                     </td>
                 </tr>
                 </tbody>
