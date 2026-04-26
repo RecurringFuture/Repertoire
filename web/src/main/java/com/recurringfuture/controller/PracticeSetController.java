@@ -79,18 +79,18 @@ public class PracticeSetController {
     public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet, Model model) {
         logger.info("SAVE PRACTICESET: {}", practiceSet.getTitle());
         practiceSetService.savePracticeSet(practiceSet);
-        return "redirect:/practiceSets";
+        return "redirect:/showPracticeSets";
     }
 
     @PostMapping("/practiceSet/addSong")
     public String addSongToPracticeSet(@RequestParam int practiceSetId, @RequestParam int songId) {
         practiceSetService.addSongToPracticeSet(practiceSetId, songId);
-        return "redirect:/practiceSets?id=" + practiceSetId;
+        return "redirect:/showPracticeSets?id=" + practiceSetId;
     }
 
     @PostMapping("/practiceSet/removeSong")
-    public String removeSongFromProject(@RequestParam int projectId, @RequestParam int songId) {
-        practiceSetService.removeSongFromPracticeSet(projectId, songId);
-        return "redirect:/practiceSets?id=" + projectId;
+    public String removeSongFromProject(@RequestParam int practiceSetId, @RequestParam int songId) {
+        practiceSetService.removeSongFromPracticeSet(practiceSetId, songId);
+        return "redirect:/showPracticeSets?id=" + practiceSetId;
     }
 }
