@@ -10,16 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Controller
+@RequestMapping("/practiceSet")
 public class PracticeSetController {
 
     private static final Logger logger = LoggerFactory.getLogger(PracticeSetController.class);
@@ -31,7 +29,7 @@ public class PracticeSetController {
         this.practiceSetService = practiceSetService;
     }
 
-    @GetMapping("practiceSets")
+    @GetMapping("/")
     public String getPracticeSets(Model model) {
         logger.info("PRACTICE: ");
         List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
@@ -41,7 +39,7 @@ public class PracticeSetController {
         return ViewNames.PRACTICE_SETS;
     }
 
-    @GetMapping("/showPracticeSets")
+    @GetMapping("/show")
     public String showPracticeSets(@RequestParam(required = false) Integer id, Model model) {
         logger.info("PRACTICE SETS: ");
         List<PracticeSet> practiceSets = practiceSetService.getPracticeSets();
@@ -75,22 +73,22 @@ public class PracticeSetController {
         return ViewNames.PRACTICE_SETS;
     }
 
-    @PostMapping("/savePracticeSet")
-    public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet, Model model) {
+    @PostMapping("/save")
+    public String addPracticeSet(@ModelAttribute("practiceSet") PracticeSet practiceSet) {
         logger.info("SAVE PRACTICESET: {}", practiceSet.getTitle());
         practiceSetService.savePracticeSet(practiceSet);
-        return "redirect:/showPracticeSets";
+        return "redirect:/practiceSet/show";
     }
 
-    @PostMapping("/practiceSet/addSong")
+    @PostMapping("/addSong")
     public String addSongToPracticeSet(@RequestParam int practiceSetId, @RequestParam int songId) {
         practiceSetService.addSongToPracticeSet(practiceSetId, songId);
-        return "redirect:/showPracticeSets?id=" + practiceSetId;
+        return "redirect:/practiceSet/show?id=" + practiceSetId;
     }
 
-    @PostMapping("/practiceSet/removeSong")
+    @PostMapping("/removeSong")
     public String removeSongFromProject(@RequestParam int practiceSetId, @RequestParam int songId) {
         practiceSetService.removeSongFromPracticeSet(practiceSetId, songId);
-        return "redirect:/showPracticeSets?id=" + practiceSetId;
+        return "redirect:/practiceSet/show?id=" + practiceSetId;
     }
 }
