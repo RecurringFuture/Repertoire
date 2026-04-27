@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
+import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -25,12 +28,21 @@ public class PracticeController {
         this.practiceService = practiceSetService;
     }
 
-    @GetMapping("/random")
+    @GetMapping("/")
     public String getPracticeModel(Model model) {
         logger.info("PRACTICE: ");
-//        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
-        String numberOfRandomSongs = "";
-        model.addAttribute("numberOfRandomSongs", numberOfRandomSongs);
+        model.addAttribute("numberOfRandomSongs", "");
+        model.addAttribute("songs", Collections.emptyList());
+        model.addAttribute("total", 0);
+        return ViewNames.PRACTICE;
+    }
+
+    @GetMapping("/songs")
+    public String getAllSongs(Model model) {
+        List<Song> songs = practiceService.getSongs();
+        logger.info("PRACTICE SONGS: " + songs.size());
+        model.addAttribute("songs", songs);
+        model.addAttribute("total", songs.size());
         return ViewNames.PRACTICE;
     }
 

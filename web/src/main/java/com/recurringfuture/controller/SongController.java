@@ -36,7 +36,7 @@ public class SongController {
         this.tuningService = tuningService;
     }
 
-    @GetMapping("songs")
+    @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs = songService.getSongs();
         logger.info("SONGS: " + songs.size());
@@ -57,7 +57,7 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
-    @GetMapping("song")
+    @GetMapping("/song")
     public String getSong(int id, Model model) {
         Song song = songService.getSong(id);
         Logger log = LoggerFactory.getLogger(SongController.class);
@@ -66,13 +66,13 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
-    @GetMapping("importSongs")
+    @GetMapping("/importSongs")
     public String importSong() {
         logger.info("IMPORT");
         return ViewNames.IMPORT_SONGS;
     }
 
-    @GetMapping("addSong")
+    @GetMapping("/addSong")
     public String addSong(Model model) {
         model.addAttribute("song", new Song());
         logger.info("ADD SONG");
@@ -87,21 +87,21 @@ public class SongController {
     }
 
     @PostMapping("saveSong")
-    public String saveSong(@ModelAttribute("song") Song song, Model model) {
+    public String saveSong(@ModelAttribute("song") Song song) {
         logger.info("SAVE SONG");
         songService.saveSong(song);
         return "redirect:" + ViewNames.ADD_SONG;
     }
 
     @PostMapping("updateSong")
-    public String updateSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
+    public String updateSong(@ModelAttribute("selectedSong") Song selectedSong) {
         logger.info("UPDATE SONG");
         songService.updateSong(selectedSong);
         return "redirect:/" + ViewNames.SONGS;
     }
 
     @PostMapping("deleteSong")
-    public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong, Model model) {
+    public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong) {
         songService.deleteSong(selectedSong.getId());
         return "redirect:/" + ViewNames.SONGS;
     }
