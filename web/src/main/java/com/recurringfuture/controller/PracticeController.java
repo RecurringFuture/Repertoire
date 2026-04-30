@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -46,11 +49,14 @@ public class PracticeController {
         return ViewNames.PRACTICE;
     }
 
-//    @GetMapping("/practice")
-//    public String getPracticeSets(Model model) {
-//        logger.info("PRACTICE: GET PRACTICE SETS");
-//        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
-//        model.addAttribute("practiceSets", practiceSets);
-//        return ViewNames.PRACTICE;
-//    }
+    @PostMapping("/random")
+    public String getRandomNumberOfSongs(@RequestParam(required = false) String numberOfRandomSongs, Model model) {
+        logger.info("PRACTICE: GET RANDOM NUMER OF SONGS: " + numberOfRandomSongs);
+        int randomSongs = Integer.parseInt(numberOfRandomSongs);
+        if (randomSongs > 0 && randomSongs < practiceService.getTotalNumberOfSongs()) {
+            model.addAttribute("songs", practiceService.getRandomSongs(randomSongs));
+        }
+
+        return ViewNames.PRACTICE;
+    }
 }

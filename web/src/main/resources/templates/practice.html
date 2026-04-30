@@ -28,17 +28,17 @@
 
         </div>
         <!-- Hidden forms for movement -->
-        <form id="getRandomSongs" method="post" style="display:none;" th:action="@{/practice/addSong}">
-            <input name="numberOfRandomSongs" th:value="${numberOfRandomSongs}" type="hidden"/>
+        <form id="getRandomSongs" method="post" style="display:none;" th:action="@{/practice/random}">
+            <input id="numberOfRandomSongs" name="numberOfRandomSongs" th:value="${numberOfRandomSongs}" type="hidden"/>
         </form>
     </section>
 
     <section class="project-right">
-        <div th:if="${songs != null or songs.isEmpty()}">
+        <div th:if="${songs != null and !songs.isEmpty()}">
 
             <table>
                 <thead>
-                <tr th:if="${songs != null or !songs.isEmpty()}">
+                <tr>
                     <th th:text="|Total: ${total}|">Total:</th>
                 </tr>
                 </thead>
