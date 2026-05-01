@@ -18,7 +18,7 @@
             <button class="button" id="chooseRandom" th:onclick="onRandomClick()" type="button">Random</button>
             <hr/>
             <label for="choosePracticeSet">Choose a Practice Set to practice</label>
-            <button class="button" id="choosePracticeSet" type="button">Practice Set</button>
+            <button class="button" id="choosePracticeSet" th:onclick=|window.location.href='@{/practice/practiceSets}'| type="button">Practice Set</button>
             <hr/>
             <label for="chooseFromAll">Choose songs from all songs to practice</label>
             <button class="button" id="chooseFromAll" th:onclick=|window.location.href='@{/practice/songs}'| type="button">Choose songs
@@ -32,7 +32,6 @@
 
     <section class="project-right">
         <div th:if="${songs != null and !songs.isEmpty()}">
-
             <table>
                 <thead>
                 <tr>
@@ -55,6 +54,27 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div th:if="${practiceSets != null and !practiceSets.isEmpty()}">
+            <br>
+            <table>
+                <thead>
+                <tr>
+                    <th>PracticeSet Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${practiceSets}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
+                    <td>
+                        <a th:href="@{/practiceSet/show(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${practiceSets == null or practiceSets.isEmpty()}">
+            <h4>Create your first Practice Set</h4>
         </div>
     </section>
 </div>

@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
+import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,15 @@ public class PracticeController {
             model.addAttribute("songs", practiceService.getRandomSongs(randomSongs));
         }
 
+        return ViewNames.PRACTICE;
+    }
+
+    @GetMapping("/practiceSets")
+    public String getPracticeSets(Model model) {
+        logger.info("PRACTICE SETS: ");
+        List<PracticeSet> practiceSets = practiceService.getPracticeSets();
+        model.addAttribute("practiceSets", practiceSets);
+        model.addAttribute("practiceSet", new PracticeSet());
         return ViewNames.PRACTICE;
     }
 }

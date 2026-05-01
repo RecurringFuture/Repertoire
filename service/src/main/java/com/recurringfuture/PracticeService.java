@@ -1,6 +1,8 @@
 package com.recurringfuture;
 
+import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.repository.PracticeSetRepo;
 import com.recurringfuture.repository.SongRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import java.util.List;
 public class PracticeService {
 
     private final SongRepo songRepo;
+    private final PracticeSetRepo practiceSetRepo;
 
     @Autowired
-    public PracticeService(SongRepo songRepo) {
+    public PracticeService(SongRepo songRepo, PracticeSetRepo practiceSetRepo) {
         this.songRepo = songRepo;
+        this.practiceSetRepo = practiceSetRepo;
     }
 
     public List<Song> getSongs() {
@@ -34,4 +38,9 @@ public class PracticeService {
     public int getTotalNumberOfSongs() {
         return Math.toIntExact(songRepo.count());
     }
+
+    public List<PracticeSet> getPracticeSets() {
+        return practiceSetRepo.findAll(Sort.by(Sort.Direction.ASC, "title"));
+    }
+
 }
