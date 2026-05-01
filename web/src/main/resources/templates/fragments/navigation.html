@@ -1,5 +1,5 @@
 <div id="navigationId" class="navbar">
-    <img src="images/Repertoire_node_key.png" height="40" width="15" alt=""/>
+    <img src="../images/Repertoire_node_key.png" height="40" width="15" alt=""/>
     <a href="/">Home</a>
     <div id="songsButton" class="dropdown">
         <button class="dropbtn" onclick="showFunction('songsDropdown')">Songs
@@ -12,15 +12,17 @@
         </div>
     </div>
     <a href="/projects">Projects</a>
+    <a href="/practiceSet/">Practice Sets</a>
     <div id="practiceButton" class="dropdown">
         <button class="dropbtn" onclick="showFunction('practiceDropdown')">Practice
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content" id="practiceDropdown">
-            <a href="/practiceSet/">Practice Sets</a>
-            <a href="/practice/">Practice</a>
+            <a th:href="'javascript:onRandomClick()'">Random</a>
+            <a href="/practice/practiceSets">Practice Set</a>
+            <a href="/practice/songs">Choose Songs</a>
         </div>
     </div>
-<!--    <a href="/practiceSets">Practice</a>-->
     <a href="#settings">Settings</a>
+    <script type="text/javascript" th:src="@{/js/practice.js}"></script>
 </div>
