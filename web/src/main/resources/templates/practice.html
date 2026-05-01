@@ -13,24 +13,6 @@
 <div class="project-layout">
     <!-- LEFT: Projects list -->
     <section class="project-left">
-        <div>
-            <label for="chooseRandom">Choose a number of random songs to practice</label><br>
-            <button class="button" id="chooseRandom" th:onclick="onRandomClick()" type="button">Random</button>
-            <hr/>
-            <label for="choosePracticeSet">Choose a Practice Set to practice</label>
-            <button class="button" id="choosePracticeSet" th:onclick=|window.location.href='@{/practice/practiceSets}'| type="button">Practice Set</button>
-            <hr/>
-            <label for="chooseFromAll">Choose songs from all songs to practice</label>
-            <button class="button" id="chooseFromAll" th:onclick=|window.location.href='@{/practice/songs}'| type="button">Choose songs
-            </button>
-        </div>
-        <!-- Hidden forms for movement -->
-        <form id="getRandomSongs" method="post" style="display:none;" th:action="@{/practice/random}">
-            <input id="numberOfRandomSongs" name="numberOfRandomSongs" th:value="${numberOfRandomSongs}" type="hidden"/>
-        </form>
-    </section>
-
-    <section class="project-right">
         <div th:if="${songs != null and !songs.isEmpty()}">
             <table>
                 <thead>
@@ -73,9 +55,10 @@
                 </tbody>
             </table>
         </div>
-        <div th:if="${practiceSets == null or practiceSets.isEmpty()}">
-            <h4>Create your first Practice Set</h4>
-        </div>
+    </section>
+
+    <section class="project-right">
+
     </section>
 </div>
 

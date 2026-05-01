@@ -65,8 +65,12 @@ public class PracticeController {
     public String getPracticeSets(Model model) {
         logger.info("PRACTICE SETS: ");
         List<PracticeSet> practiceSets = practiceService.getPracticeSets();
-        model.addAttribute("practiceSets", practiceSets);
-        model.addAttribute("practiceSet", new PracticeSet());
-        return ViewNames.PRACTICE;
+        if (practiceSets.isEmpty()) {
+            return ViewNames.PRACTICE_SETS;
+        } else {
+            model.addAttribute("practiceSets", practiceSets);
+            model.addAttribute("practiceSet", new PracticeSet());
+            return ViewNames.PRACTICE;
+        }
     }
 }
