@@ -32,6 +32,11 @@
                     <td>
                         <a th:href="@{/practiceSet/show(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
                     </td>
+                    <td style="text-align:right;">
+                        <a th:href="@{/practiceSet/delete/{id}(id=${p.id})}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -80,6 +80,13 @@ public class PracticeSetController {
         return "redirect:/practiceSet/show";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deletePracticeSet(@PathVariable Integer id) {
+        logger.info("DELETE PRACTICESET: {}", id);
+        practiceSetService.deletePracticeSet(id);
+        return  "redirect:/practiceSet/show";
+    }
+
     @PostMapping("/addSong")
     public String addSongToPracticeSet(@RequestParam int practiceSetId, @RequestParam int songId) {
         practiceSetService.addSongToPracticeSet(practiceSetId, songId);
