@@ -31,7 +31,7 @@
 <!--                <td th:text="${iStat.index + 1}"></td>-->
                 <td>
                     <a th:href="@{/songs(id=${song.id})}"
-                       th:text="${(iStat.index + 1) + ' '+ song.title}">
+                       th:text="${(iStat.index + 1) + '. '+ song.title}">
                         Song title
                     </a>
                 </td>
@@ -56,10 +56,8 @@
                 <label for="title">Title</label>
                 <input id="title" type="text" th:field="*{title}" />
 
-
-
                 <label for="keyId">Key</label>
-                <select name="keyStat" id="keyId" >
+                <select name="keyStat" id="keyId" th:field="*{key}">
                     <option th:each="key : ${keys}" th:value="${keys.indexOf(key)}" th:text="${key}"></option>
                 </select>
 
@@ -77,7 +75,7 @@
                 </select>
 
                 <label for="genreId">Genre</label>
-                <select id="genreId"  th:field="*{genre}">
+                <select id="genreId"  th:field="*{genre}">tuningService
                     <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
                 </select>
 
@@ -90,8 +88,8 @@
                 <input id="duration" type="text" th:field="*{duration}" />
 
                 <label for="statedId">State</label>
-                <select id="statedId" >
-                    <option th:each="state : ${states}"  th:text="${state}"></option>
+                <select name="statName" id="statedId" th:field="*{state}">
+                    <option th:each="state : ${states}"  th:value="${states.indexOf(state)}" th:text="${state}"></option>
                 </select>
 
                 <label for="alert">Alert</label>

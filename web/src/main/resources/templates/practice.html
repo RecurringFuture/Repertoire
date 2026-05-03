@@ -28,8 +28,8 @@
 
                 <tr th:each="song, iStat : ${songs}">
                     <td>
-                        <a th:href="@{/songs(id=${song.id})}"
-                           th:text="${(iStat.index + 1) + ' '+ song.title}">
+                        <a th:href="@{/practice/songs(id=${song.id})}"
+                           th:text="${(iStat.index + 1) + '. '+ song.title}">
                             Song title
                         </a>
                     </td>
@@ -58,6 +58,78 @@
     </section>
 
     <section class="project-right">
+        <div th:if="${selectedSong == null}" class="muted">
+            Click a song on the left to see its details.
+        </div>
+
+        <form action="#" th:if="${selectedSong != null}"  th:action="@{updateSong}" th:object="${selectedSong}" method="post">
+            <div class="form-grid">
+
+                <input id="id" type="hidden" th:field="*{id}" readonly />
+
+                <label for="title">Title</label>
+                <input id="title" type="text" th:field="*{title}" />
+
+
+
+                <label for="keyId">Key</label>
+                <select name="keyStat" id="keyId" >
+                    <option th:each="key : ${keys}" th:value="${keys.indexOf(key)}" th:text="${key}"></option>
+                </select>
+
+                <label for="tuningId">Tuning</label>
+                <select id="tuningId" th:field="*{tuning}">
+                    <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
+                </select>
+
+                <label for="composer">Composer</label>
+                <input id="composer" type="text" th:field="*{composer}" />
+
+                <label for="capoId">Capo position</label>
+                <select id="capoId" th:field="*{capo}">
+                    <option th:each="capo_position : ${capoPositions}" th:value="${capoPositions.indexOf(capo_position)}" th:text="${capo_position}"></option>
+                </select>
+
+                <label for="genreId">Genre</label>
+                <select id="genreId"  th:field="*{genre}">
+                    <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
+                </select>
+
+                <label for="tempo">Tempo</label>
+                <input id="tempo" type="number" min="0" th:field="*{tempo}" th:onkeypress="return (event.charCode !=8 &&
+                event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+
+
+                <label for="duration">Duration</label>
+                <input id="duration" type="text" th:field="*{duration}" />
+
+                <label for="statedId">State</label>
+                <select id="statedId" >
+                    <option th:each="state : ${states}"  th:text="${state}"></option>
+                </select>
+
+                <label for="alert">Alert</label>
+                <input class=".chk" id="alert" type="checkbox" th:checked="${alert}"/>
+
+                <label for="periodId">Alert frequency</label>
+                <select id="periodId" >
+                    <option th:each="p : ${thresholds}"  th:text="${p}"></option>
+                </select>
+
+                <label for="count">Count</label>
+                <input id="count" type="number" th:field="*{count}" readonly/>
+
+                <label for="lastPerformedDate">Last Performed</label>
+                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
+
+                <input id="creationDate" type="hidden" th:value="*{creationDate}" readonly />
+
+                <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly /><br>
+
+                <input type="submit" name="update" value="Update">
+                <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />
+            </div>
+        </form>
 
     </section>
 </div>

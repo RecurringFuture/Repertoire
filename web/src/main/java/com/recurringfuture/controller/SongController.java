@@ -26,14 +26,10 @@ public class SongController {
     private static final Logger logger = LoggerFactory.getLogger(SongController.class);
 
     private final SongService songService;
-    private final GenreService genreService;
-    private final TuningService tuningService;
 
     @Autowired
-    public SongController(SongService songService, GenreService genreService, TuningService tuningService) {
+    public SongController(SongService songService) {
         this.songService = songService;
-        this.genreService = genreService;
-        this.tuningService = tuningService;
     }
 
     @GetMapping("/songs")
@@ -46,8 +42,8 @@ public class SongController {
         if (id != null) {
             Song selected = songService.getSong(id);
             model.addAttribute("selectedSong", selected);
-            model.addAttribute("genres", genreService.findAll());
-            model.addAttribute("tunings", tuningService.getTunings());
+            model.addAttribute("genres", songService.findAll());
+            model.addAttribute("tunings", songService.getTunings());
             model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
             model.addAttribute("keys", RepertoireData.getKeys());
             model.addAttribute("thresholds", RepertoireData.getThresholds());
@@ -97,7 +93,7 @@ public class SongController {
     public String updateSong(@ModelAttribute("selectedSong") Song selectedSong) {
         logger.info("UPDATE SONG");
         songService.updateSong(selectedSong);
-        return "redirect:/" + ViewNames.SONGS;
+        return "redirect:/songs?id=" + selectedSong.getId();
     }
 
     @PostMapping("deleteSong")

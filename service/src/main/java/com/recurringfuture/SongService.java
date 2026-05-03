@@ -1,7 +1,11 @@
 package com.recurringfuture;
 
+import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.entity.Tuning;
+import com.recurringfuture.repository.GenreRepo;
 import com.recurringfuture.repository.SongRepo;
+import com.recurringfuture.repository.TuningRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -27,10 +31,14 @@ public class SongService {
     private static final Logger logger = LoggerFactory.getLogger(SongService.class);
 
     private final SongRepo songRepo;
+    private final GenreRepo genreRepo;
+    private final TuningRepo tuningRepo;
 
     @Autowired
-    public SongService(SongRepo songRepo) {
+    public SongService(SongRepo songRepo, GenreRepo genreRepo, TuningRepo tuningRepo) {
         this.songRepo = songRepo;
+        this.genreRepo = genreRepo;
+        this.tuningRepo = tuningRepo;
     }
 
     public List<Song> getSongs() {
@@ -72,6 +80,14 @@ public class SongService {
         song.setModificationDate(localDate);
         logger.info("Saving song: " + song.getTitle());
         songRepo.save(song);
+    }
+
+    public List<Genre> findAll() {
+        return genreRepo.findAll();
+    }
+
+    public List<Tuning> getTunings() {
+        return tuningRepo.findAll();
     }
 
 }

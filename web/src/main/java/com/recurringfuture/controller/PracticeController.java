@@ -3,6 +3,7 @@ package com.recurringfuture.controller;
 import com.recurringfuture.PracticeService;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -42,11 +43,23 @@ public class PracticeController {
     }
 
     @GetMapping("/songs")
-    public String getAllSongs(Model model) {
+    public String getAllSongs(@RequestParam(required = false) Integer id,Model model) {
         List<Song> songs = practiceService.getSongs();
         logger.info("PRACTICE SONGS: " + songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
+
+        if (id != null) {
+            Song selected = practiceService.getSong(id);
+            model.addAttribute("selectedSong", selected);
+            model.addAttribute("genres", practiceService.findAll());
+            model.addAttribute("tunings", practiceService.getTunings());
+            model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
+            model.addAttribute("keys", RepertoireData.getKeys());
+            model.addAttribute("thresholds", RepertoireData.getThresholds());
+            model.addAttribute("states", RepertoireData.getStates());
+            model.addAttribute("total", songs.size());
+        }
         return ViewNames.PRACTICE;
     }
 
