@@ -90,10 +90,10 @@
                     <option th:each="capo_position : ${capoPositions}" th:value="${capoPositions.indexOf(capo_position)}" th:text="${capo_position}"></option>
                 </select>
 
-                <label for="genreId">Genre</label>
-                <select id="genreId"  th:field="*{genre}">
-                    <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>
-                </select>
+<!--                <label for="genreId">Genre</label>-->
+<!--                <select id="genreId"  th:field="*{genre}">-->
+<!--                    <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>-->
+<!--                </select>-->
 
                 <label for="tempo">Tempo</label>
                 <input id="tempo" type="number" min="0" th:field="*{tempo}" th:onkeypress="return (event.charCode !=8 &&
@@ -103,18 +103,18 @@
                 <label for="duration">Duration</label>
                 <input id="duration" type="text" th:field="*{duration}" />
 
-                <label for="statedId">State</label>
-                <select id="statedId" >
-                    <option th:each="state : ${states}"  th:text="${state}"></option>
-                </select>
+<!--                <label for="statedId">State</label>-->
+<!--                <select id="statedId" >-->
+<!--                    <option th:each="state : ${states}"  th:text="${state}"></option>-->
+<!--                </select>-->
 
-                <label for="alert">Alert</label>
-                <input class=".chk" id="alert" type="checkbox" th:checked="${alert}"/>
+<!--                <label for="alert">Alert</label>-->
+<!--                <input class=".chk" id="alert" type="checkbox" th:checked="${alert}"/>-->
 
-                <label for="periodId">Alert frequency</label>
-                <select id="periodId" >
-                    <option th:each="p : ${thresholds}"  th:text="${p}"></option>
-                </select>
+<!--                <label for="periodId">Alert frequency</label>-->
+<!--                <select id="periodId" >-->
+<!--                    <option th:each="p : ${thresholds}"  th:text="${p}"></option>-->
+<!--                </select>-->
 
                 <label for="count">Count</label>
                 <input id="count" type="number" th:field="*{count}" readonly/>
@@ -127,7 +127,7 @@
                 <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly /><br>
 
                 <input type="submit" name="update" value="Update">
-                <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />
+<!--                <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}" />-->
             </div>
         </form>
 
