@@ -62,65 +62,41 @@
             Click a song on the left to see its details.
         </div>
 
-        <form action="#" th:if="${selectedSong != null}"  th:action="@{updateSong}" th:object="${selectedSong}" method="post">
+        <form action="#" th:if="${selectedSong != null}" th:disabled="true" th:action="@{updateSong}" th:object="${selectedSong}" method="post">
             <div class="form-grid">
 
                 <input id="id" type="hidden" th:field="*{id}" readonly />
 
                 <label for="title">Title</label>
-                <input id="title" type="text" th:field="*{title}" />
-
-
+                <input id="title" type="text" th:disabled="true" th:field="*{title}" />
 
                 <label for="keyId">Key</label>
-                <select name="keyStat" id="keyId" >
-                    <option th:each="key : ${keys}" th:value="${keys.indexOf(key)}" th:text="${key}"></option>
-                </select>
+                <input id="keyId" type="text" th:disabled="true" th:field="*{key}" />
 
                 <label for="tuningId">Tuning</label>
-                <select id="tuningId" th:field="*{tuning}">
-                    <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
-                </select>
+                <div id="tuningId" th:text="*{tuning}"></div>
+<!--                <input id="tuningId" type="text" th:disabled="true" th:field="${tuning}" />-->
 
                 <label for="composer">Composer</label>
-                <input id="composer" type="text" th:field="*{composer}" />
+                <input id="composer" type="text" th:disabled="true" th:field="*{composer}" />
 
                 <label for="capoId">Capo position</label>
-                <select id="capoId" th:field="*{capo}">
-                    <option th:each="capo_position : ${capoPositions}" th:value="${capoPositions.indexOf(capo_position)}" th:text="${capo_position}"></option>
-                </select>
+                <input id="capoId" type="text" th:disabled="true" th:field="*{capo}" />
 
-<!--                <label for="genreId">Genre</label>-->
-<!--                <select id="genreId"  th:field="*{genre}">-->
-<!--                    <option th:each="genre : ${genres}" th:value="${genre.getId()}" th:text="${genre.getTitle()}"></option>-->
-<!--                </select>-->
+                <label for="genreId">Genre</label>
+                <input id="genreId" type="text" th:disabled="true" th:field="*{genre}" />
 
                 <label for="tempo">Tempo</label>
-                <input id="tempo" type="number" min="0" th:field="*{tempo}" th:onkeypress="return (event.charCode !=8 &&
-                event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
-
+                <input id="tempo" type="text" th:disabled="true" th:field="*{tempo}" />
 
                 <label for="duration">Duration</label>
-                <input id="duration" type="text" th:field="*{duration}" />
-
-<!--                <label for="statedId">State</label>-->
-<!--                <select id="statedId" >-->
-<!--                    <option th:each="state : ${states}"  th:text="${state}"></option>-->
-<!--                </select>-->
-
-<!--                <label for="alert">Alert</label>-->
-<!--                <input class=".chk" id="alert" type="checkbox" th:checked="${alert}"/>-->
-
-<!--                <label for="periodId">Alert frequency</label>-->
-<!--                <select id="periodId" >-->
-<!--                    <option th:each="p : ${thresholds}"  th:text="${p}"></option>-->
-<!--                </select>-->
+                <input id="duration" type="text" th:disabled="true" th:field="*{duration}" />
 
                 <label for="count">Count</label>
-                <input id="count" type="number" th:field="*{count}" readonly/>
+                <input id="count" type="number" th:disabled="true" th:field="*{count}"/>
 
                 <label for="lastPerformedDate">Last Performed</label>
-                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly />
+                <input id="lastPerformedDate" type="text" th:disabled="true" th:value="*{lastPerformedDate}"/>
 
                 <input id="creationDate" type="hidden" th:value="*{creationDate}" readonly />
 

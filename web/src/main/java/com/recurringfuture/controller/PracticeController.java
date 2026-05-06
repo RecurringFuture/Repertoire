@@ -1,8 +1,10 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
+import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +26,7 @@ import java.util.List;
 @RequestMapping("/practice")
 public class PracticeController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PracticeSetController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PracticeController.class);
 
     private final PracticeService practiceService;
 
@@ -39,26 +41,29 @@ public class PracticeController {
         model.addAttribute("numberOfRandomSongs", "");
         model.addAttribute("songs", Collections.emptyList());
         model.addAttribute("total", 0);
+        logger.info("PRACTICE /: " + model.getAttribute("songs"));
         return ViewNames.PRACTICE;
     }
 
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id,Model model) {
         List<Song> songs = practiceService.getSongs();
-        logger.info("PRACTICE SONGS: " + songs.size());
+        logger.info("PRACTICE /SONGS: " + songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
 
         if (id != null) {
             Song selected = practiceService.getSong(id);
             model.addAttribute("selectedSong", selected);
-            model.addAttribute("genres", practiceService.findAll());
-            model.addAttribute("tunings", practiceService.getTunings());
-            model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
-            model.addAttribute("keys", RepertoireData.getKeys());
-            model.addAttribute("thresholds", RepertoireData.getThresholds());
-            model.addAttribute("states", RepertoireData.getStates());
-            model.addAttribute("total", songs.size());
+            List<Genre> genres = practiceService.getGenres();
+            model.addAttribute("genre", genres.get(Integer.parseInt(selected.getGenre())));
+            List<Tuning> tunings = practiceService.getTunings();
+            model.addAttribute("tuning", tunings.get(Integer.parseInt(selected.getTuning())).getTuning());
+            model.addAttribute("capoPosition", selected.getCapo());
+            List<String> keys = RepertoireData.getKeys();
+            model.addAttribute("key", keys.get(Integer.parseInt(selected.getKey())));
+            model.addAttribute("state", selected.getState());
+            logger.info("PRACTICE /SONGS/ID: " + tunings.get(Integer.parseInt(selected.getTuning())).getTuning());
         }
         return ViewNames.PRACTICE;
     }
