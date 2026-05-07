@@ -1,6 +1,5 @@
 package com.recurringfuture;
 
-import com.recurringfuture.dto.SelectedSongDTO;
 import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -65,9 +63,12 @@ public class PracticeService {
         return tuningRepo.findAll();
     }
 
-    public SelectedSongDTO getSelectedSong(int id) {
-        Optional<Song> selectecSong = songRepo.findById(id);
-
-    }
+//    public SelectedSongDTO getSelectedSong(int id) {
+//        Optional<Song> selectecSong = songRepo.findById(id);
+//        if (selectecSong.isPresent()) {
+//
+//        }
+//
+//    }
 
 }

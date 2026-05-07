@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version>
+        <version>4.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.recurringfuture</groupId>
@@ -31,7 +31,9 @@
 
     <properties>
         <java.version>25</java.version>
-        <spring.boot.version>3.5.7</spring.boot.version>
+        <spring.boot.version>4.0.6</spring.boot.version>
+        <liquibase.version>5.0.2</liquibase.version>
+        <modelmapper.version>3.2.6</modelmapper.version>
     </properties>
 
     <dependencies>
@@ -60,8 +62,14 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>5.0.2</version>
+            <version>${liquibase.version}</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
     </dependencies>
 
