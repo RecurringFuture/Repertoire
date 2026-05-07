@@ -1,11 +1,9 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
-import com.recurringfuture.entity.Genre;
+import com.recurringfuture.dto.SelectedSongDTO;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
-import com.recurringfuture.entity.Tuning;
-import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -53,17 +51,15 @@ public class PracticeController {
         model.addAttribute("total", songs.size());
 
         if (id != null) {
-            Song selected = practiceService.getSong(id);
+            SelectedSongDTO selected = practiceService.selectedSongToDto(id);
+
             model.addAttribute("selectedSong", selected);
-            List<Genre> genres = practiceService.getGenres();
-            model.addAttribute("genre", genres.get(Integer.parseInt(selected.getGenre())));
-            List<Tuning> tunings = practiceService.getTunings();
-            model.addAttribute("tuning", tunings.get(Integer.parseInt(selected.getTuning())).getTuning());
+            model.addAttribute("genre", selected.getGenre());
+            model.addAttribute("tuning", selected.getTuning());
             model.addAttribute("capoPosition", selected.getCapo());
-            List<String> keys = RepertoireData.getKeys();
-            model.addAttribute("key", keys.get(Integer.parseInt(selected.getKey())));
+            model.addAttribute("key", selected.getKey());
             model.addAttribute("state", selected.getState());
-            logger.info("PRACTICE /SONGS/ID: " + tunings.get(Integer.parseInt(selected.getTuning())).getTuning());
+            logger.info("PRACTICE /SONGS/ID: " + selected.toString());
         }
         return ViewNames.PRACTICE;
     }
@@ -91,4 +87,6 @@ public class PracticeController {
             return ViewNames.PRACTICE;
         }
     }
+
+
 }

@@ -74,8 +74,7 @@
                 <input id="keyId" type="text" th:disabled="true" th:field="*{key}" />
 
                 <label for="tuningId">Tuning</label>
-                <div id="tuningId" th:text="*{tuning}"></div>
-<!--                <input id="tuningId" type="text" th:disabled="true" th:field="${tuning}" />-->
+                <input id="tuningId" type="text" th:disabled="true" th:field="*{tuning}" />
 
                 <label for="composer">Composer</label>
                 <input id="composer" type="text" th:disabled="true" th:field="*{composer}" />

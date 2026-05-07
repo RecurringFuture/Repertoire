@@ -22,20 +22,4 @@ public class SelectedSongDTO {
     private LocalDate lastPerformedDate;
     private int count;
 
-    public SelectedSongDTO(int id, String title, String composer, String key, String tuning, int capo, int tempo, String genre, String duration, String state, LocalDate creationDate, LocalDate modificationDate, LocalDate lastPerformedDate, int count) {
-        this.id = id;
-        this.title = title;
-        this.composer = composer;
-        this.key = key;
-        this.tuning = tuning;
-        this.capo = capo;
-        this.tempo = tempo;
-        this.genre = genre;
-        this.duration = duration;
-        this.state = state;
-        this.creationDate = creationDate;
-        this.modificationDate = modificationDate;
-        this.lastPerformedDate = lastPerformedDate;
-        this.count = count;
-    }
 }

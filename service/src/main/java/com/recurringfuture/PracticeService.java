@@ -1,5 +1,6 @@
 package com.recurringfuture;
 
+import com.recurringfuture.dto.SelectedSongDTO;
 import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
@@ -8,7 +9,11 @@ import com.recurringfuture.repository.GenreRepo;
 import com.recurringfuture.repository.PracticeSetRepo;
 import com.recurringfuture.repository.SongRepo;
 import com.recurringfuture.repository.TuningRepo;
+import com.recurringfuture.repository.data.RepertoireData;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,13 +29,17 @@ public class PracticeService {
     private final PracticeSetRepo practiceSetRepo;
     private final GenreRepo genreRepo;
     private final TuningRepo tuningRepo;
+    private final ModelMapper modelMapper;
+
+    private static final Logger logger = LoggerFactory.getLogger(PracticeService.class);
 
     @Autowired
-    public PracticeService(SongRepo songRepo, PracticeSetRepo practiceSetRepo, GenreRepo genreRepo, TuningRepo tuningRepo) {
+    public PracticeService(SongRepo songRepo, PracticeSetRepo practiceSetRepo, GenreRepo genreRepo, TuningRepo tuningRepo, ModelMapper modelMapper) {
         this.songRepo = songRepo;
         this.practiceSetRepo = practiceSetRepo;
         this.genreRepo = genreRepo;
         this.tuningRepo = tuningRepo;
+        this.modelMapper = modelMapper;
     }
 
     public List<Song> getSongs() {
@@ -63,12 +72,21 @@ public class PracticeService {
         return tuningRepo.findAll();
     }
 
-//    public SelectedSongDTO getSelectedSong(int id) {
-//        Optional<Song> selectecSong = songRepo.findById(id);
-//        if (selectecSong.isPresent()) {
-//
-//        }
-//
-//    }
+    public SelectedSongDTO selectedSongToDto(int id) {
+        Song song = songRepo.getReferenceById(id);
+        SelectedSongDTO selectedSongDTO = modelMapper.map(song, SelectedSongDTO.class);
+        selectedSongDTO.setCreationDate(song.getCreationDate());
+        selectedSongDTO.setModificationDate(song.getModificationDate());
+        selectedSongDTO.setLastPerformedDate(song.getLastPerformedDate());
+        Tuning t = tuningRepo.getReferenceById(Integer.parseInt(song.getTuning()));
+        selectedSongDTO.setTuning(t.getTuning());
+        Genre g = genreRepo.getReferenceById(Integer.parseInt(song.getGenre()));
+        selectedSongDTO.setGenre(g.getTitle());
+        String key = RepertoireData.getKeys().get(Integer.parseInt(song.getKey()));
+        selectedSongDTO.setKey(key);
+
+        logger.info("PRACTICE / CONVERT: " + selectedSongDTO);
+        return selectedSongDTO;
+    }
 
 }
