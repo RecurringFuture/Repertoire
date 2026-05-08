@@ -100,5 +100,12 @@ public class PracticeController {
         logger.info("PRACTICE /SelectedSongDTO/ID: " + selected);
     }
 
+    @PostMapping("updateSong")
+    public String updateSong(@ModelAttribute("selectedSong") Song selectedSong) {
+        logger.info("UPDATE SONG");
+        practiceService.updateSong(selectedSong);
+        return "redirect:/practice/songs?id=" + selectedSong.getId();
+    }
+
 
 }

@@ -62,7 +62,7 @@
             Click a song on the left to see its details.
         </div>
 
-        <form action="#" th:if="${selectedSong != null}" th:disabled="true" th:action="@{updateSong}" th:object="${selectedSong}" method="post">
+        <form action="#" th:if="${selectedSong != null}" th:disabled="true" th:action="@{/practice/updateSong}" th:object="${selectedSong}" method="post">
             <div class="form-grid">
 
                 <input id="id" type="hidden" th:field="*{id}" readonly />

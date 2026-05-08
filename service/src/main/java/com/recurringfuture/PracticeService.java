@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -92,4 +93,12 @@ public class PracticeService {
         return selectedSongDTO;
     }
 
+    public void updateSong(Song song) {
+        LocalDate localDate = LocalDate.now();
+        song.setModificationDate(localDate);
+        song.setLastPerformedDate(localDate);
+        int lastCount = songRepo.getReferenceById(song.getId()).getCount();
+        song.setCount(lastCount + 1);
+        songRepo.save(song);
+    }
 }
