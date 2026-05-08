@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.PracticeService;
+import com.recurringfuture.PracticeSetService;
 import com.recurringfuture.dto.SelectedSongDTO;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
@@ -13,21 +14,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 @Controller
 @RequestMapping("/practice")
-@SessionAttributes({"songs", "practiceSets"})
+@SessionAttributes({"songs", "practiceSet", "total"})
 public class PracticeController {
 
     private static final Logger logger = LoggerFactory.getLogger(PracticeController.class);
 
     private final PracticeService practiceService;
+    private final PracticeSetService practiceSetService;
 
     @Autowired
-    public PracticeController(PracticeService practiceSetService) {
-        this.practiceService = practiceSetService;
+    public PracticeController(PracticeService practiceService, PracticeSetService practiceSetService) {
+        this.practiceService = practiceService;
+        this.practiceSetService = practiceSetService;
     }
 
     @GetMapping("/songs")
@@ -57,10 +61,22 @@ public class PracticeController {
         if (practiceSets.isEmpty()) {
             return ViewNames.PRACTICE_SETS;
         } else {
+            model.addAttribute("songs", Collections.EMPTY_LIST);
             model.addAttribute("practiceSets", practiceSets);
             model.addAttribute("practiceSet", new PracticeSet());
             return ViewNames.PRACTICE;
         }
+    }
+
+    @GetMapping("/practiceSet/{id}")
+    public String getPracticeSet(@PathVariable Integer id, Model model) {
+        logger.info("PRACTICE SET: " + id);
+        List<Song> practiceSetSongs = practiceSetService.getSongsToPractice(id);
+
+        model.addAttribute("songs", practiceSetSongs);
+        model.addAttribute("total", practiceSetSongs.size());
+
+        return ViewNames.PRACTICE;
     }
 
     @GetMapping("/song/{id}")
