@@ -80,7 +80,7 @@ public class PracticeController {
         model.addAttribute("capoPosition", selected.getCapo());
         model.addAttribute("key", selected.getKey());
         model.addAttribute("state", selected.getState());
-        logger.info("PRACTICE /SONGS/ID: " + selected.toString());
+        logger.info("PRACTICE /SONG/ID: " + selected);
     }
 
 
