@@ -78,11 +78,14 @@ public class PracticeService {
         selectedSongDTO.setCreationDate(song.getCreationDate());
         selectedSongDTO.setModificationDate(song.getModificationDate());
         selectedSongDTO.setLastPerformedDate(song.getLastPerformedDate());
-        Tuning t = tuningRepo.getReferenceById(Integer.parseInt(song.getTuning()));
+        String songTuning = (song.getTuning() != null) ? song.getTuning() : "1";
+        Tuning t = tuningRepo.getReferenceById(Integer.parseInt(songTuning));
         selectedSongDTO.setTuning(t.getTuning());
-        Genre g = genreRepo.getReferenceById(Integer.parseInt(song.getGenre()));
+        String songGenre = (song.getGenre() != null) ? song.getGenre() : "1";
+        Genre g = genreRepo.getReferenceById(Integer.parseInt(songGenre));
         selectedSongDTO.setGenre(g.getTitle());
-        String key = RepertoireData.getKeys().get(Integer.parseInt(song.getKey()));
+        String songKey = song.getKey() != null ? song.getKey() : "1";
+        String key = RepertoireData.getKeys().get(Integer.parseInt(songKey));
         selectedSongDTO.setKey(key);
 
         logger.info("PRACTICE / CONVERT: " + selectedSongDTO);

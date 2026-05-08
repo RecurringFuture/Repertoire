@@ -28,7 +28,7 @@
 
                 <tr th:each="song, iStat : ${songs}">
                     <td>
-                        <a th:href="@{/practice/songs(id=${song.id})}"
+                        <a th:href="@{/practice/song/{id}(id=${song.id})}"
                            th:text="${(iStat.index + 1) + '. '+ song.title}">
                             Song title
                         </a>
