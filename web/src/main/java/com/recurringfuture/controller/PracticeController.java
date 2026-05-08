@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/practice")
+@SessionAttributes({"songs", "practiceSets"})
 public class PracticeController {
 
     private static final Logger logger = LoggerFactory.getLogger(PracticeController.class);
@@ -63,8 +64,8 @@ public class PracticeController {
     }
 
     @GetMapping("/song/{id}")
-    public String getSong(@PathVariable Integer id, Model model) {
-        logger.info("PRACTICE /SONG/ID: " + model);
+    public String getSong(@PathVariable Integer id, @ModelAttribute("songs") List<Song> songs, Model model) {
+        logger.info("PRACTICE /SONG/ID: " + songs);
         if (id != null) {
             mapSelectedSong(id, model);
         }
@@ -80,7 +81,7 @@ public class PracticeController {
         model.addAttribute("capoPosition", selected.getCapo());
         model.addAttribute("key", selected.getKey());
         model.addAttribute("state", selected.getState());
-        logger.info("PRACTICE /SONG/ID: " + selected);
+        logger.info("PRACTICE /SelectedSongDTO/ID: " + selected);
     }
 
 
