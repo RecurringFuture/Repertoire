@@ -104,7 +104,7 @@ public class PracticeController {
     public String updateSong(@ModelAttribute("selectedSong") Song selectedSong) {
         logger.info("UPDATE SONG");
         practiceService.updateSong(selectedSong);
-        return "redirect:/practice/songs?id=" + selectedSong.getId();
+        return "redirect:/practice/song/" + selectedSong.getId();
     }
 
 

@@ -94,11 +94,12 @@ public class PracticeService {
     }
 
     public void updateSong(Song song) {
+        Song dbSong = songRepo.getReferenceById(song.getId());
         LocalDate localDate = LocalDate.now();
-        song.setModificationDate(localDate);
-        song.setLastPerformedDate(localDate);
+        dbSong.setModificationDate(localDate);
+        dbSong.setLastPerformedDate(localDate);
         int lastCount = songRepo.getReferenceById(song.getId()).getCount();
-        song.setCount(lastCount + 1);
-        songRepo.save(song);
+        dbSong.setCount(dbSong.getCount() + 1);
+        songRepo.save(dbSong);
     }
 }
