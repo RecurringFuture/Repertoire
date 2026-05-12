@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.recurringfuture</groupId>
-    <artifactId>multi_module</artifactId>
+    <artifactId>repertoire</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>multi_module</name>
-    <description>multi_module</description>
+    <name>repertoire</name>
+    <description>repertoire</description>
     <url/>
     <licenses>
         <license/>
