@@ -15,7 +15,7 @@
         <section class="project-left">
             <div>
                 <label for="manageTunings">Add, Edit or Delete Tunings</label>
-                <button class="button" type="button" id="manageTunings">Tunings</button>
+                <button class="button" type="button" id="manageTunings" th:onclick="|window.location.href='/settings/manageTunings'|">Tunings</button>
                 <hr/>
                 <label for="manageGenres">Add, Edit or Delete Genres</label>
                 <button class="button" type="button" id="manageGenres">Genres</button>
@@ -28,54 +28,35 @@
         </section>
 
         <section class="project-right">
-<!--            <h3 th:text="${selectedProjectTitle}">Songs in project</h3>-->
-<!--            <div th:if="${(projectSongs == null or projectSongs.isEmpty()) and (availableSongs == null or availableSongs.isEmpty())}" class="muted">-->
-<!--                No songs available.-->
-<!--            </div>-->
-<!--            <div class="tables-container" th:if="${selectedProjectId != null}">-->
-<!--                <div id="project-songs-list">-->
-<!--                    <h4>In Project</h4>-->
-<!--                    <table>-->
-<!--                        <tbody id="projectSongsBody" class="tbody">-->
-<!--                        <tr th:each="song : ${projectSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'left')">-->
-<!--                            <td th:text="${song.title}">Song title</td>-->
-<!--                        </tr>-->
-<!--                        <tr th:if="${projectSongs == null or projectSongs.isEmpty()}">-->
-<!--                            <td class="muted">Empty</td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-
-<!--                <div class="buttons-container">-->
-<!--                    <button type="button" id="btnMoveLeft" onclick="moveLeft()" title="Add to Project">&lt;&lt;</button>-->
-<!--                    <button type="button" id="btnMoveRight" onclick="moveRight()" title="Remove from Project">&gt;&gt;</button>-->
-<!--                </div>-->
-
-<!--                <div id="available-songs-list">-->
-<!--                    <h4>Available</h4>-->
-<!--                    <table>-->
-<!--                        <tbody id="availableSongsBody" class="tbody">-->
-<!--                        <tr th:each="song : ${availableSongs}" th:data-id="${song.id}" onclick="selectRow(this, 'right')">-->
-<!--                            <td th:text="${song.title}">Song title</td>-->
-<!--                        </tr>-->
-<!--                        <tr th:if="${availableSongs == null or availableSongs.isEmpty()}">-->
-<!--                            <td class="muted">Empty</td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--            &lt;!&ndash; Hidden forms for movement &ndash;&gt;-->
-<!--            <form id="addSongForm" th:action="@{/projects/addSong}" method="post" style="display:none;">-->
-<!--                <input type="hidden" name="projectId" th:value="${selectedProjectId}" />-->
-<!--                <input type="hidden" name="songId" id="addSongId" />-->
-<!--            </form>-->
-<!--            <form id="removeSongForm" th:action="@{/projects/removeSong}" method="post" style="display:none;">-->
-<!--                <input type="hidden" name="projectId" th:value="${selectedProjectId}" />-->
-<!--                <input type="hidden" name="songId" id="removeSongId" />-->
-<!--            </form>-->
+            <h3 th:text="${editMode}">Songs in project</h3>
+            <div th:if="${(itemsToManage == null or itemsToManage.isEmpty())}" class="muted">
+                Nothing to manage.
+            </div>
+            <div th:if="${itemsToManage != null and !itemsToManage.isEmpty()}">
+            <br>
+            <table>
+                <thead>
+                <tr>
+                    <th th:text="${editMode}">PracticeSet Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${itemsToManage}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
+                    <td>
+                        <a th:href="@{/practiceSet/show(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
+                    </td>
+                    <td style="text-align:right;">
+                        <a th:href="@{/practiceSet/delete/{id}(id=${p.id})}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${itemsToManage == null or itemsToManage.isEmpty()}">
+            <h4 th:text="${editMode}">Create your first Practice Set</h4>
+        </div>
         </section>
 </div>
     <footer id="footerId">Footer goes here</footer>

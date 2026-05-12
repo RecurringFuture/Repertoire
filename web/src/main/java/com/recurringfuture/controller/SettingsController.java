@@ -33,7 +33,9 @@ public class SettingsController {
     @GetMapping("/manageTunings")
     public String manageTunings(Model model) {
         logger.info("GET TUNINGS TO MANAGE");
-        model.addAttribute("tunings", settingsService.getTunings());
-        return "redirect:/settings";
+        model.addAttribute("editMode", "tunings");
+        model.addAttribute("itemsToManage", settingsService.getTunings());
+        logger.info("TUNINGS TO MANAGE: " + model.getAttribute("itemsToManage"));
+        return "redirect:/settings/";
     }
 }
