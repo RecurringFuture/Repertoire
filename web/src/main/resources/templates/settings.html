@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head id="projectHeadId">
+<head id="settingsHeadId">
     <meta charset="UTF-8">
     <title>Settings</title>
 </head>
@@ -30,7 +30,6 @@
         </section>
 
         <section class="project-right">
-<!--            <h3 th:text="${editMode}">Songs in project</h3>-->
             <div th:if="${(itemsToManage == null or itemsToManage.isEmpty())}" class="muted">
                 Nothing to manage.
             </div>
@@ -44,9 +43,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="p : ${itemsToManage}">
-<!--                        th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">-->
-                        <td>
-                            <a href=""  th:text="${p.title}">manage title</a>
+                        <td style="text-align:left;"
+                            th:text="${p.title}">manage title
+                        </td>
+                        <td style="text-align:right;">
+<!--                            <a th:href="@{/settings/delete/{id}(id=${p.id})}">-->
+                                <i class="fa fa-edit"></i>
+<!--                            </a>-->
                         </td>
                         <td style="text-align:right;">
                             <a th:href="@{/settings/delete/{id}(id=${p.id})}">

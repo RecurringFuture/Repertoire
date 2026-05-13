@@ -1,0 +1,4 @@
+tbody td, thead th {
+    width: 100%;
+    /*float: left;*/
+}

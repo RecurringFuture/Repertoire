@@ -1,0 +1,5 @@
+<thlogic>
+    <attr sel="#settingsHeadId"
+          th:fragment="settingsHeadFragment"/>
+    <attr sel="#title" th:text="Repertoire"/>
+</thlogic>

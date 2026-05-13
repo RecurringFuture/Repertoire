@@ -42,4 +42,12 @@ public class SettingsService {
     public List<Genre> getGenres() {
         return genreRepo.findAll();
     }
+
+    public void deleteTuning(Integer id) {
+        tuningRepo.deleteById(id);
+    }
+
+    public void deleteGenre(Integer id) {
+        genreRepo.deleteById(id);
+    }
 }

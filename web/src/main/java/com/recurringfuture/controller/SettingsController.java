@@ -11,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import java.util.Objects;
 
 @Slf4j
 @Controller
+@SessionAttributes({"editMode"})
 @RequestMapping("/settings")
 public class SettingsController {
 
@@ -50,9 +54,15 @@ public class SettingsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteItem(@PathVariable("id") Long id, Model model) {
-
+    public String deleteItem(@PathVariable("id") Integer id, Model model) {
         logger.info("DELETE ITEM: " + model.getAttribute("editMode") + " ID: " + id);
+        if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
+            settingsService.deleteTuning(id);
+            model.addAttribute("itemsToManage", settingsService.getTunings());
+        } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
+            settingsService.deleteGenre(id);
+            model.addAttribute("itemsToManage", settingsService.getGenres());
+        }
         return ViewNames.SETTINGS;
     }
 

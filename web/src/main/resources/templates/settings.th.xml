@@ -1,5 +1,5 @@
 <thlogic>
-    <attr sel="#projectHeadId"
+    <attr sel="#settingsHeadId"
           th:replace="~{fragments/header :: headerFragment}"/>
     <attr sel="#navigationId"
           th:replace="~{fragments/navigation :: navbarFragment}"/>
