@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -45,6 +46,13 @@ public class SettingsController {
         model.addAttribute("editMode", "Genres");
         model.addAttribute("itemsToManage", settingsService.getGenres());
         logger.info("GENRES TO MANAGE: " + model.getAttribute("itemsToManage"));
+        return ViewNames.SETTINGS;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteItem(@PathVariable("id") Long id, Model model) {
+
+        logger.info("DELETE ITEM: " + model.getAttribute("editMode") + " ID: " + id);
         return ViewNames.SETTINGS;
     }
 
