@@ -2,7 +2,6 @@ package com.recurringfuture.controller;
 
 import com.recurringfuture.SettingsService;
 import com.recurringfuture.entity.Genre;
-import com.recurringfuture.entity.Project;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
