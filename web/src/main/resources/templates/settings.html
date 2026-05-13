@@ -20,7 +20,7 @@
                 </button>
                 <hr/>
                 <label for="manageGenres">Add, Edit or Delete Genres</label>
-                <button class="button" type="button" id="manageGenres">Genres</button>
+                <button class="button" type="button" id="manageGenres" th:onclick="|window.location.href='/settings/manageGenres'|">Genres</button>
                 <hr/>
                 <!--                <label for="chooseFromAll">Choose songs from all songs to practice</label>-->
                 <!--                <button class="button" type="button" id="chooseFromAll">Choose songs</button>-->
@@ -30,7 +30,7 @@
         </section>
 
         <section class="project-right">
-            <h3 th:text="${editMode}">Songs in project</h3>
+<!--            <h3 th:text="${editMode}">Songs in project</h3>-->
             <div th:if="${(itemsToManage == null or itemsToManage.isEmpty())}" class="muted">
                 Nothing to manage.
             </div>
@@ -39,14 +39,14 @@
                 <table>
                     <thead>
                     <tr>
-                        <th th:text="${editMode}">PracticeSet Title</th>
+                        <th th:text="${editMode}">Edit mode</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="p : ${itemsToManage}">
 <!--                        th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">-->
                         <td>
-                            <a href=""  th:text="${p.tuning}">Practice Set title</a>
+                            <a href=""  th:text="${p.title}">manage title</a>
                         </td>
                         <td style="text-align:right;">
 <!--                            <a th:href="@{/practiceSet/delete/{id}(id=${p.id})}">-->

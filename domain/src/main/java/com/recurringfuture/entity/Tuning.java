@@ -14,7 +14,7 @@ public class Tuning {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
-    private String tuning;
+    private String title;
 
     public Tuning() {
 

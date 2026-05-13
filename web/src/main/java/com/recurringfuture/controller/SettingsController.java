@@ -33,10 +33,18 @@ public class SettingsController {
     @GetMapping("/manageTunings")
     public String manageTunings(Model model) {
         logger.info("GET TUNINGS TO MANAGE");
-        model.addAttribute("editMode", "tunings");
+        model.addAttribute("editMode", "Tunings");
         model.addAttribute("itemsToManage", settingsService.getTunings());
         logger.info("TUNINGS TO MANAGE: " + model.getAttribute("itemsToManage"));
-//        return "redirect:" + ViewNames.SETTINGS + "/";
+        return ViewNames.SETTINGS;
+    }
+
+    @GetMapping("/manageGenres")
+    public String manageGenres(Model model) {
+        logger.info("GET GENRES TO MANAGE");
+        model.addAttribute("editMode", "Genres");
+        model.addAttribute("itemsToManage", settingsService.getGenres());
+        logger.info("GENRES TO MANAGE: " + model.getAttribute("itemsToManage"));
         return ViewNames.SETTINGS;
     }
 

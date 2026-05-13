@@ -81,7 +81,7 @@ public class PracticeService {
         selectedSongDTO.setLastPerformedDate(song.getLastPerformedDate());
         String songTuning = (song.getTuning() != null) ? song.getTuning() : "1";
         Tuning t = tuningRepo.getReferenceById(Integer.parseInt(songTuning));
-        selectedSongDTO.setTuning(t.getTuning());
+        selectedSongDTO.setTuning(t.getTitle());
         String songGenre = (song.getGenre() != null) ? song.getGenre() : "1";
         Genre g = genreRepo.getReferenceById(Integer.parseInt(songGenre));
         selectedSongDTO.setGenre(g.getTitle());
