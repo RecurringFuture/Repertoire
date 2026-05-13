@@ -8,4 +8,5 @@
     <include file="repertoire-create-tables.xml" relativeToChangelogFile="true"/>
     <include file="repertoire-data-init.xml" relativeToChangelogFile="true"/>
     <include file="repertoire-add_tunings.xml" relativeToChangelogFile="true"/>
+    <include file="repertoire-rename-column.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

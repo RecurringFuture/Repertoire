@@ -15,13 +15,15 @@
         <section class="project-left">
             <div>
                 <label for="manageTunings">Add, Edit or Delete Tunings</label>
-                <button class="button" type="button" id="manageTunings" th:onclick="|window.location.href='/settings/manageTunings'|">Tunings</button>
+                <button class="button" type="button" id="manageTunings"
+                        th:onclick="|window.location.href='/settings/manageTunings'|">Tunings
+                </button>
                 <hr/>
                 <label for="manageGenres">Add, Edit or Delete Genres</label>
                 <button class="button" type="button" id="manageGenres">Genres</button>
                 <hr/>
-<!--                <label for="chooseFromAll">Choose songs from all songs to practice</label>-->
-<!--                <button class="button" type="button" id="chooseFromAll">Choose songs</button>-->
+                <!--                <label for="chooseFromAll">Choose songs from all songs to practice</label>-->
+                <!--                <button class="button" type="button" id="chooseFromAll">Choose songs</button>-->
 
             </div>
 
@@ -33,32 +35,33 @@
                 Nothing to manage.
             </div>
             <div th:if="${itemsToManage != null and !itemsToManage.isEmpty()}">
-            <br>
-            <table>
-                <thead>
-                <tr>
-                    <th th:text="${editMode}">PracticeSet Title</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="p : ${itemsToManage}" th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">
-                    <td>
-                        <a th:href="@{/practiceSet/show(id=${p.id})}" th:text="${p.title}">Practice Set title</a>
-                    </td>
-                    <td style="text-align:right;">
-                        <a th:href="@{/practiceSet/delete/{id}(id=${p.id})}">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div th:if="${itemsToManage == null or itemsToManage.isEmpty()}">
-            <h4 th:text="${editMode}">Create your first Practice Set</h4>
-        </div>
+                <br>
+                <table>
+                    <thead>
+                    <tr>
+                        <th th:text="${editMode}">PracticeSet Title</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${itemsToManage}">
+<!--                        th:classappend="${p.id == selectedPracticeSetId} ? 'selected' : ''">-->
+                        <td>
+                            <a href=""  th:text="${p.tuning}">Practice Set title</a>
+                        </td>
+                        <td style="text-align:right;">
+<!--                            <a th:href="@{/practiceSet/delete/{id}(id=${p.id})}">-->
+                                <i class="fa fa-trash"></i>
+<!--                            </a>-->
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${itemsToManage == null or itemsToManage.isEmpty()}">
+                <h4 th:text="${editMode}">Create your first Practice Set</h4>
+            </div>
         </section>
-</div>
+    </div>
     <footer id="footerId">Footer goes here</footer>
 </div>
 <div id="scriptsId"></div>

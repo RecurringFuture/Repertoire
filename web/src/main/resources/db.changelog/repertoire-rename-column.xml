@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1778646395337-1" author="hh">
+        <renameColumn
+                       columnDataType="VARCHAR(255)"
+                       newColumnName="title"
+                       oldColumnName="tuning"
+                       schemaName="public"
+                       tableName="tuning"/>
+        <addNotNullConstraint columnDataType="VARCHAR(255)" columnName="title" tableName="tuning" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>

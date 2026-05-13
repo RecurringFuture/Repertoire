@@ -1,8 +1,6 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.GenreService;
 import com.recurringfuture.SongService;
-import com.recurringfuture.TuningService;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
@@ -13,7 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -56,8 +57,7 @@ public class SongController {
     @GetMapping("/song")
     public String getSong(int id, Model model) {
         Song song = songService.getSong(id);
-        Logger log = LoggerFactory.getLogger(SongController.class);
-        log.info("Res: " + song.toString());
+        logger.info("Res: " + song.toString());
         model.addAttribute("song", song);
         return ViewNames.SONGS;
     }
