@@ -26,15 +26,7 @@ public class SettingsService {
         this.tuningRepo = tuningRepo;
         this.genreRepo = genreRepo;
     }
-
-    public void addTuning(Tuning tuning) {
-        tuningRepo.save(tuning);
-    }
-
-    public void addGenre(Genre genre) {
-        genreRepo.save(genre);
-    }
-
+    
     public List<Tuning> getTunings() {
         return tuningRepo.findAll();
     }
@@ -49,5 +41,13 @@ public class SettingsService {
 
     public void deleteGenre(Integer id) {
         genreRepo.deleteById(id);
+    }
+
+    public void saveTuning(Tuning tuning) {
+        tuningRepo.save(tuning);
+    }
+
+    public void saveGenre(Genre genre) {
+        genreRepo.save(genre);
     }
 }

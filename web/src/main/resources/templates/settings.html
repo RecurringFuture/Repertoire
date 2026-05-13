@@ -38,7 +38,7 @@
                 <table>
                     <thead>
                     <tr>
-<!--                        <th th:text="${editMode}">Edit mode</th>-->
+                        <th th:text="${editMode}">Edit mode</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,8 +60,11 @@
                     </tbody>
                 </table>
             </div>
-            <div th:if="${itemsToManage == null or itemsToManage.isEmpty()}">
-                <h4 th:text="${editMode}">Create your first Practice Set</h4>
+            <div th:if="${(itemsToManage != null and !itemsToManage.isEmpty())}" class="muted">
+                <form th:action="@{/settings/add}"  method="post">
+                    <input type="text" name="add" th:value="${add}" placeholder="add new" required />
+                    <button type="submit">Add</button>
+                </form>
             </div>
         </section>
     </div>

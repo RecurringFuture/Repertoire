@@ -1,6 +1,9 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SettingsService;
+import com.recurringfuture.entity.Genre;
+import com.recurringfuture.entity.Project;
+import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.utils.ViewNames;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -8,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
@@ -40,7 +40,7 @@ public class SettingsController {
         logger.info("GET TUNINGS TO MANAGE");
         model.addAttribute("editMode", "Tunings");
         model.addAttribute("itemsToManage", settingsService.getTunings());
-        logger.info("TUNINGS TO MANAGE: " + model.getAttribute("itemsToManage"));
+        model.addAttribute("add", "");
         return ViewNames.SETTINGS;
     }
 
@@ -49,7 +49,7 @@ public class SettingsController {
         logger.info("GET GENRES TO MANAGE");
         model.addAttribute("editMode", "Genres");
         model.addAttribute("itemsToManage", settingsService.getGenres());
-        logger.info("GENRES TO MANAGE: " + model.getAttribute("itemsToManage"));
+        model.addAttribute("add", "");
         return ViewNames.SETTINGS;
     }
 
@@ -63,6 +63,24 @@ public class SettingsController {
             settingsService.deleteGenre(id);
             model.addAttribute("itemsToManage", settingsService.getGenres());
         }
+        return ViewNames.SETTINGS;
+    }
+
+    @PostMapping("/add")
+    public String add(@ModelAttribute("add") String add, Model model) {
+        logger.info("ADD ITEM: " + model.getAttribute("add"));
+        if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
+            Tuning tuning = new Tuning();
+            tuning.setTitle(add);
+            settingsService.saveTuning(tuning);
+            model.addAttribute("itemsToManage", settingsService.getTunings());
+        } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
+            Genre genre = new Genre();
+            genre.setTitle(add);
+            settingsService.saveGenre(genre);
+            model.addAttribute("itemsToManage", settingsService.getGenres());
+        }
+        model.addAttribute("add", "");
         return ViewNames.SETTINGS;
     }
 
