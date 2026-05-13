@@ -1,4 +1,6 @@
 tbody td, thead th {
     width: 100%;
+    border-block: 1px solid black;
+    border-collapse: collapse;
     /*float: left;*/
 }

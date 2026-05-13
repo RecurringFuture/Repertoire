@@ -1,6 +1,6 @@
 <thlogic>
     <attr sel="#settingsHeadId"
-          th:replace="~{fragments/header :: headerFragment}"/>
+          th:replace="~{fragments/settings_header :: settingsHeadFragment}"/>
     <attr sel="#navigationId"
           th:replace="~{fragments/navigation :: navbarFragment}"/>
     <attr sel="#scriptsId"
