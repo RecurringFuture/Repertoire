@@ -26,7 +26,7 @@ public class SettingsService {
         this.tuningRepo = tuningRepo;
         this.genreRepo = genreRepo;
     }
-    
+
     public List<Tuning> getTunings() {
         return tuningRepo.findAll();
     }
