@@ -49,13 +49,13 @@
                             th:text="${p.title}">manage title
                         </td>
                         <td style="float:right">
-                            <a th:href="@{/settings/edit/{id}(id=${p.id})}">
-                                <i class="fa fa-edit"></i>
+                            <a th:href="@{/settings/delete/{id}(id=${p.id})}">
+                                <i class="fa fa-trash"></i>
                             </a>
                         </td>
                         <td style="float:right">
-                            <a th:href="@{/settings/delete/{id}(id=${p.id})}">
-                                <i class="fa fa-trash"></i>
+                            <a th:href="@{/settings/edit/{id}(id=${p.id})}">
+                                <i class="fa fa-edit"></i>
                             </a>
                         </td>
                     </tr>
@@ -69,6 +69,13 @@
                     <button type="submit">Add</button>
                 </form>
             </div>
+            <div th:if="${itemToEdit != null}">
+                <form th:action="@{/settings/update}" method="post">
+                    <input type="text" name="edit" th:value="${itemToEdit.getTitle()}" />
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+
         </section>
     </div>
     <footer id="footerId">Footer goes here</footer>

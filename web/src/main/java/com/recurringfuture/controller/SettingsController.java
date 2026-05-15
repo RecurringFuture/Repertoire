@@ -53,7 +53,7 @@ public class SettingsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteItem(@PathVariable("id") Integer id, Model model) {
+    public String deleteItem(@PathVariable Integer id, Model model) {
         logger.info("DELETE ITEM: " + model.getAttribute("editMode") + " ID: " + id);
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
             settingsService.deleteTuning(id);
@@ -83,15 +83,28 @@ public class SettingsController {
         return ViewNames.SETTINGS;
     }
 
-    @PostMapping("/edit{id}")
-    public String edit(@PathVariable("id") Integer id, Model model) {
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
         logger.info("EDIT ITEM: " );
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
             Tuning tuning = settingsService.getTuning(id);
-            model.addAttribute("tuningToEdit", tuning);
+            model.addAttribute("itemToEdit", tuning);
+            model.addAttribute("itemsToManage", settingsService.getTunings());
         } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
             Genre genre = settingsService.getGenre(id);
-            model.addAttribute("genreToEdit", genre);
+            model.addAttribute("itemToEdit", genre);
+            model.addAttribute("itemsToManage", settingsService.getGenres());
+        }
+        return ViewNames.SETTINGS;
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("itemToEdit") Object item, Model model) {
+        logger.info("UPDATE ITEM: " );
+        if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
+            settingsService.updateTuning((Tuning) item);
+        } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
+            settingsService.updateGenre((Genre) item);
         }
         return ViewNames.SETTINGS;
     }

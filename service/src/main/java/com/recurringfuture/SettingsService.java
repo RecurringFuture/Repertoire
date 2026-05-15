@@ -58,4 +58,12 @@ public class SettingsService {
     public void saveGenre(Genre genre) {
         genreRepo.save(genre);
     }
+
+    public void updateTuning(Tuning tuning) {
+        tuningRepo.save(tuning);
+    }
+
+    public void updateGenre(Genre genre) {
+        genreRepo.save(genre);
+    }
 }
