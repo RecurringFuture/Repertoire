@@ -31,8 +31,16 @@ public class SettingsService {
         return tuningRepo.findAll();
     }
 
+    public Tuning getTuning(Integer id) {
+        return tuningRepo.findById(id).orElse(null);
+    }
+
     public List<Genre> getGenres() {
         return genreRepo.findAll();
+    }
+
+    public Genre getGenre(Integer id) {
+        return genreRepo.findById(id).orElse(null);
     }
 
     public void deleteTuning(Integer id) {

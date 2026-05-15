@@ -20,7 +20,9 @@
                 </button>
                 <hr/>
                 <label for="manageGenres">Add, Edit or Delete Genres</label>
-                <button class="button" type="button" id="manageGenres" th:onclick="|window.location.href='/settings/manageGenres'|">Genres</button>
+                <button class="button" type="button" id="manageGenres"
+                        th:onclick="|window.location.href='/settings/manageGenres'|">Genres
+                </button>
                 <hr/>
                 <!--                <label for="chooseFromAll">Choose songs from all songs to practice</label>-->
                 <!--                <button class="button" type="button" id="chooseFromAll">Choose songs</button>-->
@@ -47,9 +49,11 @@
                             th:text="${p.title}">manage title
                         </td>
                         <td style="float:right">
-<!--                            <a th:href="@{/settings/delete/{id}(id=${p.id})}">-->
+                            <a th:href="@{/settings/edit/{id}(id=${p.id})}">
                                 <i class="fa fa-edit"></i>
-<!--                            </a>-->
+                            </a>
+                        </td>
+                        <td style="float:right">
                             <a th:href="@{/settings/delete/{id}(id=${p.id})}">
                                 <i class="fa fa-trash"></i>
                             </a>
@@ -58,9 +62,10 @@
                     </tbody>
                 </table>
             </div>
+            <br>
             <div th:if="${(itemsToManage != null and !itemsToManage.isEmpty())}" class="muted">
-                <form th:action="@{/settings/add}"  method="post">
-                    <input type="text" name="add" th:value="${add}" placeholder="add new" required />
+                <form th:action="@{/settings/add}" method="post">
+                    <input type="text" name="add" th:value="${add}" placeholder="add new" required/>
                     <button type="submit">Add</button>
                 </form>
             </div>

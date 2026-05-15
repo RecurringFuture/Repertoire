@@ -83,4 +83,17 @@ public class SettingsController {
         return ViewNames.SETTINGS;
     }
 
+    @PostMapping("/edit{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        logger.info("EDIT ITEM: " );
+        if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
+            Tuning tuning = settingsService.getTuning(id);
+            model.addAttribute("tuningToEdit", tuning);
+        } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
+            Genre genre = settingsService.getGenre(id);
+            model.addAttribute("genreToEdit", genre);
+        }
+        return ViewNames.SETTINGS;
+    }
+
 }
