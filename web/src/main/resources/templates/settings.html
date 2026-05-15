@@ -43,15 +43,13 @@
                     </thead>
                     <tbody>
                     <tr th:each="p : ${itemsToManage}">
-                        <td style="text-align:left;"
+                        <td style="float:left"
                             th:text="${p.title}">manage title
                         </td>
-                        <td style="text-align:right;">
+                        <td style="float:right">
 <!--                            <a th:href="@{/settings/delete/{id}(id=${p.id})}">-->
                                 <i class="fa fa-edit"></i>
 <!--                            </a>-->
-                        </td>
-                        <td style="text-align:right;">
                             <a th:href="@{/settings/delete/{id}(id=${p.id})}">
                                 <i class="fa fa-trash"></i>
                             </a>
