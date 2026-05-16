@@ -63,7 +63,7 @@
 
                 <label for="tuningId">Tuning</label>
                 <select id="tuningId" th:field="*{tuning}">
-                    <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTuning()}"></option>
+                    <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}" th:text="${tuning.getTitle()}"></option>
                 </select>
 
                 <label for="composer">Composer</label>
