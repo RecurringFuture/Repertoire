@@ -98,7 +98,6 @@ public class PracticeService {
         LocalDate localDate = LocalDate.now();
         dbSong.setModificationDate(localDate);
         dbSong.setLastPerformedDate(localDate);
-        int lastCount = songRepo.getReferenceById(song.getId()).getCount();
         dbSong.setCount(dbSong.getCount() + 1);
         songRepo.save(dbSong);
     }

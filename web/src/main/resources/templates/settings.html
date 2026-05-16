@@ -68,11 +68,12 @@
                     <input type="text" name="add" th:value="${add}" placeholder="add new" required/>
                     <button type="submit">Add</button>
                 </form>
-            </div>
+            </div><br>
             <div th:if="${itemToEdit != null}">
-                <form th:action="@{/settings/update}" method="post">
-                    <input type="text" name="edit" th:value="${itemToEdit.getTitle()}" />
-                    <button type="submit">Save</button>
+                <form th:action="@{/settings/update}" th:object="${itemToEdit}" method="post">
+                    <input id="id" type="hidden" th:field="*{id}" />
+                    <input type="text" name="edit" th:field="*{title}" th:value="${itemToEdit.getTitle()}" />
+                    <button type="submit">Update</button>
                 </form>
             </div>
 

@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SettingsService;
+import com.recurringfuture.dto.TitleDTO;
 import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.utils.ViewNames;
@@ -54,7 +55,7 @@ public class SettingsController {
 
     @GetMapping("/delete/{id}")
     public String deleteItem(@PathVariable Integer id, Model model) {
-        logger.info("DELETE ITEM: " + model.getAttribute("editMode") + " ID: " + id);
+        logger.info("DELETE ITEM: {} ID: {}", model.getAttribute("editMode"), id);
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
             settingsService.deleteTuning(id);
             model.addAttribute("itemsToManage", settingsService.getTunings());
@@ -67,7 +68,7 @@ public class SettingsController {
 
     @PostMapping("/add")
     public String add(@ModelAttribute("add") String add, Model model) {
-        logger.info("ADD ITEM: " + model.getAttribute("add"));
+        logger.info("ADD ITEM: {}", model.getAttribute("add"));
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
             Tuning tuning = new Tuning();
             tuning.setTitle(add);
@@ -87,24 +88,25 @@ public class SettingsController {
     public String edit(@PathVariable Integer id, Model model) {
         logger.info("EDIT ITEM: " );
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
-            Tuning tuning = settingsService.getTuning(id);
-            model.addAttribute("itemToEdit", tuning);
+            TitleDTO titleDTO = settingsService.getTuning(id);
+            model.addAttribute("itemToEdit", titleDTO);
             model.addAttribute("itemsToManage", settingsService.getTunings());
         } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
-            Genre genre = settingsService.getGenre(id);
-            model.addAttribute("itemToEdit", genre);
+            TitleDTO titleDTO = settingsService.getGenre(id);
+            model.addAttribute("itemToEdit", titleDTO);
             model.addAttribute("itemsToManage", settingsService.getGenres());
         }
+        logger.info("EDIT ITEM: {}", model.getAttribute("itemToEdit"));
         return ViewNames.SETTINGS;
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute("itemToEdit") Object item, Model model) {
-        logger.info("UPDATE ITEM: " );
+    public String update(@ModelAttribute("itemToEdit") TitleDTO titleDTO, Model model) {
+        logger.info("UPDATE ITEM: {}", titleDTO );
         if (Objects.equals(model.getAttribute("editMode"), "Tunings")) {
-            settingsService.updateTuning((Tuning) item);
+            settingsService.updateTuning(titleDTO);
         } else if (Objects.equals(model.getAttribute("editMode"), "Genres")) {
-            settingsService.updateGenre((Genre) item);
+            settingsService.updateGenre(titleDTO);
         }
         return ViewNames.SETTINGS;
     }
