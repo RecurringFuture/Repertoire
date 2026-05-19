@@ -48,11 +48,18 @@ a:active {
     align-items: flex-start;
 }
 .song-left {
-    flex: 0 0 320px;
+    flex: 20%;
+    /*flex: 0 0 320px;*/
     padding-left: 10px;
 }
+.song-middle {
+    flex:45%;
+    /*flex: 0 1 auto;*/
+    min-width: 420px;
+}
 .song-right {
-    flex: 1 1 auto;
+    flex:35%;
+    /*flex: 0 0 auto;*/
     min-width: 420px;
 }
 

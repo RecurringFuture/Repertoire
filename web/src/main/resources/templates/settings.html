@@ -14,19 +14,15 @@
         <!-- LEFT: Projects list -->
         <section class="project-left">
             <div>
-                <label for="manageTunings">Add, Edit or Delete Tunings</label>
+                <h4>Add, Edit or Delete</h4>
+                <hr/>
                 <button class="button" type="button" id="manageTunings"
                         th:onclick="|window.location.href='/settings/manageTunings'|">Tunings
                 </button>
-                <hr/>
-                <label for="manageGenres">Add, Edit or Delete Genres</label>
+<!--                <label for="manageGenres">Add, Edit or Delete Genres</label>-->
                 <button class="button" type="button" id="manageGenres"
                         th:onclick="|window.location.href='/settings/manageGenres'|">Genres
                 </button>
-                <hr/>
-                <!--                <label for="chooseFromAll">Choose songs from all songs to practice</label>-->
-                <!--                <button class="button" type="button" id="chooseFromAll">Choose songs</button>-->
-
             </div>
 
         </section>
@@ -62,7 +58,10 @@
                     </tbody>
                 </table>
             </div>
-            <br>
+
+        </section>
+
+        <section class="project-right">
             <div th:if="${(itemsToManage != null and !itemsToManage.isEmpty())}" class="muted">
                 <form th:action="@{/settings/add}" method="post">
                     <input type="text" name="add" th:value="${add}" placeholder="add new" required/>
@@ -76,8 +75,8 @@
                     <button type="submit">Update</button>
                 </form>
             </div>
-
         </section>
+
     </div>
     <footer id="footerId">Footer goes here</footer>
 </div>
