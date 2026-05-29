@@ -6,6 +6,7 @@ import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.GenreRepo;
 import com.recurringfuture.repository.SongRepo;
 import com.recurringfuture.repository.TuningRepo;
+import com.recurringfuture.repository.data.RepertoireData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -23,6 +24,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service("songService")
@@ -89,6 +91,24 @@ public class SongService {
 
     public List<Tuning> getTunings() {
         return tuningRepo.findAll();
+    }
+
+    public List<String> getKeysUsed() {
+        List<Song> songs = songRepo.findAll();
+        List<String> keyIndex = songs.stream().map(Song::getKey).distinct().filter(Objects::nonNull).toList();
+        List<Integer> listOfInteger = keyIndex.stream().map(Integer::valueOf).toList();
+        List<String> keysUsed = new ArrayList<>();
+        for (int i = 0; i < listOfInteger.size(); i++) {
+            keysUsed.add(RepertoireData.getKeys().get(listOfInteger.get(i)));
+        }
+        return keysUsed;
+    }
+
+    public List<Tuning> getTuningsUsed() {
+        List<Song> songs = songRepo.findAll();
+        List<String> tuningIndex = songs.stream().map(Song::getTuning).distinct().filter(Objects::nonNull).toList();
+        List<Integer> listOfInteger = tuningIndex.stream().map(Integer::valueOf).toList();
+        return tuningRepo.findAllById(listOfInteger);
     }
 
 }

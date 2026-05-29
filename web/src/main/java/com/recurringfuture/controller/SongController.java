@@ -2,6 +2,7 @@ package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
 import com.recurringfuture.entity.Song;
+import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
@@ -36,9 +37,15 @@ public class SongController {
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs = songService.getSongs();
-        logger.info("SONGS: " + songs.size());
+        List <String> filterKeys = songService.getKeysUsed();
+        filterKeys.addFirst("");
+        List<Tuning> filterTunings = songService.getTuningsUsed();
+        filterTunings.addFirst(new Tuning());
+        logger.info("SONGS: " + songs.size() + " FILTER KEYS: " + filterKeys + " FILTER TUNINGS: " + filterTunings);
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
+        model.addAttribute("filterKeys", filterKeys);
+        model.addAttribute("filterTunings", filterTunings);
 
         if (id != null) {
             Song selected = songService.getSong(id);
