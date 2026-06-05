@@ -41,11 +41,17 @@ public class SongController {
         filterKeys.addFirst("");
         List<Tuning> filterTunings = songService.getTuningsUsed();
         filterTunings.addFirst(new Tuning());
+        List<String> filterStates = songService.getStatesUsed();
+        filterStates.addFirst("");
+        List<String> filterCapo = songService.getCapoUsed();
+        filterCapo.addFirst("");
         logger.info("SONGS: " + songs.size() + " FILTER KEYS: " + filterKeys + " FILTER TUNINGS: " + filterTunings);
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
         model.addAttribute("filterKeys", filterKeys);
         model.addAttribute("filterTunings", filterTunings);
+        model.addAttribute("filterStates", filterStates);
+        model.addAttribute("filterCapo", filterCapo);
 
         if (id != null) {
             Song selected = songService.getSong(id);

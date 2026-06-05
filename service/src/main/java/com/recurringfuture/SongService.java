@@ -111,4 +111,23 @@ public class SongService {
         return tuningRepo.findAllById(listOfInteger);
     }
 
+    public List<String> getStatesUsed() {
+        List<Song> songs = songRepo.findAll();
+        List<Integer> stateIndex = songs.stream().map(Song::getState).distinct().toList();
+        List<String> statesUsed = new ArrayList<>();
+        for (int i = 0; i < stateIndex.size(); i++) {
+            statesUsed.add(RepertoireData.getStates().get(stateIndex.get(i)));
+        }
+        return statesUsed;
+    }
+
+    public List<String> getCapoUsed() {
+        List<Song> songs = songRepo.findAll();
+        List<Integer> capoIndex = songs.stream().map(Song::getCapo).distinct().toList();
+        List<String> capoUsed = new ArrayList<>();
+        for (int i = 0; i < capoIndex.size(); i++) {
+            capoUsed.add(RepertoireData.getCapoPositions().get(capoIndex.get(i)));
+        }
+        return capoUsed;
+    }
 }

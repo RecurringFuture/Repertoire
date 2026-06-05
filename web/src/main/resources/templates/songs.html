@@ -38,6 +38,29 @@
             </tr>
             </tbody>
         </table>
+
+        <h4>Filter</h4>
+
+        <label for="keyFilterId">Key</label>
+        <select name="keyStat" id="keyFilterId">
+            <option th:each="key : ${filterKeys}" th:value="${filterKeys.indexOf(key)}" th:text="${key}"></option>
+        </select>
+
+        <label for="tuningFilterId">Tuning</label>
+        <select id="tuningFilterId">
+            <option th:each="tuning : ${filterTunings}" th:value="${tuning.getId()}" th:text="${tuning.getTitle()}"></option>
+        </select>
+        <br><br>
+
+        <label for="stateFilterId">State</label>
+        <select name="statName" id="stateFilterId" >
+            <option th:each="state : ${filterStates}"  th:value="${filterStates.indexOf(state)}" th:text="${state}"></option>
+        </select>
+
+        <label for="capoFilterId">Capo</label>
+        <select name="capo" id="capoFilterId" >
+            <option th:each="capo : ${filterCapo}"  th:value="${filterCapo.indexOf(capo)}" th:text="${capo}"></option>
+        </select>
     </section>
 
     <!-- RIGHT: Song details -->
@@ -116,25 +139,25 @@
         </form>
     </section>
 
-    <section class="song-right">
-        <h4>Filter</h4>
+<!--    <section class="song-right">-->
+<!--        <h4>Filter</h4>-->
 
-        <label for="keyFilterId">Key</label>
-        <select name="keyStat" id="keyFilterId">
-            <option th:each="key : ${filterKeys}" th:value="${filterKeys.indexOf(key)}" th:text="${key}"></option>
-        </select>
+<!--        <label for="keyFilterId">Key</label>-->
+<!--        <select name="keyStat" id="keyFilterId">-->
+<!--            <option th:each="key : ${filterKeys}" th:value="${filterKeys.indexOf(key)}" th:text="${key}"></option>-->
+<!--        </select>-->
 
-        <label for="tuningFilterId">Tuning</label>
-        <select id="tuningFilterId">
-            <option th:each="tuning : ${filterTunings}" th:value="${tuning.getId()}" th:text="${tuning.getTitle()}"></option>
-        </select>
-        <br><br>
+<!--        <label for="tuningFilterId">Tuning</label>-->
+<!--        <select id="tuningFilterId">-->
+<!--            <option th:each="tuning : ${filterTunings}" th:value="${tuning.getId()}" th:text="${tuning.getTitle()}"></option>-->
+<!--        </select>-->
+<!--        <br><br>-->
 
-        <label for="stateFilterId">State</label>
-        <select name="statName" id="stateFilterId" >
-            <option th:each="state : ${states}"  th:value="${states.indexOf(state)}" th:text="${state}"></option>
-        </select>
-    </section>
+<!--        <label for="stateFilterId">State</label>-->
+<!--        <select name="statName" id="stateFilterId" >-->
+<!--            <option th:each="state : ${states}"  th:value="${states.indexOf(state)}" th:text="${state}"></option>-->
+<!--        </select>-->
+<!--    </section>-->
 
 </div>
 
