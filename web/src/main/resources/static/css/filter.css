@@ -1,0 +1,13 @@
+.filter-form-grid {
+    display: flex;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px 14px;
+    max-width: 320px;
+}
+.filter-form-grid label {
+    /*font-weight: 100;*/
+    font-size: 14px;
+    display: inline-block;
+    padding-top: 8px;
+    text-align: left;
+}
