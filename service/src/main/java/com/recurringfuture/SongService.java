@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -129,5 +130,11 @@ public class SongService {
             capoUsed.add(RepertoireData.getCapoPositions().get(capoIndex.get(i)));
         }
         return capoUsed;
+    }
+
+    public List<Song> filterSongs(Song filterSong) {
+        Example<Song> example = Example.of(filterSong);
+        logger.info("FILTERING SONGS: " + example);
+        return songRepo.findAll(example);
     }
 }

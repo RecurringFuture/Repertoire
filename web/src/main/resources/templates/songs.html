@@ -40,31 +40,31 @@
 
         <h5>Filter</h5>
 
-        <form id="filterFormId" action="#" th:action="@{filter/filterSongs}" th:object="${filterDTO}"
+        <form id="filterFormId" action="#" th:action="@{filter}" th:object="${filterSong}"
               method="post">
             <div class="filter-form-grid">
 
                 <label for="keyFilterId">Key</label>
-                <select name="keyStat" id="keyFilterId" onchange="this.form.submit();">
+                <select name="keyStat" id="keyFilterId" th:field="*{key}" onchange="this.form.submit();">
                     <option th:each="key : ${filterKeys}" th:value="${filterKeys.indexOf(key)}"
                             th:text="${key}"></option>
                 </select>
 
                 <label for="tuningFilterId">Tuning</label>
-                <select id="tuningFilterId" onchange="this.form.submit();">
+                <select id="tuningFilterId" th:field="*{tuning}"onchange="this.form.submit();">
                     <option th:each="tuning : ${filterTunings}" th:value="${tuning.getId()}"
                             th:text="${tuning.getTitle()}"></option>
                 </select>
                 <br><br>
 
                 <label for="stateFilterId">State</label>
-                <select name="statName" id="stateFilterId" onchange="this.form.submit();">
+                <select name="statName" id="stateFilterId" th:field="*{state}" onchange="this.form.submit();">
                     <option th:each="state : ${filterStates}" th:value="${filterStates.indexOf(state)}"
                             th:text="${state}"></option>
                 </select>
 
                 <label for="capoFilterId">Capo</label>
-                <select name="capo" id="capoFilterId" onchange="this.form.submit();">
+                <select name="capo" id="capoFilterId" th:field="*{capo}" onchange="this.form.submit();">
                     <option th:each="capo : ${filterCapo}" th:value="${filterCapo.indexOf(capo)}"
                             th:text="${capo}"></option>
                 </select>

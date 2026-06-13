@@ -1,7 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
-import com.recurringfuture.dto.FilterDTO;
+import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
@@ -13,10 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@SessionAttributes({"songs", "total"})
 public class SongController {
 
     private static final Logger logger = LoggerFactory.getLogger(SongController.class);
@@ -37,11 +35,16 @@ public class SongController {
 
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
-        List<Song> songs = songService.getSongs();
-
-        logger.info("SONGS: " + songs.size());
-        model.addAttribute("songs", songs);
-        model.addAttribute("total", songs.size());
+        List<Song> songs = null;
+        logger.info("SONGS: " + model.containsAttribute("songs"));
+        if (!model.containsAttribute("songs")) {
+            songs = songService.getSongs();
+            model.addAttribute("songs", songs);
+            model.addAttribute("total", songs.size());
+            logger.info("SONGS: " + songs.size());
+        } else {
+            songs = (List<Song>) model.getAttribute("songs");
+        }
         setSongFilterModelAttributes(model);
 
         if (id != null) {
@@ -99,9 +102,14 @@ public class SongController {
     }
 
     @PostMapping("filter")
-    public String filterSongs(@ModelAttribute("filterDTO") FilterDTO filterDTO) {
-        logger.info("FILTER: {}", filterDTO);
-        return "redirect:/songs";
+    public String filterSongs(@ModelAttribute("filterSong") Song filterSong, Model model) {
+        logger.info("FILTER: {}", filterSong.toString());
+        List<Song> songs = songService.filterSongs(filterSong);
+        logger.info("FILTER: {}", songs.size());
+        model.addAttribute("songs", songs);
+        model.addAttribute("total", songs.size());
+        setSongFilterModelAttributes(model);
+        return "redirect:/" + ViewNames.SONGS;
     }
 
     private void setSongModelAttributes(Integer id, List<Song> songs, Model model) {
@@ -129,7 +137,7 @@ public class SongController {
         model.addAttribute("filterTunings", filterTunings);
         model.addAttribute("filterStates", filterStates);
         model.addAttribute("filterCapo", filterCapo);
-        model.addAttribute("filterDTO", new FilterDTO());
+        model.addAttribute("filterSong", new Song());
     }
 
 
