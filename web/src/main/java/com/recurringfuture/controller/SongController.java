@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
+import com.recurringfuture.dto.FilterDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
@@ -37,32 +38,14 @@ public class SongController {
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs = songService.getSongs();
-        List <String> filterKeys = songService.getKeysUsed();
-        filterKeys.addFirst("");
-        List<Tuning> filterTunings = songService.getTuningsUsed();
-        filterTunings.addFirst(new Tuning());
-        List<String> filterStates = songService.getStatesUsed();
-        filterStates.addFirst("");
-        List<String> filterCapo = songService.getCapoUsed();
-        filterCapo.addFirst("");
-        logger.info("SONGS: " + songs.size() + " FILTER KEYS: " + filterKeys + " FILTER TUNINGS: " + filterTunings);
+
+        logger.info("SONGS: " + songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
-        model.addAttribute("filterKeys", filterKeys);
-        model.addAttribute("filterTunings", filterTunings);
-        model.addAttribute("filterStates", filterStates);
-        model.addAttribute("filterCapo", filterCapo);
+        setSongFilterModelAttributes(model);
 
         if (id != null) {
-            Song selected = songService.getSong(id);
-            model.addAttribute("selectedSong", selected);
-            model.addAttribute("genres", songService.findAll());
-            model.addAttribute("tunings", songService.getTunings());
-            model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
-            model.addAttribute("keys", RepertoireData.getKeys());
-            model.addAttribute("thresholds", RepertoireData.getThresholds());
-            model.addAttribute("states", RepertoireData.getStates());
-            model.addAttribute("total", songs.size());
+            setSongModelAttributes(id, songs, model);
         }
         return ViewNames.SONGS;
     }
@@ -113,6 +96,40 @@ public class SongController {
     public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong) {
         songService.deleteSong(selectedSong.getId());
         return "redirect:/" + ViewNames.SONGS;
+    }
+
+    @PostMapping("filter")
+    public String filterSongs(@ModelAttribute("filterDTO") FilterDTO filterDTO) {
+        logger.info("FILTER: {}", filterDTO);
+        return "redirect:/songs";
+    }
+
+    private void setSongModelAttributes(Integer id, List<Song> songs, Model model) {
+        Song selected = songService.getSong(id);
+        model.addAttribute("selectedSong", selected);
+        model.addAttribute("genres", songService.findAll());
+        model.addAttribute("tunings", songService.getTunings());
+        model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
+        model.addAttribute("keys", RepertoireData.getKeys());
+        model.addAttribute("thresholds", RepertoireData.getThresholds());
+        model.addAttribute("states", RepertoireData.getStates());
+        model.addAttribute("total", songs.size());
+    }
+
+    private void setSongFilterModelAttributes(Model model) {
+        List <String> filterKeys = songService.getKeysUsed();
+        filterKeys.addFirst("");
+        List<Tuning> filterTunings = songService.getTuningsUsed();
+        filterTunings.addFirst(new Tuning());
+        List<String> filterStates = songService.getStatesUsed();
+        filterStates.addFirst("");
+        List<String> filterCapo = songService.getCapoUsed();
+        filterCapo.addFirst("");
+        model.addAttribute("filterKeys", filterKeys);
+        model.addAttribute("filterTunings", filterTunings);
+        model.addAttribute("filterStates", filterStates);
+        model.addAttribute("filterCapo", filterCapo);
+        model.addAttribute("filterDTO", new FilterDTO());
     }
 
 
