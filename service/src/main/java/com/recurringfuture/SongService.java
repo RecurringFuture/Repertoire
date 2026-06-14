@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -99,8 +100,8 @@ public class SongService {
         List<String> keyIndex = songs.stream().map(Song::getKey).distinct().filter(Objects::nonNull).toList();
         List<Integer> listOfInteger = keyIndex.stream().map(Integer::valueOf).toList();
         List<String> keysUsed = new ArrayList<>();
-        for (int i = 0; i < listOfInteger.size(); i++) {
-            keysUsed.add(RepertoireData.getKeys().get(listOfInteger.get(i)));
+        for (Integer integer : listOfInteger) {
+            keysUsed.add(RepertoireData.getKeys().get(integer));
         }
         return keysUsed;
     }
@@ -116,8 +117,8 @@ public class SongService {
         List<Song> songs = songRepo.findAll();
         List<Integer> stateIndex = songs.stream().map(Song::getState).distinct().toList();
         List<String> statesUsed = new ArrayList<>();
-        for (int i = 0; i < stateIndex.size(); i++) {
-            statesUsed.add(RepertoireData.getStates().get(stateIndex.get(i)));
+        for (Integer index : stateIndex) {
+            statesUsed.add(RepertoireData.getStates().get(index));
         }
         return statesUsed;
     }
@@ -126,15 +127,25 @@ public class SongService {
         List<Song> songs = songRepo.findAll();
         List<Integer> capoIndex = songs.stream().map(Song::getCapo).distinct().toList();
         List<String> capoUsed = new ArrayList<>();
-        for (int i = 0; i < capoIndex.size(); i++) {
-            capoUsed.add(RepertoireData.getCapoPositions().get(capoIndex.get(i)));
+        for (Integer index : capoIndex) {
+            capoUsed.add(RepertoireData.getCapoPositions().get(index));
         }
         return capoUsed;
     }
 
+    public List<Song> filterSongs1(Song filterSong) {
+        logger.info("FILTERING SONGS: " + filterSong);
+        return songRepo.findAll(Example.of(filterSong), Sort.by(Sort.Direction.ASC, "title"));
+    }
+
     public List<Song> filterSongs(Song filterSong) {
-        Example<Song> example = Example.of(filterSong);
+        Example<Song> example = Example.of(filterSong, getExampleMatcher());
         logger.info("FILTERING SONGS: " + example);
-        return songRepo.findAll(example);
+        return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
+    }
+
+    private ExampleMatcher getExampleMatcher() {
+        return ExampleMatcher.matching()
+                .withIgnorePaths("id","title", "composer", "genre", "duration", "threshold", "alert", "count", "creationDate", "modificationDate", "lastPerformedDate");
     }
 }

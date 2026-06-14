@@ -1,7 +1,6 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
-import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
@@ -35,7 +34,7 @@ public class SongController {
 
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
-        List<Song> songs = null;
+        List<Song> songs;
         logger.info("SONGS: " + model.containsAttribute("songs"));
         if (!model.containsAttribute("songs")) {
             songs = songService.getSongs();
@@ -104,7 +103,7 @@ public class SongController {
     @PostMapping("filter")
     public String filterSongs(@ModelAttribute("filterSong") Song filterSong, Model model) {
         logger.info("FILTER: {}", filterSong.toString());
-        List<Song> songs = songService.filterSongs(filterSong);
+        List<Song> songs = songService.filterSongs1(filterSong);
         logger.info("FILTER: {}", songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
