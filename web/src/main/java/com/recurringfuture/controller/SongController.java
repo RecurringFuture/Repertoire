@@ -103,7 +103,7 @@ public class SongController {
     @PostMapping("filter")
     public String filterSongs(@ModelAttribute("filterSong") Song filterSong, Model model) {
         logger.info("FILTER: {}", filterSong.toString());
-        List<Song> songs = songService.filterSongs1(filterSong);
+        List<Song> songs = songService.filterSongs(filterSong);
         logger.info("FILTER: {}", songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());

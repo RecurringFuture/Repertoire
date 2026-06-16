@@ -139,9 +139,13 @@ public class SongService {
     }
 
     public List<Song> filterSongs(Song filterSong) {
-        Example<Song> example = Example.of(filterSong, getExampleMatcher());
-        logger.info("FILTERING SONGS: " + example);
-        return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
+//        Example<Song> example = Example.of(filterSong, getExampleMatcher());
+//        logger.info("FILTERING SONGS: " + example);
+        List<Song> songs = songRepo.findSongsByFilter(filterSong.getCapo());
+//        songs.sort(Sort.by(Sort.Direction.ASC, "title"));
+        logger.info("FILTERING SONGS: " + songs);
+        return songs;
+//        return songRepo.findSongsByFilter(example, Sort.by(Sort.Direction.ASC, "title"));
     }
 
     private ExampleMatcher getExampleMatcher() {
