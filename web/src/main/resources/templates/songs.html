@@ -45,27 +45,32 @@
             <div class="filter-form-grid">
 
                 <label for="keyFilterId">Key</label>
-                <select name="keyStat" id="keyFilterId" th:field="*{key}" onchange="this.form.submit();">
-                    <option th:each="key : ${filterKeys}" th:value="${filterKeys.indexOf(key)}"
+                <select id="keyFilterId" th:field="*{key}" onchange="this.form.submit();">
+                    <option value="">Any</option>
+                    <option th:each="key : ${filterKeys}" th:if="${!key.isEmpty()}" th:value="${filterKeys.indexOf(key)}"
                             th:text="${key}"></option>
                 </select>
 
                 <label for="tuningFilterId">Tuning</label>
-                <select id="tuningFilterId" th:field="*{tuning}"onchange="this.form.submit();">
-                    <option th:each="tuning : ${filterTunings}" th:value="${tuning.getId()}"
+                <select id="tuningFilterId" th:field="*{tuning}" onchange="this.form.submit();">
+                    <option value="">Any</option>
+                    <option th:each="tuning : ${filterTunings}" th:if="${tuning.title != null and !tuning.title.isEmpty()}" th:value="${tuning.id}"
                             th:text="${tuning.getTitle()}"></option>
                 </select>
                 <br><br>
 
                 <label for="stateFilterId">State</label>
-                <select name="statName" id="stateFilterId" th:field="*{state}" onchange="this.form.submit();">
-                    <option th:each="state : ${filterStates}" th:value="${filterStates.indexOf(state)}"
-                            th:text="${state}"></option>
+                <select id="stateFilterId" th:field="*{state}" onchange="this.form.submit();">
+                    <option value="-1">Any</option>
+                    <option value="0">ToDo</option>
+                    <option value="1">In Progress</option>
+                    <option value="2">Repertoire</option>
                 </select>
 
                 <label for="capoFilterId">Capo</label>
-                <select name="capo" id="capoFilterId" th:field="*{capo}" onchange="this.form.submit();">
-                    <option th:each="capo : ${filterCapo}" th:value="${filterCapo.indexOf(capo)}"
+                <select id="capoFilterId" th:field="*{capo}" onchange="this.form.submit();">
+                    <option value="-1">Any</option>
+                    <option th:each="capo : ${filterCapo}" th:if="${!capo.isEmpty()}" th:value="${filterCapo.indexOf(capo)}"
                             th:text="${capo}"></option>
                 </select>
             </div>

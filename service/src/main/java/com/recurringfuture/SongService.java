@@ -133,19 +133,31 @@ public class SongService {
         return capoUsed;
     }
 
-    public List<Song> filterSongs1(Song filterSong) {
-        logger.info("FILTERING SONGS: " + filterSong);
-        return songRepo.findAll(Example.of(filterSong), Sort.by(Sort.Direction.ASC, "title"));
-    }
-
     public List<Song> filterSongs(Song filterSong) {
-//        Example<Song> example = Example.of(filterSong, getExampleMatcher());
-//        logger.info("FILTERING SONGS: " + example);
-        List<Song> songs = songRepo.findSongsByFilter(filterSong.getCapo());
-//        songs.sort(Sort.by(Sort.Direction.ASC, "title"));
-        logger.info("FILTERING SONGS: " + songs);
-        return songs;
-//        return songRepo.findSongsByFilter(example, Sort.by(Sort.Direction.ASC, "title"));
+        ExampleMatcher matcher = ExampleMatcher.matchingAll()
+                .withIgnoreNullValues()
+                .withMatcher("key", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("tuning", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("capo", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("state", ExampleMatcher.GenericPropertyMatchers.exact());
+
+        if (filterSong.getKey() != null && filterSong.getKey().isEmpty()) {
+            filterSong.setKey(null);
+        }
+        if (filterSong.getTuning() != null && filterSong.getTuning().isEmpty()) {
+            filterSong.setTuning(null);
+        }
+
+        List<String> ignorePaths = new ArrayList<>(List.of("id", "title", "composer", "genre", "duration", "threshold", "alert", "count", "creationDate", "modificationDate", "lastPerformedDate"));
+        if (filterSong.getCapo() == -1) ignorePaths.add("capo");
+        if (filterSong.getState() == -1) ignorePaths.add("state");
+
+        matcher = matcher.withIgnorePaths(ignorePaths.toArray(new String[0]));
+
+        Example<Song> example = Example.of(filterSong, matcher);
+
+        logger.info("FILTERING SONGS with Example: " + example);
+        return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
     }
 
     private ExampleMatcher getExampleMatcher() {

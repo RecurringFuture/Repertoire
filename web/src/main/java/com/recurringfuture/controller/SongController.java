@@ -108,7 +108,8 @@ public class SongController {
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
         setSongFilterModelAttributes(model);
-        return "redirect:/" + ViewNames.SONGS;
+        model.addAttribute("filterSong", filterSong);
+        return ViewNames.SONGS;
     }
 
     private void setSongModelAttributes(Integer id, List<Song> songs, Model model) {
