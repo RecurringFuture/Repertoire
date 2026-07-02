@@ -134,6 +134,12 @@ public class SongService {
     }
 
     public List<Song> filterSongs(Song filterSong) {
+        Example<Song> example = Example.of(filterSong, getExampleMatcher(filterSong));
+        logger.info("FILTERING SONGS with Example: " + example);
+        return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
+    }
+
+    private ExampleMatcher getExampleMatcher(Song filterSong) {
         ExampleMatcher matcher = ExampleMatcher.matchingAll()
                 .withIgnoreNullValues()
                 .withMatcher("key", ExampleMatcher.GenericPropertyMatchers.exact())
@@ -154,14 +160,6 @@ public class SongService {
 
         matcher = matcher.withIgnorePaths(ignorePaths.toArray(new String[0]));
 
-        Example<Song> example = Example.of(filterSong, matcher);
-
-        logger.info("FILTERING SONGS with Example: " + example);
-        return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
-    }
-
-    private ExampleMatcher getExampleMatcher() {
-        return ExampleMatcher.matching()
-                .withIgnorePaths("id","title", "composer", "genre", "duration", "threshold", "alert", "count", "creationDate", "modificationDate", "lastPerformedDate");
+        return matcher;
     }
 }
