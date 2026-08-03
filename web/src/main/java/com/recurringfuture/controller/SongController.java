@@ -1,6 +1,7 @@
 package com.recurringfuture.controller;
 
 import com.recurringfuture.SongService;
+import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
@@ -20,7 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@SessionAttributes({"songs", "total"})
+//@SessionAttributes({"songs", "total"})
 public class SongController {
 
     private static final Logger logger = LoggerFactory.getLogger(SongController.class);
@@ -101,15 +102,25 @@ public class SongController {
     }
 
     @PostMapping("filter")
-    public String filterSongs(@ModelAttribute("filterSong") Song filterSong, Model model) {
-        logger.info("FILTER: {}", filterSong.toString());
-        List<Song> songs = songService.filterSongs(filterSong);
-        logger.info("FILTER: {}", songs.size());
+    public String filterSongs(@ModelAttribute("filterSong") FilterSongDTO filterSong, Model model) {
+        logger.info("FILTER 1: {}", filterSong.toString());
+        Song song = mapFilterSongToSong(filterSong);
+        List<Song> songs = songService.filterSongs(song);
+        logger.info("FILTER 2: {}", songs.size());
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
         setSongFilterModelAttributes(model);
         model.addAttribute("filterSong", filterSong);
         return ViewNames.SONGS;
+    }
+
+    private Song mapFilterSongToSong(FilterSongDTO filterSong) {
+        Song song = new Song();
+        song.setCapo(filterSong.getCapo());
+        song.setKey(String.valueOf(RepertoireData.getKeys().indexOf(filterSong.getKey())));
+        song.setState(filterSong.getState());
+        song.setTuning(filterSong.getTuning().toString());
+        return song;
     }
 
     private void setSongModelAttributes(Integer id, List<Song> songs, Model model) {
@@ -126,18 +137,18 @@ public class SongController {
 
     private void setSongFilterModelAttributes(Model model) {
         List <String> filterKeys = songService.getKeysUsed();
-        filterKeys.addFirst("");
+        filterKeys.addFirst("Any");
         List<Tuning> filterTunings = songService.getTuningsUsed();
         filterTunings.addFirst(new Tuning());
         List<String> filterStates = songService.getStatesUsed();
-        filterStates.addFirst("");
+        filterStates.addFirst("Any");
         List<String> filterCapo = songService.getCapoUsed();
-        filterCapo.addFirst("");
+        filterCapo.addFirst("Any");
         model.addAttribute("filterKeys", filterKeys);
         model.addAttribute("filterTunings", filterTunings);
         model.addAttribute("filterStates", filterStates);
         model.addAttribute("filterCapo", filterCapo);
-        model.addAttribute("filterSong", new Song());
+        model.addAttribute("filterSong", new FilterSongDTO());
     }
 
 

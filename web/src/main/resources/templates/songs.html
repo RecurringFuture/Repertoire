@@ -46,7 +46,7 @@
 
                 <label for="keyFilterId">Key</label>
                 <select id="keyFilterId" th:field="*{key}" onchange="this.form.submit();">
-                    <option value="">Any</option>
+<!--                    <option value="">Any</option>-->
                     <option th:each="key : ${filterKeys}" th:if="${!key.isEmpty()}" th:value="${filterKeys.indexOf(key)}"
                             th:text="${key}"></option>
                 </select>
@@ -61,15 +61,17 @@
 
                 <label for="stateFilterId">State</label>
                 <select id="stateFilterId" th:field="*{state}" onchange="this.form.submit();">
-                    <option value="-1">Any</option>
-                    <option value="0">ToDo</option>
-                    <option value="1">In Progress</option>
-                    <option value="2">Repertoire</option>
+<!--                    <option value="-1">Any</option>-->
+                    <option th:each="state : ${filterStates}"
+                            th:if="${!state.isEmpty()}"
+                            th:value="${filterStates.indexOf(state)}"
+                            th:text="${state}">
+                    </option>
                 </select>
 
                 <label for="capoFilterId">Capo</label>
                 <select id="capoFilterId" th:field="*{capo}" onchange="this.form.submit();">
-                    <option value="-1">Any</option>
+<!--                    <option value="-1">Any</option>-->
                     <option th:each="capo : ${filterCapo}" th:if="${!capo.isEmpty()}" th:value="${filterCapo.indexOf(capo)}"
                             th:text="${capo}"></option>
                 </select>
