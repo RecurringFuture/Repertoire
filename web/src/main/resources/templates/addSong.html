@@ -19,11 +19,16 @@
             <label for="composer">Composer</label>
             <input id="composer" type="text" th:field="*{composer}" />
 
-            <label for="key">Key</label>
-            <input id="key" type="text" th:field="*{key}" />
+            <label for="keyId">Key</label>
+            <select name="keyStat" id="keyId" th:field="*{key}">
+                <option th:each="key : ${keys}" th:value="${keys.indexOf(key)}" th:text="${key}"></option>
+            </select>
 
-            <label for="tuning">Tuning</label>
-            <input id="tuning" type="text" th:field="*{tuning}" />
+            <label for="tuningId">Tuning</label>
+            <select id="tuningId" th:field="*{tuning}">
+                <option th:each="tuning : ${tunings}" th:value="${tuning.getId()}"
+                        th:text="${tuning.getTitle()}"></option>
+            </select>
 
             <label for="capo">Capo</label>
             <input id="capo" type="number" th:field="*{capo}" />

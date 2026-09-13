@@ -7,7 +7,7 @@ import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.data.RepertoireData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -32,30 +32,31 @@ public class ModelService {
      * @param songs List of songs, potentially filtered.
      * @return A ModelAndView containing all required attributes.
      */
-    public ModelAndView populateSongDetailModel(Song song, List<Song> songs) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("selectedSong", song);
-        mav.addObject("genres", songService.findAll());
-        mav.addObject("tunings", songService.getTunings());
-        mav.addObject("capoPositions", RepertoireData.getCapoPositions());
-        mav.addObject("keys", RepertoireData.getKeys());
-        mav.addObject("thresholds", RepertoireData.getThresholds());
-        mav.addObject("states", RepertoireData.getStates());
-        mav.addObject("total", songs.size());
-        return mav;
+    public Model populateSongDetailModel(Song song, List<Song> songs, Model model) {
+        model.addAttribute("selectedSong", song);
+        model.addAttribute("genres", songService.findAll());
+        model.addAttribute("tunings", songService.getTunings());
+        model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
+        model.addAttribute("keys", RepertoireData.getKeys());
+        model.addAttribute("thresholds", RepertoireData.getThresholds());
+        model.addAttribute("states", RepertoireData.getStates());
+        model.addAttribute("total", songs.size());
+        return model;
     }
 
     /**
      * Populates model attributes for the song filtering view.
      * @param model The model to be populated.
      */
-    public void populateFilterModel(org.springframework.ui.Model model) {
+    public void populateFilterModel(Model model) {
         // Add "Any" options to the available filters
         List<String> filterKeys = songService.getKeysUsed();
         filterKeys.addFirst("Any");
 
         List<Tuning> filterTunings = songService.getTuningsUsed();
-        filterTunings.addFirst(new Tuning()); // Assuming default constructor works for "Any"
+        if (filterTunings != null && !filterTunings.isEmpty()) {
+            filterTunings.addFirst(new Tuning());
+        }
 
         List<String> filterStates = songService.getStatesUsed();
         filterStates.addFirst("Any");

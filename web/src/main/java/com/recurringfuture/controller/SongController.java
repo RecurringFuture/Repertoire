@@ -48,6 +48,11 @@ public class SongController {
             songs = (List<Song>) model.getAttribute("songs");
         }
         modelService.populateFilterModel(model);
+
+        if (id != null) {
+            Song selectedSong = songService.getSong(id);
+            modelService.populateSongDetailModel(selectedSong, songs, model);
+        }
         return ViewNames.SONGS;
     }
 
@@ -62,7 +67,7 @@ public class SongController {
             model.addAttribute("song", song);
             // Use model service for populating common attributes
             // We pass an empty list here since this is a detail view, not a list view.
-            modelService.populateSongDetailModel(song, List.of());
+            modelService.populateSongDetailModel(song, List.of(), model);
             return ViewNames.SONGS;
         } catch (ResourceNotFoundException e) {
             // Improved error handling: Return a dedicated 404 view
@@ -80,6 +85,8 @@ public class SongController {
     @GetMapping("/addSong")
     public String addSong(Model model) {
         model.addAttribute("song", new Song());
+        model.addAttribute("tunings", songService.getTunings());
+        model.addAttribute("keys", RepertoireData.getKeys());
         return "addSong";
     }
 
