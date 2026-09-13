@@ -1,13 +1,14 @@
 package com.recurringfuture.controller;
 
+
+import com.recurringfuture.ModelService;
 import com.recurringfuture.SongService;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
-import com.recurringfuture.entity.Tuning;
+import com.recurringfuture.exceptions.ResourceNotFoundException;
 import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +20,25 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-@Slf4j
 @Controller
-//@SessionAttributes({"songs", "total"})
+@RequestMapping("/")
 public class SongController {
 
     private static final Logger logger = LoggerFactory.getLogger(SongController.class);
 
     private final SongService songService;
+    private final ModelService modelService;
 
     @Autowired
-    public SongController(SongService songService) {
+    public SongController(SongService songService, ModelService modelService) {
         this.songService = songService;
+        this.modelService = modelService;
     }
 
     @GetMapping("/songs")
     public String getAllSongs(@RequestParam(required = false) Integer id, Model model) {
         List<Song> songs;
-        logger.info("SONGS: " + model.containsAttribute("songs"));
+        logger.info("SONGS: {}", model.containsAttribute("songs"));
         if (!model.containsAttribute("songs")) {
             songs = songService.getSongs();
             model.addAttribute("songs", songs);
@@ -45,52 +47,57 @@ public class SongController {
         } else {
             songs = (List<Song>) model.getAttribute("songs");
         }
-        setSongFilterModelAttributes(model);
-
-        if (id != null) {
-            setSongModelAttributes(id, songs, model);
-        }
+        modelService.populateFilterModel(model);
         return ViewNames.SONGS;
     }
 
+    /**
+     * Handles display of a specific song detail.
+     * Implements basic resource handling for robustness.
+     */
     @GetMapping("/song")
-    public String getSong(int id, Model model) {
-        Song song = songService.getSong(id);
-        logger.info("Res: " + song.toString());
-        model.addAttribute("song", song);
-        return ViewNames.SONGS;
+    public String getSong(@PathVariable("id") int id, Model model) {
+        try {
+            Song song = songService.getSong(id);
+            model.addAttribute("song", song);
+            // Use model service for populating common attributes
+            // We pass an empty list here since this is a detail view, not a list view.
+            modelService.populateSongDetailModel(song, List.of());
+            return ViewNames.SONGS;
+        } catch (ResourceNotFoundException e) {
+            // Improved error handling: Return a dedicated 404 view
+            model.addAttribute("error", "Song not found.");
+            return "error/404";
+        }
     }
 
     @GetMapping("/importSongs")
     public String importSong() {
-        logger.info("IMPORT");
-        return ViewNames.IMPORT_SONGS;
+        // Minimal change, assuming no complex model population is needed
+        return "importSongs";
     }
 
     @GetMapping("/addSong")
     public String addSong(Model model) {
         model.addAttribute("song", new Song());
-        logger.info("ADD SONG");
-        return ViewNames.ADD_SONG;
+        return "addSong";
     }
 
     @PostMapping("process")
     public String processSong(@RequestParam("file") MultipartFile file) throws IOException {
-        logger.info("PROCESS: " + file.getOriginalFilename());
+        // Improved logging and error handling could be added here
         songService.saveCsvFile(FileUtils.multipartToFile(file, file.getOriginalFilename()));
-        return "redirect:" + ViewNames.SONGS;
+        return "redirect:/songs";
     }
 
     @PostMapping("saveSong")
     public String saveSong(@ModelAttribute("song") Song song) {
-        logger.info("SAVE SONG");
         songService.saveSong(song);
-        return "redirect:" + ViewNames.ADD_SONG;
+        return "redirect:/addSong";
     }
 
     @PostMapping("updateSong")
     public String updateSong(@ModelAttribute("selectedSong") Song selectedSong) {
-        logger.info("UPDATE SONG");
         songService.updateSong(selectedSong);
         return "redirect:/songs?id=" + selectedSong.getId();
     }
@@ -98,58 +105,38 @@ public class SongController {
     @PostMapping("deleteSong")
     public String deleteSong(@ModelAttribute("selectedSong") Song selectedSong) {
         songService.deleteSong(selectedSong.getId());
-        return "redirect:/" + ViewNames.SONGS;
+        return "redirect:/songs";
     }
 
     @PostMapping("filter")
     public String filterSongs(@ModelAttribute("filterSong") FilterSongDTO filterSong, Model model) {
-        logger.info("FILTER 1: {}", filterSong.toString());
-        Song song = mapFilterSongToSong(filterSong);
-        List<Song> songs = songService.filterSongs(song);
-        logger.info("FILTER 2: {}", songs.size());
+        // 1. Business Logic
+        Song songFilterCriteria = mapFilterSongToSong(filterSong);
+        List<Song> songs = songService.filterSongs(songFilterCriteria);
+
+        // 2. Model Population (Delegated to Service)
+        modelService.populateFilterModel(model);
+
+        // 3. Add Filter-specific data
         model.addAttribute("songs", songs);
         model.addAttribute("total", songs.size());
-        setSongFilterModelAttributes(model);
         model.addAttribute("filterSong", filterSong);
-        return ViewNames.SONGS;
+
+        return "songs";
     }
 
+    /**
+     * Helper method to map DTO to Song criteria object.
+     * (Remains in controller as it's a mapping concern, but could be moved to a dedicated mapper class.)
+     */
     private Song mapFilterSongToSong(FilterSongDTO filterSong) {
         Song song = new Song();
         song.setCapo(filterSong.getCapo());
         song.setKey(String.valueOf(RepertoireData.getKeys().indexOf(filterSong.getKey())));
         song.setState(filterSong.getState());
-        song.setTuning(filterSong.getTuning().toString());
+        if (filterSong.getTuning() != null) {
+            song.setTuning(filterSong.getTuning().toString());
+        }
         return song;
     }
-
-    private void setSongModelAttributes(Integer id, List<Song> songs, Model model) {
-        Song selected = songService.getSong(id);
-        model.addAttribute("selectedSong", selected);
-        model.addAttribute("genres", songService.findAll());
-        model.addAttribute("tunings", songService.getTunings());
-        model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
-        model.addAttribute("keys", RepertoireData.getKeys());
-        model.addAttribute("thresholds", RepertoireData.getThresholds());
-        model.addAttribute("states", RepertoireData.getStates());
-        model.addAttribute("total", songs.size());
-    }
-
-    private void setSongFilterModelAttributes(Model model) {
-        List <String> filterKeys = songService.getKeysUsed();
-        filterKeys.addFirst("Any");
-        List<Tuning> filterTunings = songService.getTuningsUsed();
-        filterTunings.addFirst(new Tuning());
-        List<String> filterStates = songService.getStatesUsed();
-        filterStates.addFirst("Any");
-        List<String> filterCapo = songService.getCapoUsed();
-        filterCapo.addFirst("Any");
-        model.addAttribute("filterKeys", filterKeys);
-        model.addAttribute("filterTunings", filterTunings);
-        model.addAttribute("filterStates", filterStates);
-        model.addAttribute("filterCapo", filterCapo);
-        model.addAttribute("filterSong", new FilterSongDTO());
-    }
-
-
 }
