@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SongRepo extends JpaRepository<Song,Integer>, QueryByExampleExecutor<Song> {
+    Song findByTitle(String title);
 }
 

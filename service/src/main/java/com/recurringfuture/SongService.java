@@ -87,6 +87,10 @@ public class SongService {
         songRepo.save(song);
     }
 
+    public boolean songExists(String title) {
+        return songRepo.findByTitle(title) != null;
+    }
+
     public List<Genre> findAll() {
         return genreRepo.findAll();
     }

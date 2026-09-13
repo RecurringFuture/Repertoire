@@ -99,6 +99,9 @@ public class SongController {
 
     @PostMapping("saveSong")
     public String saveSong(@ModelAttribute("song") Song song) {
+        if (songService.songExists(song.getTitle())) {
+            return "redirect:/addSong?error=songExists";
+        }
         songService.saveSong(song);
         return "redirect:/addSong";
     }
