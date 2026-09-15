@@ -5,7 +5,6 @@ import com.recurringfuture.ModelService;
 import com.recurringfuture.SongService;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
-import com.recurringfuture.exceptions.ResourceNotFoundException;
 import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
@@ -56,25 +55,25 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
-    /**
-     * Handles display of a specific song detail.
-     * Implements basic resource handling for robustness.
-     */
-    @GetMapping("/song")
-    public String getSong(@PathVariable("id") int id, Model model) {
-        try {
-            Song song = songService.getSong(id);
-            model.addAttribute("song", song);
-            // Use model service for populating common attributes
-            // We pass an empty list here since this is a detail view, not a list view.
-            modelService.populateSongDetailModel(song, List.of(), model);
-            return ViewNames.SONGS;
-        } catch (ResourceNotFoundException e) {
-            // Improved error handling: Return a dedicated 404 view
-            model.addAttribute("error", "Song not found.");
-            return "error/404";
-        }
-    }
+//    /**
+//     * Handles display of a specific song detail.
+//     * Implements basic resource handling for robustness.
+//     */
+//    @GetMapping("/song")
+//    public String getSong(@PathVariable("id") int id, Model model) {
+//        try {
+//            Song song = songService.getSong(id);
+//            model.addAttribute("song", song);
+//            // Use model service for populating common attributes
+//            // We pass an empty list here since this is a detail view, not a list view.
+//            modelService.populateSongDetailModel(song, List.of(), model);
+//            return ViewNames.SONGS;
+//        } catch (ResourceNotFoundException e) {
+//            // Improved error handling: Return a dedicated 404 view
+//            model.addAttribute("error", "Song not found.");
+//            return "error/404";
+//        }
+//    }
 
     @GetMapping("/importSongs")
     public String importSong() {
@@ -84,9 +83,7 @@ public class SongController {
 
     @GetMapping("/addSong")
     public String addSong(Model model) {
-        model.addAttribute("song", new Song());
-        model.addAttribute("tunings", songService.getTunings());
-        model.addAttribute("keys", RepertoireData.getKeys());
+        modelService.populateAddSongModel(model);
         return "addSong";
     }
 
@@ -126,11 +123,7 @@ public class SongController {
 
         // 2. Model Population (Delegated to Service)
         modelService.populateFilterModel(model);
-
-        // 3. Add Filter-specific data
-        model.addAttribute("songs", songs);
-        model.addAttribute("total", songs.size());
-        model.addAttribute("filterSong", filterSong);
+        modelService.addFilterData(songs, filterSong, model);
 
         return "songs";
     }

@@ -30,9 +30,8 @@ public class ModelService {
      * Populates model attributes for viewing a single song detail.
      * @param song The selected song object.
      * @param songs List of songs, potentially filtered.
-     * @return A ModelAndView containing all required attributes.
      */
-    public Model populateSongDetailModel(Song song, List<Song> songs, Model model) {
+    public void populateSongDetailModel(Song song, List<Song> songs, Model model) {
         model.addAttribute("selectedSong", song);
         model.addAttribute("genres", songService.findAll());
         model.addAttribute("tunings", songService.getTunings());
@@ -41,7 +40,12 @@ public class ModelService {
         model.addAttribute("thresholds", RepertoireData.getThresholds());
         model.addAttribute("states", RepertoireData.getStates());
         model.addAttribute("total", songs.size());
-        return model;
+    }
+
+    public void populateAddSongModel(Model model) {
+        model.addAttribute("song", new Song());
+        model.addAttribute("tunings", songService.getTunings());
+        model.addAttribute("keys", RepertoireData.getKeys());
     }
 
     /**
@@ -72,5 +76,11 @@ public class ModelService {
         model.addAttribute("filterTunings", filterTunings);
         model.addAttribute("filterStates", filterStates);
         model.addAttribute("filterCapo", filterCapo);
+    }
+
+    public void addFilterData(List<Song> songs, FilterSongDTO filterSong, Model model) {
+        model.addAttribute("songs", songs);
+        model.addAttribute("total", songs.size());
+        model.addAttribute("filterSong", filterSong);
     }
 }
