@@ -30,20 +30,29 @@
                         th:text="${tuning.getTitle()}"></option>
             </select>
 
-            <label for="capo">Capo</label>
-            <input id="capo" type="number" th:field="*{capo}" />
+            <label for="capoId">Capo</label>
+            <select id="capoId" th:field="*{capo}">
+                <option th:each="capo_position : ${capoPositions}"
+                        th:value="${capoPositions.indexOf(capo_position)}" th:text="${capo_position}"></option>
+            </select>
 
             <label for="tempo">Tempo</label>
-            <input id="tempo" type="number" th:field="*{tempo}" />
+            <input id="tempo" type="number" min="0" th:field="*{tempo}" th:onkeypress="return (event.charCode !=8 &&
+                event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
 
-            <label for="genre">Genre</label>
-            <input id="genre" type="text" th:field="*{genre}" />
+            <label for="genreId">Genre</label>
+            <select id="genreId" th:field="*{genre}">
+                <option th:each="genre : ${genres}" th:value="${genre.getId()}"
+                        th:text="${genre.getTitle()}"></option>
+            </select>
 
             <label for="duration">Duration</label>
             <input id="duration" type="text" th:field="*{duration}" />
 
-            <label for="state">State</label>
-            <input id="state" type="number" th:field="*{state}" />
+            <label for="stateId">State</label>
+            <select name="statName" id="stateId" th:field="*{state}">
+                <option th:each="state : ${states}" th:value="${states.indexOf(state)}" th:text="${state}"></option>
+            </select>
 
             <label for="threshold">Threshold</label>
             <input id="threshold" type="number" th:field="*{threshold}" />

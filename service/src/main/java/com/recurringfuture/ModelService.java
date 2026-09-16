@@ -19,10 +19,12 @@ import java.util.List;
 public class ModelService {
 
     private final SongService songService;
+    private final GenreService genreService;
 
     @Autowired
-    public ModelService(SongService songService) {
+    public ModelService(SongService songService, GenreService genreService) {
         this.songService = songService;
+        this.genreService = genreService;
     }
 
 
@@ -45,7 +47,10 @@ public class ModelService {
     public void populateAddSongModel(Model model) {
         model.addAttribute("song", new Song());
         model.addAttribute("tunings", songService.getTunings());
+        model.addAttribute("genres", genreService.findAll());
         model.addAttribute("keys", RepertoireData.getKeys());
+        model.addAttribute("states", RepertoireData.getStates());
+        model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
     }
 
     /**
