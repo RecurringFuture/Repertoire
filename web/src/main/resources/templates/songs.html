@@ -147,11 +147,11 @@
                 <input id="count" type="number" th:field="*{count}" readonly/>
 
                 <label for="lastPerformedDate">Last Performed</label>
-                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly/>
+                <input id="lastPerformedDate" type="text" th:value="*{lastPerformedDate}" readonly/><br><br>
 
-                <input id="creationDate" type="hidden" th:value="*{creationDate}" readonly/>
+                <input id="creationDate" type="hidden" th:field="*{creationDate}" th:value="*{creationDate}" readonly/>
 
-                <input id="modificationDate" type="hidden" th:value="*{modificationDate}" readonly/><br>
+                <input id="modificationDate" type="hidden" th:field="*{modificationDate}" th:value="*{modificationDate}" readonly/>
 
                 <input type="submit" name="update" value="Update">
                 <input id="delete" type="submit" value="Delete" th:formaction="@{deleteSong}"/>

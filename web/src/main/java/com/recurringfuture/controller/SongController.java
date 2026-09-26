@@ -55,26 +55,6 @@ public class SongController {
         return ViewNames.SONGS;
     }
 
-//    /**
-//     * Handles display of a specific song detail.
-//     * Implements basic resource handling for robustness.
-//     */
-//    @GetMapping("/song")
-//    public String getSong(@PathVariable("id") int id, Model model) {
-//        try {
-//            Song song = songService.getSong(id);
-//            model.addAttribute("song", song);
-//            // Use model service for populating common attributes
-//            // We pass an empty list here since this is a detail view, not a list view.
-//            modelService.populateSongDetailModel(song, List.of(), model);
-//            return ViewNames.SONGS;
-//        } catch (ResourceNotFoundException e) {
-//            // Improved error handling: Return a dedicated 404 view
-//            model.addAttribute("error", "Song not found.");
-//            return "error/404";
-//        }
-//    }
-
     @GetMapping("/importSongs")
     public String importSong() {
         // Minimal change, assuming no complex model population is needed
