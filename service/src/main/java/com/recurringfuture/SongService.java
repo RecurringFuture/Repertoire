@@ -6,7 +6,7 @@ import com.recurringfuture.entity.Tuning;
 import com.recurringfuture.repository.GenreRepo;
 import com.recurringfuture.repository.SongRepo;
 import com.recurringfuture.repository.TuningRepo;
-import com.recurringfuture.repository.data.RepertoireData;
+import com.recurringfuture.data.RepertoireData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;

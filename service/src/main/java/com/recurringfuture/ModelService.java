@@ -4,7 +4,7 @@ package com.recurringfuture;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
-import com.recurringfuture.repository.data.RepertoireData;
+import com.recurringfuture.data.RepertoireData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;

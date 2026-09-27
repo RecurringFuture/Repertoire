@@ -22,11 +22,11 @@
         <developer/>
     </developers>
     <modules>
-        <module>repository</module>
         <module>common</module>
         <module>domain</module>
-        <module>web</module>
+        <module>repository</module>
         <module>service</module>
+        <module>web</module>
     </modules>
 
     <properties>

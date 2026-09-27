@@ -1,4 +1,4 @@
-package com.recurringfuture.repository.data;
+package com.recurringfuture.data;
 
 import java.util.List;
 
