@@ -76,10 +76,12 @@ public class SongController {
 
     @PostMapping("saveSong")
     public String saveSong(@ModelAttribute("song") Song song, RedirectAttributes redirectAttributes) {
+        if (song.getTitle() == null || song.getTitle().trim().isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Song title is mandatory and cannot be empty.");
+            return "redirect:/" + ViewNames.ADD_SONG + "?error=emptyTitle";
+        }
         if (songService.songExists(song.getTitle())) {
-            String errorMsg = (song.getTitle() != null && !song.getTitle().isBlank())
-                    ? "A song with the title '" + song.getTitle() + "' already exists. Please choose a different title."
-                    : "A song with this title already exists.";
+            String errorMsg = "A song with the title '" + song.getTitle() + "' already exists. Please choose a different title.";
             redirectAttributes.addFlashAttribute("errorMessage", errorMsg);
             return "redirect:/" + ViewNames.ADD_SONG + "?error=songExists";
         }

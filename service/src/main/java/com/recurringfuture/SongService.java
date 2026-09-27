@@ -79,6 +79,9 @@ public class SongService {
     }
 
     public void saveSong(Song song) {
+        if (song == null || song.getTitle() == null || song.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Song title must not be empty or null.");
+        }
         LocalDate localDate = LocalDate.now();
         song.setModificationDate(localDate);
         song.setCreationDate(localDate);

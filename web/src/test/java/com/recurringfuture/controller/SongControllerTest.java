@@ -148,6 +148,28 @@ class SongControllerTest {
     }
 
     @Test
+    void shouldRedirectWithErrorMessageWhenTitleIsEmpty() throws Exception {
+        mockMvc.perform(post("/saveSong")
+                        .param("title", ""))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + ViewNames.ADD_SONG + "?error=emptyTitle"))
+                .andExpect(flash().attribute("errorMessage", "Song title is mandatory and cannot be empty."));
+
+        verify(songService, never()).saveSong(any(Song.class));
+    }
+
+    @Test
+    void shouldRedirectWithErrorMessageWhenTitleIsWhitespaceOnly() throws Exception {
+        mockMvc.perform(post("/saveSong")
+                        .param("title", "   "))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + ViewNames.ADD_SONG + "?error=emptyTitle"))
+                .andExpect(flash().attribute("errorMessage", "Song title is mandatory and cannot be empty."));
+
+        verify(songService, never()).saveSong(any(Song.class));
+    }
+
+    @Test
     void shouldSaveSongAndRedirectWhenSongDoesNotExist() throws Exception {
         // Given
         String newTitle = "Take Five";

@@ -16,12 +16,15 @@
     <div th:if="${errorMessage == null and param.error != null and param.error[0] == 'songExists'}" class="alert alert-error" role="alert">
         <span>A song with this title already exists. Please choose a different title.</span>
     </div>
+    <div th:if="${errorMessage == null and param.error != null and param.error[0] == 'emptyTitle'}" class="alert alert-error" role="alert">
+        <span>Song title is mandatory and cannot be empty.</span>
+    </div>
 
     <form th:action="@{saveSong}" th:object="${song}" method="post">
         <div class="form-grid">
 
             <label for="title">Title</label>
-            <input id="title" type="text" th:field="*{title}" />
+            <input id="title" type="text" th:field="*{title}" required />
 
             <label for="composer">Composer</label>
             <input id="composer" type="text" th:field="*{composer}" />

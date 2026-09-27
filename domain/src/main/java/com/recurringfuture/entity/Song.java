@@ -3,7 +3,6 @@ package com.recurringfuture.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NonNull;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
@@ -15,6 +14,7 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NonNull
+    @Column(nullable = false)
     private String title;
     private String composer;
     private String key;

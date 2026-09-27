@@ -267,4 +267,51 @@ class SongServiceTest {
         assertThat(songService.songExists("   ")).isFalse();
         verify(songRepo, never()).findByTitleIgnoreCase(any());
     }
+
+    @Test
+    void shouldThrowExceptionWhenSavingSongWithNullTitle() {
+        Song song = new Song();
+
+        org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> songService.saveSong(song)
+        );
+
+        verify(songRepo, never()).save(any(Song.class));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSavingSongWithBlankTitle() {
+        Song song = new Song();
+        song.setTitle("   ");
+
+        org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> songService.saveSong(song)
+        );
+
+        verify(songRepo, never()).save(any(Song.class));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSavingNullSong() {
+        org.junit.jupiter.api.Assertions.assertThrows(
+                IllegalArgumentException.class,
+                () -> songService.saveSong(null)
+        );
+
+        verify(songRepo, never()).save(any(Song.class));
+    }
+
+    @Test
+    void shouldSaveSongSuccessfullyWhenTitleIsValid() {
+        Song song = new Song();
+        song.setTitle("Autumn Leaves");
+
+        songService.saveSong(song);
+
+        verify(songRepo).save(song);
+        assertThat(song.getCreationDate()).isNotNull();
+        assertThat(song.getModificationDate()).isNotNull();
+    }
 }

@@ -64,7 +64,9 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_song"/>
             </column>
-            <column name="title" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="composer" type="VARCHAR(255)"/>
             <column name="key" type="VARCHAR(255)"/>
             <column name="tuning" type="VARCHAR(255)"/>
