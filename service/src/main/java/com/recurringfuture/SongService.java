@@ -87,7 +87,10 @@ public class SongService {
     }
 
     public boolean songExists(String title) {
-        return songRepo.findByTitle(title) != null;
+        if (title == null || title.isBlank()) {
+            return false;
+        }
+        return songRepo.findByTitleIgnoreCase(title.trim()) != null;
     }
 
     public List<Genre> findAll() {

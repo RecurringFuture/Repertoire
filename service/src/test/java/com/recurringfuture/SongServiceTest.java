@@ -22,6 +22,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -237,5 +238,33 @@ class SongServiceTest {
         List<String> capoUsed = songService.getCapoUsed();
 
         assertThat(capoUsed).containsExactly("1", "0");
+    }
+
+    @Test
+    void shouldReturnTrueWhenSongExistsCaseInsensitive() {
+        when(songRepo.findByTitleIgnoreCase("autumn leaves")).thenReturn(song1);
+
+        boolean exists = songService.songExists("autumn leaves");
+
+        assertThat(exists).isTrue();
+        verify(songRepo).findByTitleIgnoreCase("autumn leaves");
+    }
+
+    @Test
+    void shouldReturnFalseWhenSongDoesNotExist() {
+        when(songRepo.findByTitleIgnoreCase("Stairway to Heaven")).thenReturn(null);
+
+        boolean exists = songService.songExists("Stairway to Heaven");
+
+        assertThat(exists).isFalse();
+        verify(songRepo).findByTitleIgnoreCase("Stairway to Heaven");
+    }
+
+    @Test
+    void shouldReturnFalseWhenSongTitleIsNullOrBlank() {
+        assertThat(songService.songExists(null)).isFalse();
+        assertThat(songService.songExists("")).isFalse();
+        assertThat(songService.songExists("   ")).isFalse();
+        verify(songRepo, never()).findByTitleIgnoreCase(any());
     }
 }

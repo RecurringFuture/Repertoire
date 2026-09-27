@@ -22,7 +22,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -126,5 +128,39 @@ class SongControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name(ViewNames.SONGS))
                 .andExpect(model().attributeExists("filterSong"));
+    }
+
+    @Test
+    void shouldRedirectWithErrorMessageWhenSongExists() throws Exception {
+        // Given
+        String duplicateTitle = "Autumn Leaves";
+        when(songService.songExists(duplicateTitle)).thenReturn(true);
+
+        // When & Then
+        mockMvc.perform(post("/saveSong")
+                        .param("title", duplicateTitle))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + ViewNames.ADD_SONG + "?error=songExists"))
+                .andExpect(flash().attribute("errorMessage",
+                        "A song with the title 'Autumn Leaves' already exists. Please choose a different title."));
+
+        verify(songService, never()).saveSong(any(Song.class));
+    }
+
+    @Test
+    void shouldSaveSongAndRedirectWhenSongDoesNotExist() throws Exception {
+        // Given
+        String newTitle = "Take Five";
+        when(songService.songExists(newTitle)).thenReturn(false);
+
+        // When & Then
+        mockMvc.perform(post("/saveSong")
+                        .param("title", newTitle))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/" + ViewNames.ADD_SONG));
+
+        ArgumentCaptor<Song> songCaptor = ArgumentCaptor.forClass(Song.class);
+        verify(songService).saveSong(songCaptor.capture());
+        assertThat(songCaptor.getValue().getTitle()).isEqualTo(newTitle);
     }
 }

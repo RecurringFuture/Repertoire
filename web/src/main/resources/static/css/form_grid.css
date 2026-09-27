@@ -19,3 +19,18 @@
 .muted {
     color: #666;
 }
+
+.alert {
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 480px;
+}
+
+.alert-error {
+    background-color: #fce8e6;
+    color: #a51d24;
+    border: 1px solid #f5c2c7;
+}

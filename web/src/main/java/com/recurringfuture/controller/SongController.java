@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +64,7 @@ public class SongController {
     @GetMapping("/addSong")
     public String addSong(Model model) {
         modelService.populateAddSongModel(model);
-        return "addSong";
+        return ViewNames.ADD_SONG;
     }
 
     @PostMapping("process")
@@ -74,12 +75,16 @@ public class SongController {
     }
 
     @PostMapping("saveSong")
-    public String saveSong(@ModelAttribute("song") Song song) {
+    public String saveSong(@ModelAttribute("song") Song song, RedirectAttributes redirectAttributes) {
         if (songService.songExists(song.getTitle())) {
-            return "redirect:/addSong?error=songExists";
+            String errorMsg = (song.getTitle() != null && !song.getTitle().isBlank())
+                    ? "A song with the title '" + song.getTitle() + "' already exists. Please choose a different title."
+                    : "A song with this title already exists.";
+            redirectAttributes.addFlashAttribute("errorMessage", errorMsg);
+            return "redirect:/" + ViewNames.ADD_SONG + "?error=songExists";
         }
         songService.saveSong(song);
-        return "redirect:/addSong";
+        return "redirect:/" + ViewNames.ADD_SONG;
     }
 
     @PostMapping("updateSong")
