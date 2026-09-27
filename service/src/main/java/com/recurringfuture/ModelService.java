@@ -58,23 +58,19 @@ public class ModelService {
      * @param model The model to be populated.
      */
     public void populateFilterModel(Model model) {
-        // Add "Any" options to the available filters
         List<String> filterKeys = songService.getKeysUsed();
-        filterKeys.addFirst("Any");
-
         List<Tuning> filterTunings = songService.getTuningsUsed();
-        if (filterTunings != null && !filterTunings.isEmpty()) {
-            filterTunings.addFirst(new Tuning());
+        List<String> filterStates = songService.getStatesUsed();
+        List<String> filterCapo = songService.getCapoUsed();
+
+        if (!model.containsAttribute("filterSong")) {
+            model.addAttribute("filterSong", new FilterSongDTO());
         }
 
-        List<String> filterStates = songService.getStatesUsed();
-        filterStates.addFirst("Any");
-
-        List<String> filterCapo = songService.getCapoUsed();
-        filterCapo.addFirst("Any");
-
-        // Add the default empty filter object
-        model.addAttribute("filterSong", new FilterSongDTO());
+        // Add canonical reference lists for lookup/index mapping in templates
+        model.addAttribute("keys", RepertoireData.getKeys());
+        model.addAttribute("states", RepertoireData.getStates());
+        model.addAttribute("capoPositions", RepertoireData.getCapoPositions());
 
         // Add all filter lists
         model.addAttribute("filterKeys", filterKeys);

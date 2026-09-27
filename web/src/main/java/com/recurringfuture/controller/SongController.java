@@ -5,7 +5,6 @@ import com.recurringfuture.ModelService;
 import com.recurringfuture.SongService;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
-import com.recurringfuture.repository.data.RepertoireData;
 import com.recurringfuture.utils.FileUtils;
 import com.recurringfuture.utils.ViewNames;
 import org.slf4j.Logger;
@@ -105,20 +104,33 @@ public class SongController {
         modelService.populateFilterModel(model);
         modelService.addFilterData(songs, filterSong, model);
 
-        return "songs";
+        return ViewNames.SONGS;
     }
 
     /**
      * Helper method to map DTO to Song criteria object.
-     * (Remains in controller as it's a mapping concern, but could be moved to a dedicated mapper class.)
      */
-    private Song mapFilterSongToSong(FilterSongDTO filterSong) {
+    Song mapFilterSongToSong(FilterSongDTO filterSong) {
         Song song = new Song();
-        song.setCapo(filterSong.getCapo());
-        song.setKey(String.valueOf(RepertoireData.getKeys().indexOf(filterSong.getKey())));
-        song.setState(filterSong.getState());
+        if (filterSong.getCapo() != null && filterSong.getCapo() >= 0) {
+            song.setCapo(filterSong.getCapo());
+        } else {
+            song.setCapo(-1);
+        }
+        if (filterSong.getKey() != null && !filterSong.getKey().isBlank()) {
+            song.setKey(filterSong.getKey());
+        } else {
+            song.setKey(null);
+        }
+        if (filterSong.getState() != null && filterSong.getState() >= 0) {
+            song.setState(filterSong.getState());
+        } else {
+            song.setState(-1);
+        }
         if (filterSong.getTuning() != null) {
-            song.setTuning(filterSong.getTuning().toString());
+            song.setTuning(String.valueOf(filterSong.getTuning()));
+        } else {
+            song.setTuning(null);
         }
         return song;
     }
