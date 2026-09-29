@@ -1,4 +1,4 @@
-package com.recurringfuture;
+package com.recurringfuture.service;
 
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.PracticeSetSong;

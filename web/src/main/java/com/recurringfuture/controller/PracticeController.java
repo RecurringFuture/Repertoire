@@ -1,7 +1,7 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.PracticeService;
-import com.recurringfuture.PracticeSetService;
+import com.recurringfuture.service.PracticeService;
+import com.recurringfuture.service.PracticeSetService;
 import com.recurringfuture.dto.SelectedSongDTO;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;

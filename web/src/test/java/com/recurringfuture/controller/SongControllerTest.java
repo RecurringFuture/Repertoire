@@ -1,7 +1,7 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.ModelService;
-import com.recurringfuture.SongService;
+import com.recurringfuture.service.ModelService;
+import com.recurringfuture.service.SongService;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;

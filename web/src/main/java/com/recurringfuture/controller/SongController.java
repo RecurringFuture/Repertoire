@@ -1,8 +1,8 @@
 package com.recurringfuture.controller;
 
 
-import com.recurringfuture.ModelService;
-import com.recurringfuture.SongService;
+import com.recurringfuture.service.ModelService;
+import com.recurringfuture.service.SongService;
 import com.recurringfuture.dto.FilterSongDTO;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.FileUtils;
@@ -77,7 +77,8 @@ public class SongController {
     @PostMapping("saveSong")
     public String saveSong(@ModelAttribute("song") Song song, RedirectAttributes redirectAttributes) {
         if (song.getTitle() == null || song.getTitle().trim().isEmpty()) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Song title is mandatory and cannot be empty.");
+            String errorMsg = "Song title is mandatory and cannot be empty.";
+            redirectAttributes.addFlashAttribute("errorMessage", errorMsg);
             return "redirect:/" + ViewNames.ADD_SONG + "?error=emptyTitle";
         }
         if (songService.songExists(song.getTitle())) {

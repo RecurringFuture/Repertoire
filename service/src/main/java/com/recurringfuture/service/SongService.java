@@ -1,4 +1,4 @@
-package com.recurringfuture;
+package com.recurringfuture.service;
 
 import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.Song;
@@ -184,7 +184,7 @@ public class SongService {
         return songRepo.findAll(example, Sort.by(Sort.Direction.ASC, "title"));
     }
 
-    ExampleMatcher getExampleMatcher(Song filterSong) {
+    public ExampleMatcher getExampleMatcher(Song filterSong) {
         if (filterSong.getKey() != null && filterSong.getKey().isBlank()) {
             filterSong.setKey(null);
         }

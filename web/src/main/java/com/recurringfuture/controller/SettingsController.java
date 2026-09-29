@@ -1,6 +1,6 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.SettingsService;
+import com.recurringfuture.service.SettingsService;
 import com.recurringfuture.dto.TitleDTO;
 import com.recurringfuture.entity.Genre;
 import com.recurringfuture.entity.Tuning;

@@ -1,6 +1,6 @@
 package com.recurringfuture.controller;
 
-import com.recurringfuture.PracticeSetService;
+import com.recurringfuture.service.PracticeSetService;
 import com.recurringfuture.entity.PracticeSet;
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.utils.ViewNames;
