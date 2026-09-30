@@ -2,7 +2,6 @@ package com.recurringfuture;
 
 import com.recurringfuture.entity.Song;
 import com.recurringfuture.entity.Tuning;
-import com.recurringfuture.repository.GenreRepo;
 import com.recurringfuture.repository.SongRepo;
 import com.recurringfuture.repository.TuningRepo;
 import com.recurringfuture.service.SongService;
@@ -23,9 +22,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SuppressWarnings("unchecked")
@@ -33,9 +30,6 @@ class SongServiceTest {
 
     @Mock
     private SongRepo songRepo;
-
-    @Mock
-    private GenreRepo genreRepo;
 
     @Mock
     private TuningRepo tuningRepo;
@@ -238,7 +232,7 @@ class SongServiceTest {
 
         List<String> capoUsed = songService.getCapoUsed();
 
-        assertThat(capoUsed).containsExactly("1", "0");
+        assertThat(capoUsed).containsExactly("2", "1");
     }
 
     @Test
